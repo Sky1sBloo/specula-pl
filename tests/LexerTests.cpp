@@ -50,3 +50,24 @@ TEST(LEXER_TEST, OPERATORS)
         EXPECT_EQ(expectedToken, token.type);
     }
 }
+
+TEST(LEXER_TEST, DELIMETERS)
+{
+    const std::string test = "let;([]}{";
+    LexicalAnalyzer lexer { test };
+    const std::vector<Token>& tokens = lexer.getTokens();
+
+    const std::vector<TokenType> expectedTokens = {
+        TokenType::K_LET,
+        TokenType::SEMICOLON,
+        TokenType::PARENTHESIS_OPEN,
+        TokenType::BRACKET_OPEN,
+        TokenType::BRACKET_CLOSE,
+        TokenType::CURLY_BRACKET_CLOSE,
+        TokenType::CURLY_BRACKET_OPEN,
+    };
+
+    for (const auto& [token, expectedToken] : std::views::zip(tokens, expectedTokens)) {
+        EXPECT_EQ(expectedToken, token.type);
+    }
+}
