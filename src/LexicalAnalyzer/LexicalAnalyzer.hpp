@@ -16,8 +16,12 @@ struct Token {
 enum class LexerState {
     START,
     IDENTIFIER,
+    INTEGER,
+    DECIMAL_REACHED,
+    FLOAT,
     OP_EQUALS_NEXT,
     OP_INCREMENTABLE,
+    INVALID
 };
 
 class LexicalAnalyzer {
@@ -47,11 +51,17 @@ private:
 
     HandleStateResult handleStartState();
     HandleStateResult handleIdentifierState();
+    HandleStateResult handleIntegerState();
+    HandleStateResult handleDecimalState();
     HandleStateResult handleOpEqualsNextState();
     HandleStateResult handleIncrementableState();
 
+    void finalizeNumber();
+
     bool isValidIdentifier(char c);
     void finalizeIdentifier();
+
+    bool po(char c);
 
     bool isValidOperator(char c);
     LexerState getOperatorStartState(char c);

@@ -49,11 +49,19 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleState()
         return handleStartState();
     case LexerState::IDENTIFIER:
         return handleIdentifierState();
+    case LexerState::INTEGER:
+        return handleIntegerState();
+    case LexerState::DECIMAL_REACHED:
+        break;
     case LexerState::OP_EQUALS_NEXT:
         return handleOpEqualsNextState();
-    case LexerState::OP_INCREMENTABLE: 
+    case LexerState::OP_INCREMENTABLE:
         return handleIncrementableState();
+    case LexerState::INVALID:
+        throw std::runtime_error("Reached invalid state at char: " + std::string { mToRead });
+        break;
     }
+
     return HandleStateResult::CONTINUE;
 }
 
@@ -61,6 +69,9 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleStartState()
 {
     if (isValidIdentifier(mToRead)) {
         mCurrentState = LexerState::IDENTIFIER;
+        return HandleStateResult::REPROCESS;
+    } else if (std::isdigit(mToRead)) {
+        mCurrentState = LexerState::INTEGER;
         return HandleStateResult::REPROCESS;
     } else if (isValidOperator(mToRead)) {
         mCurrentState = getOperatorStartState(mToRead);
@@ -89,6 +100,72 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleIdentifierState()
 
     finalizeIdentifier();
     resetState();
+    return HandleStateResult::REPROCESS;
+}
+
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleIntegerState()
+{
+    if (std::isdigit(mToRead)) {
+        mLexeme.push_back(mToRead);
+        return HandleStateResult::CONTINUE;
+    }
+
+    if (mToRead == '.') {
+        mLexeme.push_back(mToRead);
+        mCurrentState = LexerState::DECIMAL_REACHED;
+        return HandleStateResult::CONTINUE;
+    }
+    if (isValidOperator(mToRead)) {
+        mTokens.push_back({ TokenType::LITERAL_INT, mLexeme });
+        // todo: make operator start state a separate state
+        mCurrentState = getOperatorStartState(mToRead);
+        mLexeme.push_back(mToRead);
+        return HandleStateResult::CONTINUE;
+    }
+    // todo: move this on separate function
+    std::optional<TokenType> delimeter = getDelimeter(mToRead);
+    if (delimeter.has_value()) {
+        if (delimeter.value() != TokenType::SPACE) {
+            mLexeme.push_back(mToRead);
+            mTokens.push_back({ delimeter.value(), mLexeme });
+        }
+        resetState();
+        return HandleStateResult::CONTINUE;
+    }
+    mCurrentState = LexerState::INVALID;
+    return HandleStateResult::REPROCESS;
+}
+
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleDecimalState()
+{
+    if (std::isdigit(mToRead)) {
+        mLexeme.push_back(mToRead);
+        return HandleStateResult::CONTINUE;
+    }
+    if (mToRead == 'f') {
+        mCurrentState = LexerState::FLOAT;
+        return HandleStateResult::REPROCESS;
+    }
+    if (isValidOperator(mToRead)) {
+        mTokens.push_back({ TokenType::LITERAL_DOUBLE, mLexeme });
+        // todo: make operator start state a separate state
+        mCurrentState = getOperatorStartState(mToRead);
+        mLexeme.push_back(mToRead);
+        return HandleStateResult::CONTINUE;
+    }
+
+    // todo: move this on a function
+    std::optional<TokenType> delimeter = getDelimeter(mToRead);
+    if (delimeter.has_value()) {
+        finalizeNumber();
+        if (delimeter.value() != TokenType::SPACE) {
+            mLexeme.push_back(mToRead);
+            mTokens.push_back({ delimeter.value(), mLexeme });
+        }
+        resetState();
+        return HandleStateResult::CONTINUE;
+    }
+    mCurrentState = LexerState::INVALID;
     return HandleStateResult::REPROCESS;
 }
 
@@ -162,4 +239,3 @@ void LexicalAnalyzer::resetState()
     mLexeme.clear();
     mCurrentState = LexerState::START;
 }
-
