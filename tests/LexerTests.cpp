@@ -32,6 +32,37 @@ TEST(LEXER_TEST, KEYWORD_IDENTIFIER)
     }
 }
 
+TEST(LEXER_TEST, LITERALS)
+{
+    const std::string test = "1234 123.4 1234.f 123.";
+    LexicalAnalyzer lexer { test };
+
+    const std::vector<Token>& tokens = lexer.getTokens();
+    const std::vector<TokenType> expectedTokens = {
+        TokenType::LITERAL_INT,
+        TokenType::LITERAL_DOUBLE,
+        TokenType::LITERAL_FLOAT,
+        TokenType::LITERAL_DOUBLE
+    };
+    for (const auto& [token, expectedToken] : std::views::zip(tokens, expectedTokens)) {
+        EXPECT_EQ(expectedToken, token.type);
+    }
+
+    // Test flush
+    const std::string testFlush[] = { "1234", "234.f", "234.", "123.02" };
+    const TokenType expectedTokensFlush[] = {
+        TokenType::LITERAL_INT,
+        TokenType::LITERAL_FLOAT,
+        TokenType::LITERAL_DOUBLE,
+        TokenType::LITERAL_DOUBLE,
+    };
+    for (const auto& [str, expectedTok] : std::views::zip(testFlush, expectedTokensFlush)) {
+        lexer.buildTokens(str);
+        ASSERT_EQ(tokens.size(), 1);
+        EXPECT_EQ(expectedTok, tokens[0].type);
+    } 
+}
+
 TEST(LEXER_TEST, OPERATORS)
 {
     const std::string test = "+-/ * *=== =/ +++--";
