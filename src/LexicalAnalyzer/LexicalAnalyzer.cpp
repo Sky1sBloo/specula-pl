@@ -157,7 +157,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleDecimalState()
     // todo: move this on a function
     std::optional<TokenType> delimeter = getDelimeter(mToRead);
     if (delimeter.has_value()) {
-        finalizeNumber();
+        mTokens.push_back({ TokenType::LITERAL_DOUBLE, mLexeme });
         if (delimeter.value() != TokenType::SPACE) {
             mLexeme.push_back(mToRead);
             mTokens.push_back({ delimeter.value(), mLexeme });

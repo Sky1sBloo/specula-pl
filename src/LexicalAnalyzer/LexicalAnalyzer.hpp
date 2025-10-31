@@ -56,8 +56,6 @@ private:
     HandleStateResult handleOpEqualsNextState();
     HandleStateResult handleIncrementableState();
 
-    void finalizeNumber();
-
     bool isValidIdentifier(char c);
     void finalizeIdentifier();
 
