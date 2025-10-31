@@ -1,6 +1,5 @@
 #include "LexicalAnalyzer.hpp"
 #include "Tokens.hpp"
-#include "gtest/gtest.h"
 #include <optional>
 #include <stdexcept>
 
@@ -33,6 +32,15 @@ void LexicalAnalyzer::flushLeftoverLexeme()
     case LexerState::IDENTIFIER:
         finalizeIdentifier();
         break;
+    case LexerState::INTEGER:
+        mTokens.push_back({ TokenType::LITERAL_INT, mLexeme });
+        break;
+    case LexerState::DECIMAL_REACHED:
+        mTokens.push_back({ TokenType::LITERAL_DOUBLE, mLexeme });
+        break;
+    case LexerState::FLOAT:
+        mTokens.push_back({ TokenType::LITERAL_FLOAT, mLexeme });
+        break;
     case LexerState::OP_INCREMENTABLE:
     case LexerState::OP_EQUALS_NEXT:
         mTokens.push_back({ getSingleOperatorToken(mLexeme[0]), mLexeme });
@@ -50,12 +58,16 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleState()
         return handleStartState();
     case LexerState::DELIMETER:
         return handleDelimeterState();
+    case LexerState::EXPECT_DELIMETER:
+        return handleExpectDelimeterState();
     case LexerState::IDENTIFIER:
         return handleIdentifierState();
     case LexerState::INTEGER:
         return handleIntegerState();
     case LexerState::DECIMAL_REACHED:
-        break;
+        return handleDecimalState();
+    case LexerState::FLOAT:
+        return handleFloatState();
     case LexerState::OP:
         return handleOpState();
     case LexerState::OP_EQUALS_NEXT:
@@ -101,6 +113,13 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleDelimeterState()
         resetState();
     }
     return HandleStateResult::CONTINUE;
+}
+
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleExpectDelimeterState()
+{
+    bool isDelimeter = getDelimeter(mToRead).has_value();
+    mCurrentState = isDelimeter ? LexerState::DELIMETER : LexerState::INVALID;
+    return HandleStateResult::REPROCESS;
 }
 
 LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleIdentifierState()
@@ -162,6 +181,17 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleDecimalState()
     }
     mCurrentState = LexerState::INVALID;
     return HandleStateResult::REPROCESS;
+}
+
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleFloatState()
+{
+    if (mToRead != 'f') {
+        mCurrentState = LexerState::INVALID;
+        return HandleStateResult::REPROCESS;
+    }
+    mLexeme.push_back(mToRead);
+    mCurrentState = LexerState::EXPECT_DELIMETER;
+    return HandleStateResult::CONTINUE;
 }
 
 LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpState()

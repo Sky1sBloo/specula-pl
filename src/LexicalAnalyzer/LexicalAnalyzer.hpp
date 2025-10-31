@@ -16,6 +16,7 @@ struct Token {
 enum class LexerState {
     START,
     DELIMETER,
+    EXPECT_DELIMETER,  // next character must be a delimeter
     IDENTIFIER,
     INTEGER,
     DECIMAL_REACHED,
@@ -53,9 +54,11 @@ private:
 
     HandleStateResult handleStartState();
     HandleStateResult handleDelimeterState();
+    HandleStateResult handleExpectDelimeterState();
     HandleStateResult handleIdentifierState();
     HandleStateResult handleIntegerState();
     HandleStateResult handleDecimalState();
+    HandleStateResult handleFloatState();
     HandleStateResult handleOpState();
     HandleStateResult handleOpEqualsNextState();
     HandleStateResult handleIncrementableState();
