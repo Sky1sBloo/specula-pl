@@ -63,6 +63,9 @@ private:
     HandleStateResult handleOpEqualsNextState();
     HandleStateResult handleIncrementableState();
 
+    // Saves contents from mLexeme to mTokens
+    void saveToken(TokenType type);
+
     bool isValidIdentifier(char c);
     void finalizeIdentifier();
 

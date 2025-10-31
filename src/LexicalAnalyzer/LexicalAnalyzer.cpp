@@ -9,6 +9,18 @@ LexicalAnalyzer::LexicalAnalyzer(std::string_view text)
     buildTokens(text);
 }
 
+void LexicalAnalyzer::resetState()
+{
+    mLexeme.clear();
+    mCurrentState = LexerState::START;
+}
+
+void LexicalAnalyzer::saveToken(TokenType type)
+{
+    mTokens.push_back({ type, mLexeme });
+    mLexeme.clear();
+}
+
 void LexicalAnalyzer::buildTokens(std::string_view text)
 {
     resetState();
@@ -35,18 +47,17 @@ void LexicalAnalyzer::flushLeftoverLexeme()
         finalizeIdentifier();
         break;
     case LexerState::INTEGER:
-        mTokens.push_back({ TokenType::LITERAL_INT, mLexeme });
+        saveToken(TokenType::LITERAL_INT);
         break;
     case LexerState::DECIMAL_REACHED:
-        mTokens.push_back({ TokenType::LITERAL_DOUBLE, mLexeme });
+        saveToken(TokenType::LITERAL_DOUBLE);
         break;
     case LexerState::FLOAT:
-        mTokens.push_back({ TokenType::LITERAL_FLOAT, mLexeme });
+        saveToken(TokenType::LITERAL_FLOAT);
         break;
     case LexerState::OP_INCREMENTABLE:
     case LexerState::OP_EQUALS_NEXT:
-        mTokens.push_back({ getSingleOperatorToken(mLexeme[0]), mLexeme });
-        resetState();
+        saveToken(getSingleOperatorToken(mLexeme[0]));
         break;
     default:
         break;
@@ -110,7 +121,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleDelimeterState()
     if (delimeter.has_value()) {
         if (delimeter.value() != TokenType::SPACE) {
             mLexeme.push_back(mToRead);
-            mTokens.push_back({ delimeter.value(), mLexeme });
+            saveToken(delimeter.value());
         }
         resetState();
     }
@@ -148,16 +159,15 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleIntegerState()
         mCurrentState = LexerState::DECIMAL_REACHED;
         return HandleStateResult::CONTINUE;
     }
+
     if (isValidOperator(mToRead)) {
-        mTokens.push_back({ TokenType::LITERAL_INT, mLexeme });
         mCurrentState = LexerState::OP;
-        return HandleStateResult::REPROCESS;
-    }
-    if (getDelimeter(mToRead).has_value()) {
+    } else if (getDelimeter(mToRead).has_value()) {
         mCurrentState = LexerState::DELIMETER;
-        return HandleStateResult::REPROCESS;
+    } else {
+        mCurrentState = LexerState::INVALID;
     }
-    mCurrentState = LexerState::INVALID;
+    mTokens.push_back({ TokenType::LITERAL_INT, mLexeme });
     return HandleStateResult::REPROCESS;
 }
 
@@ -172,16 +182,13 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleDecimalState()
         return HandleStateResult::REPROCESS;
     }
     if (isValidOperator(mToRead)) {
-        mTokens.push_back({ TokenType::LITERAL_DOUBLE, mLexeme });
         mCurrentState = LexerState::OP;
-        return HandleStateResult::REPROCESS;
-    }
-
-    if (getDelimeter(mToRead).has_value()) {
+    } else if (getDelimeter(mToRead).has_value()) {
         mCurrentState = LexerState::DELIMETER;
-        return HandleStateResult::REPROCESS;
+    } else {
+        mCurrentState = LexerState::INVALID;
     }
-    mCurrentState = LexerState::INVALID;
+    saveToken(TokenType::LITERAL_DOUBLE);
     return HandleStateResult::REPROCESS;
 }
 
@@ -192,6 +199,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleFloatState()
         return HandleStateResult::REPROCESS;
     }
     mLexeme.push_back(mToRead);
+    saveToken(TokenType::LITERAL_FLOAT);
     mCurrentState = LexerState::EXPECT_DELIMETER;
     return HandleStateResult::CONTINUE;
 }
@@ -222,7 +230,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpEqualsNextState()
             newToken = TokenType::OP_MOD_EQ;
             break;
         }
-        mTokens.push_back({ newToken, mLexeme });
+        saveToken(newToken);
         resetState();
         return HandleStateResult::CONTINUE;
     }
@@ -231,7 +239,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpEqualsNextState()
         throw std::runtime_error("Stored lexeme in operator is not 1");
     }
 
-    mTokens.push_back({ getSingleOperatorToken(mLexeme[0]), mLexeme });
+    saveToken(getSingleOperatorToken(mLexeme[0]));
     resetState();
     return HandleStateResult::REPROCESS;
 }
@@ -266,10 +274,4 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleIncrementableState()
     mTokens.push_back({ getSingleOperatorToken(mLexeme[0]), mLexeme });
     resetState();
     return HandleStateResult::REPROCESS;
-}
-
-void LexicalAnalyzer::resetState()
-{
-    mLexeme.clear();
-    mCurrentState = LexerState::START;
 }
