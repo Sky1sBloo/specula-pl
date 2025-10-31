@@ -11,6 +11,8 @@ LexicalAnalyzer::LexicalAnalyzer(std::string_view text)
 
 void LexicalAnalyzer::buildTokens(std::string_view text)
 {
+    resetState();
+    mTokens.clear();
     for (char c : text) {
         mToRead = c;
         HandleStateResult result;
