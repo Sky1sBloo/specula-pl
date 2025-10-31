@@ -47,7 +47,7 @@ LexerState LexicalAnalyzer::getOperatorStartState(char c)
     case '-':
         return LexerState::OP_INCREMENTABLE;
     }
-    return LexerState::START; // todo: add error state
+    return LexerState::INVALID; // todo: add error state
 }
 
 TokenType LexicalAnalyzer::getSingleOperatorToken(char c)

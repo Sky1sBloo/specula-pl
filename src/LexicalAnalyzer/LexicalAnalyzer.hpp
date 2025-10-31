@@ -19,6 +19,7 @@ enum class LexerState {
     INTEGER,
     DECIMAL_REACHED,
     FLOAT,
+    OP,
     OP_EQUALS_NEXT,
     OP_INCREMENTABLE,
     INVALID
@@ -53,6 +54,7 @@ private:
     HandleStateResult handleIdentifierState();
     HandleStateResult handleIntegerState();
     HandleStateResult handleDecimalState();
+    HandleStateResult handleOpState();
     HandleStateResult handleOpEqualsNextState();
     HandleStateResult handleIncrementableState();
 

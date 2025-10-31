@@ -1,5 +1,6 @@
 #include "LexicalAnalyzer.hpp"
 #include "Tokens.hpp"
+#include "gtest/gtest.h"
 #include <optional>
 #include <stdexcept>
 
@@ -52,6 +53,8 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleState()
     case LexerState::INTEGER:
         return handleIntegerState();
     case LexerState::DECIMAL_REACHED:
+        break;
+    case LexerState::OP:
         break;
     case LexerState::OP_EQUALS_NEXT:
         return handleOpEqualsNextState();
@@ -117,10 +120,8 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleIntegerState()
     }
     if (isValidOperator(mToRead)) {
         mTokens.push_back({ TokenType::LITERAL_INT, mLexeme });
-        // todo: make operator start state a separate state
-        mCurrentState = getOperatorStartState(mToRead);
-        mLexeme.push_back(mToRead);
-        return HandleStateResult::CONTINUE;
+        mCurrentState = LexerState::OP;
+        return HandleStateResult::REPROCESS;
     }
     // todo: move this on separate function
     std::optional<TokenType> delimeter = getDelimeter(mToRead);
@@ -148,10 +149,8 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleDecimalState()
     }
     if (isValidOperator(mToRead)) {
         mTokens.push_back({ TokenType::LITERAL_DOUBLE, mLexeme });
-        // todo: make operator start state a separate state
-        mCurrentState = getOperatorStartState(mToRead);
-        mLexeme.push_back(mToRead);
-        return HandleStateResult::CONTINUE;
+        mCurrentState = LexerState::OP;
+        return HandleStateResult::REPROCESS;
     }
 
     // todo: move this on a function
@@ -167,6 +166,13 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleDecimalState()
     }
     mCurrentState = LexerState::INVALID;
     return HandleStateResult::REPROCESS;
+}
+
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpState()
+{
+    mCurrentState = getOperatorStartState(mToRead);
+    mLexeme.push_back(mToRead);
+    return HandleStateResult::CONTINUE;
 }
 
 LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpEqualsNextState()
