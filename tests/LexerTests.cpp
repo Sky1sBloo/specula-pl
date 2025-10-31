@@ -6,7 +6,7 @@
 
 TEST(LEXER_TEST, KEYWORD_IDENTIFIER)
 {
-    const std::string varDecl = "let int;ident:let power; puff";
+    const std::string varDecl = "let int;ident:let power; puff if else ifelse export_default contract";
     LexicalAnalyzer lexer { varDecl };
 
     const std::vector<Token>& tokens = lexer.getTokens();
@@ -19,7 +19,12 @@ TEST(LEXER_TEST, KEYWORD_IDENTIFIER)
         TokenType::K_LET,
         TokenType::IDENTIFIER,
         TokenType::SEMICOLON,
-        TokenType::IDENTIFIER
+        TokenType::IDENTIFIER,
+        TokenType::K_IF,
+        TokenType::K_ELSE,
+        TokenType::IDENTIFIER,
+        TokenType::K_EXPORT_DEFAULT,
+        TokenType::K_CONTRACT
     };
 
     for (const auto& [token, expectedToken] : std::views::zip(tokens, expectedTokens)) {
