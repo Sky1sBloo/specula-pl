@@ -63,8 +63,6 @@ private:
     bool isValidIdentifier(char c);
     void finalizeIdentifier();
 
-    bool po(char c);
-
     bool isValidOperator(char c);
     LexerState getOperatorStartState(char c);
     TokenType getSingleOperatorToken(char c);
