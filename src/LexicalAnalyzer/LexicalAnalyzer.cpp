@@ -66,8 +66,11 @@ void LexicalAnalyzer::flushLeftoverLexeme()
             handleCharEndState();
         break;
     case LexerState::CHAR_ESCAPE_CHAR:
-        if (!mLexeme.empty())
+        if (!mLexeme.empty()) {
             handleCharEscapeCharState();
+        } else {
+            throw std::runtime_error("Character escape not ended");
+        }
         break;
     case LexerState::STRING_START:
         throw std::runtime_error("String not ended");
@@ -79,8 +82,11 @@ void LexicalAnalyzer::flushLeftoverLexeme()
         handleStringState();
         break;
     case LexerState::STRING_ESCAPE_CHAR:
-        if (!mLexeme.empty())
+        if (!mLexeme.empty()) {
             handleStringEscapeCharState();
+        } else {
+            throw std::runtime_error("Character escape not ended");
+        }
         break;
     case LexerState::OP_INCREMENTABLE:
     case LexerState::OP_EQUALS_NEXT:

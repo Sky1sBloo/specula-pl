@@ -123,6 +123,10 @@ TEST(LEXER_TEST, ESCAPE_CHAR)
         EXPECT_EQ(expectedToken.value, token.value);
     }
 
+    // Should fail
+    const std::string teststrfail = "\"\\";
+    EXPECT_THROW(lexer.buildTokens(teststrfail), std::runtime_error);
+
     const std::string testChar = "'\\n' '\\\\' '\\\''";
     const Token expectedTokensChar[] = {
         Token { TokenType::LITERAL_CHAR, "\n" },
@@ -134,7 +138,9 @@ TEST(LEXER_TEST, ESCAPE_CHAR)
     for (const auto& [token, expectedToken] : std::views::zip(lexer.getTokens(), expectedTokensChar)) {
         EXPECT_EQ(expectedToken.type, token.type);
         EXPECT_EQ(expectedToken.value, token.value);
-    } 
+    }
+    const std::string testCharFail = "\'\\";
+    EXPECT_THROW(lexer.buildTokens(testCharFail), std::runtime_error);
 }
 
 TEST(LEXER_TEST, OPERATORS)
