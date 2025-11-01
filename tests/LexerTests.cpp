@@ -34,7 +34,7 @@ TEST(LEXER_TEST, KEYWORD_IDENTIFIER)
 
 TEST(LEXER_TEST, LITERALS)
 {
-    const std::string test = "1234 123.4 1234.f 123.";
+    const std::string test = "1234 123.4 1234.f 123. false; true";
     LexicalAnalyzer lexer { test };
 
     const std::vector<Token>& tokens = lexer.getTokens();
@@ -42,14 +42,17 @@ TEST(LEXER_TEST, LITERALS)
         TokenType::LITERAL_INT,
         TokenType::LITERAL_DOUBLE,
         TokenType::LITERAL_FLOAT,
-        TokenType::LITERAL_DOUBLE
+        TokenType::LITERAL_DOUBLE,
+        TokenType::LITERAL_BOOL,
+        TokenType::SEMICOLON,
+        TokenType::LITERAL_BOOL
     };
     for (const auto& [token, expectedToken] : std::views::zip(tokens, expectedTokens)) {
         EXPECT_EQ(expectedToken, token.type);
     }
 
     // Test flush
-    const std::string testFlush[] = { "1234", "234.f", "234.", "123.02" };
+    const std::string testFlush[] = { "1234", "234.f", "234.", "123.02" , "true"};
     const TokenType expectedTokensFlush[] = {
         TokenType::LITERAL_INT,
         TokenType::LITERAL_FLOAT,

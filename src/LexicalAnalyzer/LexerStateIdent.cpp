@@ -1,4 +1,5 @@
 #include "LexicalAnalyzer.hpp"
+#include "Tokens.hpp"
 
 bool LexicalAnalyzer::isValidIdentifier(char c)
 {
@@ -12,13 +13,15 @@ bool LexicalAnalyzer::isValidIdentifier(char c)
 void LexicalAnalyzer::finalizeIdentifier()
 {
     std::optional<TokenType> keyword = getKeyword(mLexeme);
+    bool isBoolean = mLexeme == "true" || mLexeme == "false";
 
     if (keyword.has_value()) {
-        mTokens.push_back({ keyword.value(), mLexeme });
+        saveToken(keyword.value());
+    } else if (isBoolean) {
+        saveToken(TokenType::LITERAL_BOOL);
     } else {
-        mTokens.push_back({ TokenType::IDENTIFIER, mLexeme });
+        saveToken(TokenType::IDENTIFIER);
     }
-    mLexeme.clear();
 }
 
 bool LexicalAnalyzer::isValidOperator(char c)
