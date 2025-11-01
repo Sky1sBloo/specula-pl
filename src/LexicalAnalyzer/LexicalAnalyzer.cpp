@@ -1,6 +1,5 @@
 #include "LexicalAnalyzer.hpp"
 #include "Tokens.hpp"
-#include <iostream>
 #include <optional>
 #include <stdexcept>
 
