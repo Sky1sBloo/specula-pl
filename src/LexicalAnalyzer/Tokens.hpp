@@ -4,6 +4,7 @@ enum class TokenType {
     LITERAL_INT,
     LITERAL_FLOAT,
     LITERAL_DOUBLE,
+    LITERAL_CHAR,
     LITERAL_STRING,
     LITERAL_BOOL,
 

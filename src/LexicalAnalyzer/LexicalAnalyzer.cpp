@@ -33,10 +33,7 @@ void LexicalAnalyzer::buildTokens(std::string_view text)
         } while (result == HandleStateResult::REPROCESS);
     }
 
-    // flush leftover lexeme
-    if (!mLexeme.empty()) {
-        flushLeftoverLexeme();
-    }
+    flushLeftoverLexeme();
 }
 
 void LexicalAnalyzer::flushLeftoverLexeme()
@@ -44,23 +41,38 @@ void LexicalAnalyzer::flushLeftoverLexeme()
 
     switch (mCurrentState) {
     case LexerState::IDENTIFIER:
-        finalizeIdentifier();
+        if (!mLexeme.empty())
+            finalizeIdentifier();
         break;
     case LexerState::INTEGER:
-        saveToken(TokenType::LITERAL_INT);
+        if (!mLexeme.empty())
+            saveToken(TokenType::LITERAL_INT);
         break;
     case LexerState::DECIMAL_REACHED:
-        saveToken(TokenType::LITERAL_DOUBLE);
+        if (!mLexeme.empty())
+            saveToken(TokenType::LITERAL_DOUBLE);
         break;
     case LexerState::FLOAT:
-        saveToken(TokenType::LITERAL_FLOAT);
+        if (!mLexeme.empty())
+            saveToken(TokenType::LITERAL_FLOAT);
+        break;
+    case LexerState::CHAR_START:
+        throw std::runtime_error("Char start is not ended");
+        break;
+    case LexerState::CHAR_END:
+        if (!mLexeme.empty())
+            handleCharEndState();
         break;
     case LexerState::OP_INCREMENTABLE:
     case LexerState::OP_EQUALS_NEXT:
-        saveToken(getSingleOperatorToken(mLexeme[0]));
+        if (!mLexeme.empty())
+            saveToken(getSingleOperatorToken(mLexeme[0]));
         break;
     default:
         break;
+    }
+    if (mCurrentState == LexerState::INVALID) {
+        throw std::runtime_error("Lexer went to invalid state at: mToRead: " + std::string { mToRead } + " at lexeme: " + mLexeme);
     }
 }
 
@@ -81,6 +93,10 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleState()
         return handleDecimalState();
     case LexerState::FLOAT:
         return handleFloatState();
+    case LexerState::CHAR_START:
+        return handleCharStartState();
+    case LexerState::CHAR_END:
+        return handleCharEndState();
     case LexerState::OP:
         return handleOpState();
     case LexerState::OP_EQUALS_NEXT:
@@ -106,6 +122,9 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleStartState()
     } else if (isValidOperator(mToRead)) {
         mCurrentState = LexerState::OP;
         return HandleStateResult::REPROCESS;
+    } else if (mToRead == '\'') {
+        mCurrentState = LexerState::CHAR_START;
+        return HandleStateResult::CONTINUE;
     } else if (getDelimeter(mToRead).has_value()) {
         mCurrentState = LexerState::DELIMETER;
         return HandleStateResult::REPROCESS;
@@ -201,6 +220,27 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleFloatState()
     mLexeme.push_back(mToRead);
     saveToken(TokenType::LITERAL_FLOAT);
     mCurrentState = LexerState::EXPECT_DELIMETER;
+    return HandleStateResult::CONTINUE;
+}
+
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleCharStartState()
+{
+    if (mToRead != '\'') {
+        mLexeme.push_back(mToRead);
+        saveToken(TokenType::LITERAL_CHAR);
+    }
+    mCurrentState = LexerState::CHAR_END;
+    return HandleStateResult::CONTINUE;
+}
+
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleCharEndState()
+{
+    if (mToRead != '\'') {
+        mCurrentState = LexerState::INVALID;
+        return HandleStateResult::REPROCESS;
+    }
+    saveToken(TokenType::LITERAL_CHAR);
+    mCurrentState = LexerState::START;
     return HandleStateResult::CONTINUE;
 }
 
