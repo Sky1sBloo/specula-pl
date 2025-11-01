@@ -123,7 +123,7 @@ TEST(LEXER_TEST, ESCAPE_CHAR)
         EXPECT_EQ(expectedToken.value, token.value);
     }
 
-    const std::string testChar = "'\\n' '\\\\' '\\''";
+    const std::string testChar = "'\\n' '\\\\' '\\\''";
     const Token expectedTokensChar[] = {
         Token { TokenType::LITERAL_CHAR, "\n" },
         Token { TokenType::LITERAL_CHAR, "\\" },
