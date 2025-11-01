@@ -1,4 +1,13 @@
 #include "LexicalAnalyzer.hpp"
+#include "Tokens.hpp"
+#include <stdexcept>
+
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::setStateInvalid(std::string_view message)
+{
+    mCurrentState = LexerState::INVALID;
+    mInvalidStateMsg = message;
+    return HandleStateResult::REPROCESS;
+}
 
 bool LexicalAnalyzer::isValidIdentifier(char c)
 {
@@ -12,13 +21,15 @@ bool LexicalAnalyzer::isValidIdentifier(char c)
 void LexicalAnalyzer::finalizeIdentifier()
 {
     std::optional<TokenType> keyword = getKeyword(mLexeme);
+    bool isBoolean = mLexeme == "true" || mLexeme == "false";
 
     if (keyword.has_value()) {
-        mTokens.push_back({ keyword.value(), mLexeme });
+        saveToken(keyword.value());
+    } else if (isBoolean) {
+        saveToken(TokenType::LITERAL_BOOL);
     } else {
-        mTokens.push_back({ TokenType::IDENTIFIER, mLexeme });
+        saveToken(TokenType::IDENTIFIER);
     }
-    mLexeme.clear();
 }
 
 bool LexicalAnalyzer::isValidOperator(char c)
@@ -47,7 +58,7 @@ LexerState LexicalAnalyzer::getOperatorStartState(char c)
     case '-':
         return LexerState::OP_INCREMENTABLE;
     }
-    return LexerState::START; // todo: add error state
+    return LexerState::INVALID; // todo: add error state
 }
 
 TokenType LexicalAnalyzer::getSingleOperatorToken(char c)
@@ -68,6 +79,34 @@ TokenType LexicalAnalyzer::getSingleOperatorToken(char c)
     }
     return TokenType::UNKNOWN;
 }
+
+char LexicalAnalyzer::charToEscapeChar(char c)
+{
+    switch (c) {
+    case '\'':
+        return '\'';
+    case '"':
+        return '\"';
+    case '?':
+        return '\?';
+    case '\\':
+        return '\\';
+    case 'a':
+        return '\a';
+    case 'f':
+        return '\f';
+    case 'n':
+        return '\n';
+    case 'r':
+        return '\r';
+    case 't':
+        return '\t';
+    case 'v':
+        return '\v';
+    }
+    throw std::invalid_argument("Character is not a valid escape char");
+}
+
 std::optional<TokenType> LexicalAnalyzer::getDelimeter(char c)
 {
     if (mDelimeters.contains(c)) {

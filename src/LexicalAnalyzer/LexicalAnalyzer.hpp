@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <optional>
 #include <string>
 #include <string_view>
@@ -15,9 +16,22 @@ struct Token {
 
 enum class LexerState {
     START,
+    DELIMETER,
+    EXPECT_DELIMETER, // next character must be a delimeter
     IDENTIFIER,
+    INTEGER,
+    DECIMAL_REACHED,
+    FLOAT,
+    CHAR_START,
+    CHAR_END,
+    CHAR_ESCAPE_CHAR,
+    STRING_START,
+    STRING,
+    STRING_ESCAPE_CHAR,
+    OP,
     OP_EQUALS_NEXT,
     OP_INCREMENTABLE,
+    INVALID
 };
 
 class LexicalAnalyzer {
@@ -31,11 +45,13 @@ private:
     LexerState mCurrentState;
     char mToRead;
     std::string mLexeme; // to be appended by build tokens
+    std::string mInvalidStateMsg;
 
     std::vector<Token> mTokens;
     static const std::unordered_map<std::string_view, TokenType> mOperators;
     static const std::unordered_map<char, TokenType> mDelimeters;
     static const std::unordered_map<std::string_view, TokenType> mKeywords;
+    static constexpr std::array<char, 11> escapeChar = { '\'', '"', '\\', '?', 'a', 'b', 'f', 'n', 'r', 't', 'v' };
 
     enum class HandleStateResult {
         CONTINUE,
@@ -46,9 +62,27 @@ private:
     void flushLeftoverLexeme();
 
     HandleStateResult handleStartState();
+    HandleStateResult handleDelimeterState();
+    HandleStateResult handleExpectDelimeterState();
     HandleStateResult handleIdentifierState();
+
+    HandleStateResult handleIntegerState();
+    HandleStateResult handleDecimalState();
+    HandleStateResult handleFloatState();
+    HandleStateResult handleCharStartState();
+    HandleStateResult handleCharEndState();
+    HandleStateResult handleCharEscapeCharState();
+    HandleStateResult handleStringState();
+    HandleStateResult handleStringEscapeCharState();
+
+    HandleStateResult handleOpState();
     HandleStateResult handleOpEqualsNextState();
     HandleStateResult handleIncrementableState();
+
+    // Saves contents from mLexeme to mTokens
+    void saveToken(TokenType type);
+
+    HandleStateResult setStateInvalid(std::string_view message);
 
     bool isValidIdentifier(char c);
     void finalizeIdentifier();
@@ -56,6 +90,9 @@ private:
     bool isValidOperator(char c);
     LexerState getOperatorStartState(char c);
     TokenType getSingleOperatorToken(char c);
+
+    // Appends backslash before it
+    char charToEscapeChar(char c);
 
     std::optional<TokenType> getDelimeter(char c);
     std::optional<TokenType> getKeyword(std::string_view value);
