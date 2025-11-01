@@ -63,6 +63,15 @@ void LexicalAnalyzer::flushLeftoverLexeme()
         if (!mLexeme.empty())
             handleCharEndState();
         break;
+    case LexerState::STRING_START:
+        throw std::runtime_error("String not ended");
+        break;
+    case LexerState::STRING:
+        if (mToRead != '"') {
+            throw std::runtime_error("String not ended");
+        }
+        handleStringState();
+        break;
     case LexerState::OP_INCREMENTABLE:
     case LexerState::OP_EQUALS_NEXT:
         if (!mLexeme.empty())
@@ -97,6 +106,10 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleState()
         return handleCharStartState();
     case LexerState::CHAR_END:
         return handleCharEndState();
+    case LexerState::STRING_START:
+        return handleStringState();
+    case LexerState::STRING:
+        return handleStringState();
     case LexerState::OP:
         return handleOpState();
     case LexerState::OP_EQUALS_NEXT:
@@ -124,6 +137,9 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleStartState()
         return HandleStateResult::REPROCESS;
     } else if (mToRead == '\'') {
         mCurrentState = LexerState::CHAR_START;
+        return HandleStateResult::CONTINUE;
+    } else if (mToRead == '"') {
+        mCurrentState = LexerState::STRING_START;
         return HandleStateResult::CONTINUE;
     } else if (getDelimeter(mToRead).has_value()) {
         mCurrentState = LexerState::DELIMETER;
@@ -241,6 +257,18 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleCharEndState()
     }
     saveToken(TokenType::LITERAL_CHAR);
     mCurrentState = LexerState::START;
+    return HandleStateResult::CONTINUE;
+}
+
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleStringState()
+{
+    if (mToRead == '"') {
+        saveToken(TokenType::LITERAL_STRING);
+        mCurrentState = LexerState::START;
+        return HandleStateResult::CONTINUE;
+    }
+    mLexeme.push_back(mToRead);
+    mCurrentState = LexerState::STRING;
     return HandleStateResult::CONTINUE;
 }
 

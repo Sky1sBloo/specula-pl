@@ -23,6 +23,8 @@ enum class LexerState {
     FLOAT,
     CHAR_START,
     CHAR_END,
+    STRING_START,
+    STRING,
     OP,
     OP_EQUALS_NEXT,
     OP_INCREMENTABLE,
@@ -64,6 +66,7 @@ private:
     HandleStateResult handleFloatState();
     HandleStateResult handleCharStartState();
     HandleStateResult handleCharEndState();
+    HandleStateResult handleStringState();
 
     HandleStateResult handleOpState();
     HandleStateResult handleOpEqualsNextState();

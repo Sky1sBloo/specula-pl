@@ -56,7 +56,7 @@ TEST(LEXER_TEST, LITERALS)
     }
 
     // Test flush
-    const std::string testFlush[] = { "1234", "234.f", "234.", "123.02" , "true", "'a'", "'\n'"};
+    const std::string testFlush[] = { "1234", "234.f", "234.", "123.02", "true", "'a'", "'\n'" };
     const TokenType expectedTokensFlush[] = {
         TokenType::LITERAL_INT,
         TokenType::LITERAL_FLOAT,
@@ -68,10 +68,41 @@ TEST(LEXER_TEST, LITERALS)
         lexer.buildTokens(str);
         ASSERT_EQ(tokens.size(), 1);
         EXPECT_EQ(expectedTok, tokens[0].type);
-    } 
+    }
 
     // Should fail
-    const std::string expectFail[] = {"'aa'", "'"};
+    const std::string expectFail[] = { "'aa'", "'" };
+    for (const std::string& str : expectFail) {
+        EXPECT_THROW(lexer.buildTokens(str), std::runtime_error);
+    }
+}
+
+TEST(LEXER_TEST, LITERAL_STR)
+{
+    const std::string test = "\"Test\" \"\"";
+    LexicalAnalyzer lexer { test };
+    const TokenType expectedTokens[] = {
+        TokenType::LITERAL_STRING,
+        TokenType::LITERAL_STRING
+    };
+
+    for (const auto& [token, expectedToken] : std::views::zip(lexer.getTokens(), expectedTokens)) {
+        EXPECT_EQ(expectedToken, token.type);
+    }
+    // Test flush
+    const std::string testFlush[] = { "\"Test\"", "\"\"" };
+    const TokenType expectedTokensFlush[] = {
+        TokenType::LITERAL_STRING,
+        TokenType::LITERAL_STRING
+    };
+    for (const auto& [str, expectedTok] : std::views::zip(testFlush, expectedTokensFlush)) {
+        lexer.buildTokens(str);
+        ASSERT_EQ(lexer.getTokens().size(), 1);
+        EXPECT_EQ(expectedTok, lexer.getTokens()[0].type);
+    }
+
+    // should fail
+    const std::string expectFail[] = { "\"", "\"Test" };
     for (const std::string& str : expectFail) {
         EXPECT_THROW(lexer.buildTokens(str), std::runtime_error);
     }
