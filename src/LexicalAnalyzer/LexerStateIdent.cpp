@@ -1,5 +1,13 @@
 #include "LexicalAnalyzer.hpp"
 #include "Tokens.hpp"
+#include <stdexcept>
+
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::setStateInvalid(std::string_view message)
+{
+    mCurrentState = LexerState::INVALID;
+    mInvalidStateMsg = message;
+    return HandleStateResult::REPROCESS;
+}
 
 bool LexicalAnalyzer::isValidIdentifier(char c)
 {
@@ -71,6 +79,34 @@ TokenType LexicalAnalyzer::getSingleOperatorToken(char c)
     }
     return TokenType::UNKNOWN;
 }
+
+char LexicalAnalyzer::charToEscapeChar(char c)
+{
+    switch (c) {
+    case '\'':
+        return '\'';
+    case '"':
+        return '\"';
+    case '?':
+        return '\?';
+    case '\\':
+        return '\\';
+    case 'a':
+        return '\a';
+    case 'f':
+        return '\f';
+    case 'n':
+        return '\n';
+    case 'r':
+        return '\r';
+    case 't':
+        return '\t';
+    case 'v':
+        return '\v';
+    }
+    throw std::invalid_argument("Character is not a valid escape char");
+}
+
 std::optional<TokenType> LexicalAnalyzer::getDelimeter(char c)
 {
     if (mDelimeters.contains(c)) {

@@ -1,10 +1,12 @@
 #include "LexicalAnalyzer.hpp"
 #include "Tokens.hpp"
+#include <iostream>
 #include <optional>
 #include <stdexcept>
 
 LexicalAnalyzer::LexicalAnalyzer(std::string_view text)
     : mCurrentState(LexerState::START)
+    , mInvalidStateMsg("")
 {
     buildTokens(text);
 }
@@ -63,6 +65,10 @@ void LexicalAnalyzer::flushLeftoverLexeme()
         if (!mLexeme.empty())
             handleCharEndState();
         break;
+    case LexerState::CHAR_ESCAPE_CHAR:
+        if (!mLexeme.empty())
+            handleCharEscapeCharState();
+        break;
     case LexerState::STRING_START:
         throw std::runtime_error("String not ended");
         break;
@@ -71,6 +77,10 @@ void LexicalAnalyzer::flushLeftoverLexeme()
             throw std::runtime_error("String not ended");
         }
         handleStringState();
+        break;
+    case LexerState::STRING_ESCAPE_CHAR:
+        if (!mLexeme.empty())
+            handleStringEscapeCharState();
         break;
     case LexerState::OP_INCREMENTABLE:
     case LexerState::OP_EQUALS_NEXT:
@@ -81,7 +91,7 @@ void LexicalAnalyzer::flushLeftoverLexeme()
         break;
     }
     if (mCurrentState == LexerState::INVALID) {
-        throw std::runtime_error("Lexer went to invalid state at: mToRead: " + std::string { mToRead } + " at lexeme: " + mLexeme);
+        throw std::runtime_error("INVALID_STATE " + mInvalidStateMsg + "\nReached invalid state at char '" + std::string { mToRead } + "' at lexeme: \"" + mLexeme + "\"  ");
     }
 }
 
@@ -106,10 +116,14 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleState()
         return handleCharStartState();
     case LexerState::CHAR_END:
         return handleCharEndState();
+    case LexerState::CHAR_ESCAPE_CHAR:
+        return handleCharEscapeCharState();
     case LexerState::STRING_START:
         return handleStringState();
     case LexerState::STRING:
         return handleStringState();
+    case LexerState::STRING_ESCAPE_CHAR:
+        return handleStringEscapeCharState();
     case LexerState::OP:
         return handleOpState();
     case LexerState::OP_EQUALS_NEXT:
@@ -117,7 +131,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleState()
     case LexerState::OP_INCREMENTABLE:
         return handleIncrementableState();
     case LexerState::INVALID:
-        throw std::runtime_error("Reached invalid state at char: " + std::string { mToRead });
+        throw std::runtime_error("INVALID_STATE " + mInvalidStateMsg + "\nReached invalid state at char '" + std::string { mToRead } + "' at lexeme: \"" + mLexeme + "\"  ");
         break;
     }
 
@@ -146,8 +160,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleStartState()
         return HandleStateResult::REPROCESS;
     }
 
-    mCurrentState = LexerState::INVALID;
-    return HandleStateResult::REPROCESS;
+    return setStateInvalid("Unrecognized initial character");
 }
 
 LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleDelimeterState()
@@ -166,7 +179,10 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleDelimeterState()
 LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleExpectDelimeterState()
 {
     bool isDelimeter = getDelimeter(mToRead).has_value();
-    mCurrentState = isDelimeter ? LexerState::DELIMETER : LexerState::INVALID;
+    if (!isDelimeter) {
+        return setStateInvalid("Expect delimeter state doesn't receive delimeter");
+    }
+    mCurrentState = LexerState::DELIMETER;
     return HandleStateResult::REPROCESS;
 }
 
@@ -200,7 +216,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleIntegerState()
     } else if (getDelimeter(mToRead).has_value()) {
         mCurrentState = LexerState::DELIMETER;
     } else {
-        mCurrentState = LexerState::INVALID;
+        return setStateInvalid("Integer state does not recognize character: " + std::string { mToRead });
     }
     mTokens.push_back({ TokenType::LITERAL_INT, mLexeme });
     return HandleStateResult::REPROCESS;
@@ -221,7 +237,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleDecimalState()
     } else if (getDelimeter(mToRead).has_value()) {
         mCurrentState = LexerState::DELIMETER;
     } else {
-        mCurrentState = LexerState::INVALID;
+        return setStateInvalid("Decimal state does not recognize character: " + std::string { mToRead });
     }
     saveToken(TokenType::LITERAL_DOUBLE);
     return HandleStateResult::REPROCESS;
@@ -230,8 +246,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleDecimalState()
 LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleFloatState()
 {
     if (mToRead != 'f') {
-        mCurrentState = LexerState::INVALID;
-        return HandleStateResult::REPROCESS;
+        return setStateInvalid("Float state postfix is not f");
     }
     mLexeme.push_back(mToRead);
     saveToken(TokenType::LITERAL_FLOAT);
@@ -241,6 +256,11 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleFloatState()
 
 LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleCharStartState()
 {
+    if (mToRead == '\\') {
+        mCurrentState = LexerState::CHAR_ESCAPE_CHAR;
+        return HandleStateResult::CONTINUE;
+    }
+
     if (mToRead != '\'') {
         mLexeme.push_back(mToRead);
         saveToken(TokenType::LITERAL_CHAR);
@@ -252,12 +272,24 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleCharStartState()
 LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleCharEndState()
 {
     if (mToRead != '\'') {
-        mCurrentState = LexerState::INVALID;
-        return HandleStateResult::REPROCESS;
+        return setStateInvalid("Character length is more than 1");
     }
     saveToken(TokenType::LITERAL_CHAR);
     mCurrentState = LexerState::START;
     return HandleStateResult::CONTINUE;
+}
+
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleCharEscapeCharState()
+{
+    for (char c : escapeChar) {
+        if (mToRead == c) {
+            mLexeme.push_back(charToEscapeChar(mToRead));
+            mCurrentState = LexerState::CHAR_END;
+            return HandleStateResult::CONTINUE;
+        }
+    }
+
+    return setStateInvalid("Character escape state does not recognize character: " + std::string { mToRead });
 }
 
 LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleStringState()
@@ -267,9 +299,26 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleStringState()
         mCurrentState = LexerState::START;
         return HandleStateResult::CONTINUE;
     }
+    if (mToRead == '\\') {
+        mCurrentState = LexerState::STRING_ESCAPE_CHAR;
+        return HandleStateResult::CONTINUE;
+    }
     mLexeme.push_back(mToRead);
     mCurrentState = LexerState::STRING;
     return HandleStateResult::CONTINUE;
+}
+
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleStringEscapeCharState()
+{
+    for (char c : escapeChar) {
+        if (mToRead == c) {
+            mLexeme.push_back(charToEscapeChar(mToRead));
+            mCurrentState = LexerState::STRING;
+            return HandleStateResult::CONTINUE;
+        }
+    }
+
+    return setStateInvalid("String escape state does not recognize character: " + std::string { mToRead });
 }
 
 LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpState()

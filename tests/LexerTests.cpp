@@ -108,6 +108,35 @@ TEST(LEXER_TEST, LITERAL_STR)
     }
 }
 
+TEST(LEXER_TEST, ESCAPE_CHAR)
+{
+    const std::string testStr = "\"Potato\\\"\" \"\\n\" \"\\\\\"";
+    LexicalAnalyzer lexer { testStr };
+    const Token expectedTokensStr[] = {
+        Token { TokenType::LITERAL_STRING, "Potato\"" },
+        Token { TokenType::LITERAL_STRING, "\n" },
+        Token { TokenType::LITERAL_STRING, "\\" }
+    };
+
+    for (const auto& [token, expectedToken] : std::views::zip(lexer.getTokens(), expectedTokensStr)) {
+        EXPECT_EQ(expectedToken.type, token.type);
+        EXPECT_EQ(expectedToken.value, token.value);
+    }
+
+    const std::string testChar = "'\\n' '\\\\' '\\''";
+    const Token expectedTokensChar[] = {
+        Token { TokenType::LITERAL_CHAR, "\n" },
+        Token { TokenType::LITERAL_CHAR, "\\" },
+        Token { TokenType::LITERAL_CHAR, "\'" }
+    };
+    lexer.buildTokens(testChar);
+
+    for (const auto& [token, expectedToken] : std::views::zip(lexer.getTokens(), expectedTokensChar)) {
+        EXPECT_EQ(expectedToken.type, token.type);
+        EXPECT_EQ(expectedToken.value, token.value);
+    } 
+}
+
 TEST(LEXER_TEST, OPERATORS)
 {
     const std::string test = "+-/ * *=== =/ +++--";
