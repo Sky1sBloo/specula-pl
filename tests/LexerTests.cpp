@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <ranges>
-#include <stdexcept>
 
+#include "LexerError.hpp"
 #include "LexicalAnalyzer.hpp"
 #include "Tokens.hpp"
 
@@ -73,7 +73,7 @@ TEST(LEXER_TEST, LITERALS)
     // Should fail
     const std::string expectFail[] = { "'aa'", "'" };
     for (const std::string& str : expectFail) {
-        EXPECT_THROW(lexer.buildTokens(str), std::runtime_error);
+        EXPECT_THROW(lexer.buildTokens(str), LexerError);
     }
 }
 
@@ -104,7 +104,7 @@ TEST(LEXER_TEST, LITERAL_STR)
     // should fail
     const std::string expectFail[] = { "\"", "\"Test" };
     for (const std::string& str : expectFail) {
-        EXPECT_THROW(lexer.buildTokens(str), std::runtime_error);
+        EXPECT_THROW(lexer.buildTokens(str), LexerError);
     }
 }
 
@@ -125,7 +125,7 @@ TEST(LEXER_TEST, ESCAPE_CHAR)
 
     // Should fail
     const std::string teststrfail = "\"\\";
-    EXPECT_THROW(lexer.buildTokens(teststrfail), std::runtime_error);
+    EXPECT_THROW(lexer.buildTokens(teststrfail), LexerError);
 
     const std::string testChar = "'\\n' '\\\\' '\\\''";
     const Token expectedTokensChar[] = {
@@ -140,7 +140,7 @@ TEST(LEXER_TEST, ESCAPE_CHAR)
         EXPECT_EQ(expectedToken.value, token.value);
     }
     const std::string testCharFail = "\'\\";
-    EXPECT_THROW(lexer.buildTokens(testCharFail), std::runtime_error);
+    EXPECT_THROW(lexer.buildTokens(testCharFail), LexerError);
 }
 
 TEST(LEXER_TEST, OPERATORS)
