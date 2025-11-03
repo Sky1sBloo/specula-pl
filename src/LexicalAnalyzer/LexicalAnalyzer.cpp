@@ -173,7 +173,16 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleDelimeterState()
 {
     std::optional<TokenType> delimeter = getDelimeter(mToRead);
     if (delimeter.has_value()) {
-        if (delimeter.value() != TokenType::SPACE) {
+        bool isIgnore = false;
+        switch (delimeter.value()) {
+        case TokenType::SPACE:
+        case TokenType::NEW_LINE:
+            isIgnore = true;
+            break;
+        default:
+            isIgnore = false;
+        }
+        if (!isIgnore) {
             mLexeme.push_back(mToRead);
             saveToken(delimeter.value());
         }

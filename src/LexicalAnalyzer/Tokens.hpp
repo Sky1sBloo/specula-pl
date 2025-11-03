@@ -82,6 +82,9 @@ enum class TokenType {
     COLON,
     SEMICOLON,
     IDENTIFIER,
-    SPACE, // Does not need to be included in the final vector
+
+    // Does not need to be included in the final vector
+    NEW_LINE,
+    SPACE,
     UNKNOWN
 };
