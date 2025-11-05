@@ -41,6 +41,7 @@ bool LexicalAnalyzer::isValidOperator(char c)
     case '%':
     case '+':
     case '-':
+    case '.':
         return true;
     }
     return false;
@@ -53,6 +54,7 @@ LexerState LexicalAnalyzer::getOperatorStartState(char c)
     case '*':
     case '/':
     case '%':
+    case '.':
         return LexerState::OP_EQUALS_NEXT;
     case '+':
     case '-':
@@ -76,6 +78,8 @@ TokenType LexicalAnalyzer::getSingleOperatorToken(char c)
         return TokenType::OP_DIVIDE;
     case '%':
         return TokenType::OP_MOD;
+    case '.':
+        return TokenType::OP_PERIOD;
     }
     return TokenType::UNKNOWN;
 }

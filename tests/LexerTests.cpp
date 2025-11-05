@@ -145,7 +145,7 @@ TEST(LEXER_TEST, ESCAPE_CHAR)
 
 TEST(LEXER_TEST, OPERATORS)
 {
-    const std::string test = "+-/ * *=== =/ +++--";
+    const std::string test = "+-/ * *=== =/ +++--..";
     LexicalAnalyzer lexer { test };
 
     const std::vector<Token>& tokens = lexer.getTokens();
@@ -160,7 +160,9 @@ TEST(LEXER_TEST, OPERATORS)
         TokenType::OP_DIVIDE,
         TokenType::OP_INCREMENT,
         TokenType::OP_PLUS,
-        TokenType::OP_DECREMENT
+        TokenType::OP_DECREMENT,
+        TokenType::OP_PERIOD,
+        TokenType::OP_PERIOD
     };
     for (const auto& [token, expectedToken] : std::views::zip(tokens, expectedTokens)) {
         EXPECT_EQ(expectedToken, token.type);
@@ -169,7 +171,7 @@ TEST(LEXER_TEST, OPERATORS)
 
 TEST(LEXER_TEST, DELIMETERS)
 {
-    const std::string test = "let;([]}{";
+    const std::string test = "let;([]}{:";
     LexicalAnalyzer lexer { test };
     const std::vector<Token>& tokens = lexer.getTokens();
 
@@ -181,6 +183,7 @@ TEST(LEXER_TEST, DELIMETERS)
         TokenType::BRACKET_CLOSE,
         TokenType::CURLY_BRACKET_CLOSE,
         TokenType::CURLY_BRACKET_OPEN,
+        TokenType::COLON
     };
 
     for (const auto& [token, expectedToken] : std::views::zip(tokens, expectedTokens)) {

@@ -61,6 +61,7 @@ enum class TokenType {
     OP_MULT,
     OP_DIVIDE,
     OP_MOD,
+    OP_PERIOD,
 
     OP_EQ_COMP,
     OP_PLUS_EQ,
