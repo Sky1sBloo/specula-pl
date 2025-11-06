@@ -2,7 +2,6 @@
 #include "LexerError.hpp"
 #include "Tokens.hpp"
 #include <optional>
-#include <stdexcept>
 
 LexicalAnalyzer::LexicalAnalyzer(std::string_view text)
     : mCurrentState(LexerState::START)
@@ -413,7 +412,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpEqualsNextState()
     }
 
     if (mLexeme.size() != 1) {
-        throw std::runtime_error("Stored lexeme in operator is not 1");
+        throw LexerError("Stored lexeme in operator is not 1");
     }
 
     saveToken(getSingleOperatorToken(mLexeme[0]));
@@ -427,9 +426,9 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleIncrementableState()
     bool isPrevAdd = false;
 
     if (mLexeme[0] != '+' && mLexeme[0] != '-') {
-
-        throw std::runtime_error("OP_Incrementable state current lexeme is not valid");
+        return setStateInvalid("OP_Incrementable state current lexeme is not valid");
     }
+
     isPrevAdd = mLexeme[0] == '+';
 
     char incrementChar = isPrevAdd ? '+' : '-';
