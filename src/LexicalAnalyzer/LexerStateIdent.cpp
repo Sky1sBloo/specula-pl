@@ -11,11 +11,11 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::setStateInvalid(std::string_
 
 bool LexicalAnalyzer::isValidIdentifier(char c)
 {
-    if (mCurrentState == LexerState::START && std::isdigit(c)) {
+    if (mCurrentState == LexerState::START && std::isdigit(static_cast<unsigned char>(c))) {
         return false;
     }
 
-    return std::isalnum(c) || c == '_';
+    return std::isalnum(static_cast<unsigned char>(c)) || c == '_';
 }
 
 void LexicalAnalyzer::finalizeIdentifier()
