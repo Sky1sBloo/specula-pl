@@ -288,11 +288,13 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleCharStartState()
         return HandleStateResult::CONTINUE;
     }
 
-    if (mToRead != '\'') {
+    if (mToRead == '\'') {
+        return setStateInvalid("Character is empty");
+    } else {
         mLexeme.push_back(mToRead);
-        saveToken(TokenType::LITERAL_CHAR);
+        mCurrentState = LexerState::CHAR_END;
     }
-    mCurrentState = LexerState::CHAR_END;
+
     return HandleStateResult::CONTINUE;
 }
 

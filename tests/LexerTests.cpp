@@ -35,11 +35,11 @@ TEST(LEXER_TEST, KEYWORD_IDENTIFIER)
 
 TEST(LEXER_TEST, LITERALS)
 {
-    const std::string test = "1234 123.4 1234.f 123. false; true 'a' '\n' ''";
+    const std::string test = "1234 123.4 1234.f 123. false; true 'a' '\n'";
     LexicalAnalyzer lexer { test };
 
     const std::vector<Token>& tokens = lexer.getTokens();
-    const std::array<TokenType, 10> expectedTokens = {
+    const std::array<TokenType, 9> expectedTokens = {
         TokenType::LITERAL_INT,
         TokenType::LITERAL_DOUBLE,
         TokenType::LITERAL_FLOAT,
@@ -48,9 +48,12 @@ TEST(LEXER_TEST, LITERALS)
         TokenType::SEMICOLON,
         TokenType::LITERAL_BOOL,
         TokenType::LITERAL_CHAR,
-        TokenType::LITERAL_CHAR,
         TokenType::LITERAL_CHAR
     };
+    for (const Token& token : tokens)
+    {
+         std::cout << "Type: " << (int)token.type << " " << token.value << std::endl;
+    }
 
     ASSERT_EQ(tokens.size(), expectedTokens.size());
     for (const auto& [token, expectedToken] : std::views::zip(tokens, expectedTokens)) {
@@ -76,7 +79,7 @@ TEST(LEXER_TEST, LITERALS)
     }
 
     // Should fail
-    const std::string expectFail[] = { "'aa'", "'" };
+    const std::string expectFail[] = { "'aa'", "'", "''" };
     for (const std::string& str : expectFail) {
         EXPECT_THROW(lexer.buildTokens(str), LexerError);
     }
