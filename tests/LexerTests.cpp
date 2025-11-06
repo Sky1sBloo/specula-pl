@@ -11,7 +11,7 @@ TEST(LEXER_TEST, KEYWORD_IDENTIFIER)
     LexicalAnalyzer lexer { varDecl };
 
     const std::vector<Token>& tokens = lexer.getTokens();
-    const std::vector<TokenType> expectedTokens = {
+    const std::array<TokenType, 14> expectedTokens = {
         TokenType::K_LET,
         TokenType::K_TYPE,
         TokenType::SEMICOLON,
@@ -39,7 +39,7 @@ TEST(LEXER_TEST, LITERALS)
     LexicalAnalyzer lexer { test };
 
     const std::vector<Token>& tokens = lexer.getTokens();
-    const std::vector<TokenType> expectedTokens = {
+    const std::array<TokenType, 10> expectedTokens = {
         TokenType::LITERAL_INT,
         TokenType::LITERAL_DOUBLE,
         TokenType::LITERAL_FLOAT,
@@ -51,17 +51,22 @@ TEST(LEXER_TEST, LITERALS)
         TokenType::LITERAL_CHAR,
         TokenType::LITERAL_CHAR
     };
+
+    ASSERT_EQ(tokens.size(), expectedTokens.size());
     for (const auto& [token, expectedToken] : std::views::zip(tokens, expectedTokens)) {
         EXPECT_EQ(expectedToken, token.type);
     }
 
     // Test flush
-    const std::string testFlush[] = { "1234", "234.f", "234.", "123.02", "true", "'a'", "'\n'" };
-    const TokenType expectedTokensFlush[] = {
+    const std::array<std::string, 7> testFlush = { "1234", "234.f", "234.", "123.02", "true", "'a'", "'\n'" };
+    const std::array<TokenType, 7> expectedTokensFlush = {
         TokenType::LITERAL_INT,
         TokenType::LITERAL_FLOAT,
         TokenType::LITERAL_DOUBLE,
         TokenType::LITERAL_DOUBLE,
+        TokenType::LITERAL_BOOL,
+        TokenType::LITERAL_CHAR,
+        TokenType::LITERAL_CHAR,
     };
 
     for (const auto& [str, expectedTok] : std::views::zip(testFlush, expectedTokensFlush)) {
@@ -81,11 +86,12 @@ TEST(LEXER_TEST, LITERAL_STR)
 {
     const std::string test = "\"Test\" \"\"";
     LexicalAnalyzer lexer { test };
-    const TokenType expectedTokens[] = {
+    const std::array<TokenType, 2> expectedTokens = {
         TokenType::LITERAL_STRING,
         TokenType::LITERAL_STRING
     };
 
+    ASSERT_EQ(lexer.getTokens().size(), expectedTokens.size());
     for (const auto& [token, expectedToken] : std::views::zip(lexer.getTokens(), expectedTokens)) {
         EXPECT_EQ(expectedToken, token.type);
     }
@@ -95,6 +101,7 @@ TEST(LEXER_TEST, LITERAL_STR)
         TokenType::LITERAL_STRING,
         TokenType::LITERAL_STRING
     };
+    ASSERT_EQ(lexer.getTokens().size(), expectedTokens.size());
     for (const auto& [str, expectedTok] : std::views::zip(testFlush, expectedTokensFlush)) {
         lexer.buildTokens(str);
         ASSERT_EQ(lexer.getTokens().size(), 1);
@@ -112,12 +119,13 @@ TEST(LEXER_TEST, ESCAPE_CHAR)
 {
     const std::string testStr = "\"Potato\\\"\" \"\\n\" \"\\\\\"";
     LexicalAnalyzer lexer { testStr };
-    const Token expectedTokensStr[] = {
+    const std::array<Token, 3> expectedTokensStr = {
         Token { TokenType::LITERAL_STRING, "Potato\"" },
         Token { TokenType::LITERAL_STRING, "\n" },
         Token { TokenType::LITERAL_STRING, "\\" }
     };
 
+    ASSERT_EQ(lexer.getTokens().size(), expectedTokensStr.size());
     for (const auto& [token, expectedToken] : std::views::zip(lexer.getTokens(), expectedTokensStr)) {
         EXPECT_EQ(expectedToken.type, token.type);
         EXPECT_EQ(expectedToken.value, token.value);
@@ -128,13 +136,14 @@ TEST(LEXER_TEST, ESCAPE_CHAR)
     EXPECT_THROW(lexer.buildTokens(teststrfail), LexerError);
 
     const std::string testChar = "'\\n' '\\\\' '\\\''";
-    const Token expectedTokensChar[] = {
+    const std::array<Token, 3> expectedTokensChar = {
         Token { TokenType::LITERAL_CHAR, "\n" },
         Token { TokenType::LITERAL_CHAR, "\\" },
         Token { TokenType::LITERAL_CHAR, "\'" }
     };
     lexer.buildTokens(testChar);
 
+    ASSERT_EQ(lexer.getTokens().size(), expectedTokensChar.size());
     for (const auto& [token, expectedToken] : std::views::zip(lexer.getTokens(), expectedTokensChar)) {
         EXPECT_EQ(expectedToken.type, token.type);
         EXPECT_EQ(expectedToken.value, token.value);
@@ -149,7 +158,7 @@ TEST(LEXER_TEST, OPERATORS)
     LexicalAnalyzer lexer { test };
 
     const std::vector<Token>& tokens = lexer.getTokens();
-    const std::vector<TokenType> expectedTokens = {
+    const std::array<TokenType, 13> expectedTokens = {
         TokenType::OP_PLUS,
         TokenType::OP_MINUS,
         TokenType::OP_DIVIDE,
@@ -164,6 +173,7 @@ TEST(LEXER_TEST, OPERATORS)
         TokenType::OP_PERIOD,
         TokenType::OP_PERIOD
     };
+    ASSERT_EQ(tokens.size(), expectedTokens.size());
     for (const auto& [token, expectedToken] : std::views::zip(tokens, expectedTokens)) {
         EXPECT_EQ(expectedToken, token.type);
     }
@@ -175,7 +185,7 @@ TEST(LEXER_TEST, DELIMETERS)
     LexicalAnalyzer lexer { test };
     const std::vector<Token>& tokens = lexer.getTokens();
 
-    const std::vector<TokenType> expectedTokens = {
+    const std::array<TokenType, 8> expectedTokens = {
         TokenType::K_LET,
         TokenType::SEMICOLON,
         TokenType::PARENTHESIS_OPEN,
@@ -186,6 +196,7 @@ TEST(LEXER_TEST, DELIMETERS)
         TokenType::COLON
     };
 
+    ASSERT_EQ(tokens.size(), expectedTokens.size());
     for (const auto& [token, expectedToken] : std::views::zip(tokens, expectedTokens)) {
         EXPECT_EQ(expectedToken, token.type);
     }
