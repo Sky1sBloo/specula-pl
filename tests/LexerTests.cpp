@@ -50,10 +50,6 @@ TEST(LEXER_TEST, LITERALS)
         TokenType::LITERAL_CHAR,
         TokenType::LITERAL_CHAR
     };
-    for (const Token& token : tokens)
-    {
-         std::cout << "Type: " << (int)token.type << " " << token.value << std::endl;
-    }
 
     ASSERT_EQ(tokens.size(), expectedTokens.size());
     for (const auto& [token, expectedToken] : std::views::zip(tokens, expectedTokens)) {
@@ -179,6 +175,70 @@ TEST(LEXER_TEST, OPERATORS)
     ASSERT_EQ(tokens.size(), expectedTokens.size());
     for (const auto& [token, expectedToken] : std::views::zip(tokens, expectedTokens)) {
         EXPECT_EQ(expectedToken, token.type);
+    }
+
+    // Test flush
+    const std::array<std::string, 9> testFlush = { "+", "-", "/", "=", "+=", "-=", "/=", "++", "--" };
+    const TokenType expectedTokensFlush[] = {
+        TokenType::OP_PLUS,
+        TokenType::OP_MINUS,
+        TokenType::OP_DIVIDE,
+        TokenType::OP_EQUALS,
+        TokenType::OP_PLUS_EQ,
+        TokenType::OP_MINUS_EQ,
+        TokenType::OP_DIV_EQ,
+        TokenType::OP_INCREMENT,
+        TokenType::OP_DECREMENT
+    };
+
+    for (const auto& [str, expectedTok] : std::views::zip(testFlush, expectedTokensFlush)) {
+        lexer.buildTokens(str);
+        ASSERT_EQ(lexer.getTokens().size(), 1);
+        EXPECT_EQ(expectedTok, lexer.getTokens()[0].type);
+    }
+}
+
+TEST(LEXER_TEST, OP_ARROWS)
+{
+    const std::string test = "-=--<--<<<->->>";
+    LexicalAnalyzer lexer { test };
+
+    const std::vector<Token>& tokens = lexer.getTokens();
+
+    const std::array<TokenType, 9> expectedTokens = {
+        TokenType::OP_MINUS_EQ,
+        TokenType::OP_DECREMENT,
+        TokenType::OP_LEFT_OP,
+        TokenType::OP_MINUS,
+        TokenType::OP_LESS,
+        TokenType::OP_LESS,
+        TokenType::OP_BIDIR_OP,
+        TokenType::OP_RIGHT_OP,
+        TokenType::OP_GREATER
+    };
+
+    ASSERT_EQ(tokens.size(), expectedTokens.size());
+    for (const auto& [token, expectedToken] : std::views::zip(tokens, expectedTokens)) {
+        EXPECT_EQ(expectedToken, token.type);
+    }
+
+    // Test flush
+    const std::array<std::string, 8> testFlush = { "--", "-=", "<-", "<" , "-", "->", "<->", ">" };
+    const std::array<TokenType, 8> expectedTokensFlush = {
+        TokenType::OP_DECREMENT,
+        TokenType::OP_MINUS_EQ,
+        TokenType::OP_LEFT_OP,
+        TokenType::OP_LESS,
+        TokenType::OP_MINUS,
+        TokenType::OP_RIGHT_OP,
+        TokenType::OP_BIDIR_OP,
+        TokenType::OP_GREATER
+    };
+
+    for (const auto& [str, expectedTok] : std::views::zip(testFlush, expectedTokensFlush)) {
+        lexer.buildTokens(str);
+        ASSERT_EQ(lexer.getTokens().size(), 1);
+        EXPECT_EQ(expectedTok, lexer.getTokens()[0].type);
     }
 }
 

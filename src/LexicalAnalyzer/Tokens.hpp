@@ -68,6 +68,9 @@ enum class TokenType {
     OP_DIV_EQ,
     OP_MOD_EQ,
 
+    OP_LESS,
+    OP_GREATER,
+
     OP_LEFT_OP,
     OP_RIGHT_OP,
     OP_BIDIR_OP,

@@ -90,6 +90,8 @@ void LexicalAnalyzer::flushLeftoverLexeme()
         break;
     case LexerState::OP_INCREMENTABLE:
     case LexerState::OP_EQUALS_NEXT:
+    case LexerState::OP_MINUS:
+    case LexerState::OP_LESS_THAN:
         if (!mLexeme.empty())
             saveToken(getSingleOperatorToken(mLexeme[0]));
         break;
@@ -97,6 +99,9 @@ void LexicalAnalyzer::flushLeftoverLexeme()
         if (!mLexeme.empty())
             saveToken(getSingleOperatorToken(mLexeme[0]));
         break;
+    case LexerState::OP_LEFT_ARROW:
+        if (!mLexeme.empty())
+            saveToken(TokenType::OP_LEFT_OP);
     default:
         break;
     }
@@ -140,6 +145,12 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleState()
         return handleOpEqualsNextState();
     case LexerState::OP_INCREMENTABLE:
         return handleIncrementableState();
+    case LexerState::OP_MINUS:
+        return handleOpMinusState();
+    case LexerState::OP_LESS_THAN:
+        return handleOpLessThanState();
+    case LexerState::OP_LEFT_ARROW:
+        return handleOpLeftArrowState();
     case LexerState::CHAR_SLASH:
         return handleCharSlashState();
     case LexerState::COMMENT:
@@ -160,10 +171,6 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleStartState()
     } else if (std::isdigit(mToRead)) {
         mCurrentState = LexerState::INTEGER;
         return HandleStateResult::REPROCESS;
-    } else if (mToRead == '/') {
-        mCurrentState = LexerState::CHAR_SLASH;
-        mLexeme.push_back(mToRead);
-        return HandleStateResult::CONTINUE;
     } else if (isValidOperator(mToRead)) {
         mCurrentState = LexerState::OP;
         return HandleStateResult::REPROCESS;
@@ -352,6 +359,24 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleStringEscapeCharState(
 
 LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpState()
 {
+    switch (mToRead) {
+    case '/': {
+        mCurrentState = LexerState::CHAR_SLASH;
+        mLexeme.push_back(mToRead);
+        return HandleStateResult::CONTINUE;
+    }
+    case '-': {
+        mCurrentState = LexerState::OP_MINUS;
+        mLexeme.push_back(mToRead);
+        return HandleStateResult::CONTINUE;
+    }
+    case '<': {
+        mCurrentState = LexerState::OP_LESS_THAN;
+        mLexeme.push_back(mToRead);
+        return HandleStateResult::CONTINUE;
+    }
+    }
+
     mCurrentState = getOperatorStartState(mToRead);
     mLexeme.push_back(mToRead);
     return HandleStateResult::CONTINUE;
@@ -365,6 +390,12 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpEqualsNextState()
         switch (mLexeme[0]) {
         case '=':
             newToken = TokenType::OP_EQ_COMP;
+            break;
+        case '+':
+            newToken = TokenType::OP_PLUS_EQ;
+            break;
+        case '-':
+            newToken = TokenType::OP_MINUS_EQ;
             break;
         case '*':
             newToken = TokenType::OP_MULT_EQ;
@@ -404,15 +435,12 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleIncrementableState()
     char incrementChar = isPrevAdd ? '+' : '-';
 
     if (mToRead == '=') {
-        mLexeme.push_back(mToRead);
-        TokenType combinedToken = isPrevAdd ? TokenType::OP_PLUS_EQ : TokenType::OP_MINUS_EQ;
-        mTokens.push_back({ combinedToken, mLexeme });
-        resetState();
-        return HandleStateResult::CONTINUE;
+        mCurrentState = LexerState::OP_EQUALS_NEXT;
+        return HandleStateResult::REPROCESS;
     } else if (mToRead == incrementChar) {
         mLexeme.push_back(mToRead);
         TokenType incrementToken = isPrevAdd ? TokenType::OP_INCREMENT : TokenType::OP_DECREMENT;
-        mTokens.push_back({ incrementToken, mLexeme });
+        saveToken(incrementToken);
         resetState();
         return HandleStateResult::CONTINUE;
     }
@@ -422,17 +450,70 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleIncrementableState()
     return HandleStateResult::REPROCESS;
 }
 
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpMinusState()
+{
+    switch (mToRead) {
+    case '-': {
+        mCurrentState = LexerState::OP_INCREMENTABLE;
+        return HandleStateResult::REPROCESS;
+    }
+    case '=': {
+        mCurrentState = LexerState::OP_EQUALS_NEXT;
+        return HandleStateResult::REPROCESS;
+    }
+    case '>': {
+        mLexeme.push_back(mToRead);
+        saveToken(TokenType::OP_RIGHT_OP);
+        resetState();
+        return HandleStateResult::CONTINUE;
+    }
+    }
+    saveToken(TokenType::OP_MINUS);
+    resetState();
+    return HandleStateResult::REPROCESS;
+}
+
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpLessThanState()
+{
+    switch (mToRead) {
+    case '=': {
+        mCurrentState = LexerState::OP_EQUALS_NEXT;
+        return HandleStateResult::REPROCESS;
+    }
+    case '-': {
+        mCurrentState = LexerState::OP_LEFT_ARROW;
+        mLexeme.push_back(mToRead);
+        return HandleStateResult::CONTINUE;
+    }
+    }
+    saveToken(TokenType::OP_LESS);
+    resetState();
+    return HandleStateResult::REPROCESS;
+}
+
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpLeftArrowState()
+{
+    if (mToRead == '>') {
+        mLexeme.push_back(mToRead);
+        saveToken(TokenType::OP_BIDIR_OP);
+        resetState();
+        return HandleStateResult::CONTINUE;
+    }
+    saveToken(TokenType::OP_LEFT_OP);
+    resetState();
+    return HandleStateResult::REPROCESS;
+}
+
 LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleCharSlashState()
 {
     if (mToRead == '/') {
         mLexeme.clear();
         mCurrentState = LexerState::COMMENT;
+        return HandleStateResult::CONTINUE;
     } else {
-
         mCurrentState = LexerState::OP_EQUALS_NEXT;
+        return HandleStateResult::REPROCESS;
     }
-
-    return HandleStateResult::CONTINUE;
 }
 
 LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleCommentState()
