@@ -31,6 +31,8 @@ enum class LexerState {
     OP,
     OP_EQUALS_NEXT,
     OP_INCREMENTABLE,
+    CHAR_SLASH,  
+    COMMENT,
     INVALID
 };
 
@@ -78,6 +80,9 @@ private:
     HandleStateResult handleOpState();
     HandleStateResult handleOpEqualsNextState();
     HandleStateResult handleIncrementableState();
+
+    HandleStateResult handleCharSlashState();
+    HandleStateResult handleCommentState();
 
     // Saves contents from mLexeme to mTokens
     void saveToken(TokenType type);

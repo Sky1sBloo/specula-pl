@@ -93,6 +93,10 @@ void LexicalAnalyzer::flushLeftoverLexeme()
         if (!mLexeme.empty())
             saveToken(getSingleOperatorToken(mLexeme[0]));
         break;
+    case LexerState::CHAR_SLASH:
+        if (!mLexeme.empty())
+            saveToken(getSingleOperatorToken(mLexeme[0]));
+        break;
     default:
         break;
     }
@@ -136,6 +140,10 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleState()
         return handleOpEqualsNextState();
     case LexerState::OP_INCREMENTABLE:
         return handleIncrementableState();
+    case LexerState::CHAR_SLASH:
+        return handleCharSlashState();
+    case LexerState::COMMENT:
+        return handleCommentState();
     case LexerState::INVALID:
         throw LexerError("INVALID_STATE " + mInvalidStateMsg + "\nReached invalid state at char '" + std::string { mToRead } + "' at lexeme: \"" + mLexeme + "\"  ");
         break;
@@ -152,6 +160,10 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleStartState()
     } else if (std::isdigit(mToRead)) {
         mCurrentState = LexerState::INTEGER;
         return HandleStateResult::REPROCESS;
+    } else if (mToRead == '/') {
+        mCurrentState = LexerState::CHAR_SLASH;
+        mLexeme.push_back(mToRead);
+        return HandleStateResult::CONTINUE;
     } else if (isValidOperator(mToRead)) {
         mCurrentState = LexerState::OP;
         return HandleStateResult::REPROCESS;
@@ -406,4 +418,25 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleIncrementableState()
     mTokens.push_back({ getSingleOperatorToken(mLexeme[0]), mLexeme });
     resetState();
     return HandleStateResult::REPROCESS;
+}
+
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleCharSlashState()
+{
+    if (mToRead == '/') {
+        mLexeme.clear();
+        mCurrentState = LexerState::COMMENT;
+    } else {
+
+        mCurrentState = LexerState::OP_EQUALS_NEXT;
+    }
+
+    return HandleStateResult::CONTINUE;
+}
+
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleCommentState()
+{
+    if (mToRead == '\n') {
+        mCurrentState = LexerState::START;
+    }
+    return HandleStateResult::CONTINUE;
 }

@@ -190,3 +190,26 @@ TEST(LEXER_TEST, DELIMETERS)
         EXPECT_EQ(expectedToken, token.type);
     }
 }
+
+TEST(LEXER_TEST, COMMENTS)
+{
+    const std::string test = "1; +2.5f; // this should be ignored \n potato /";
+    LexicalAnalyzer lexer { test };
+    const std::vector<Token>& tokens = lexer.getTokens();
+
+    const std::array<TokenType, 7> expectedTokens = {
+        TokenType::LITERAL_INT,
+        TokenType::SEMICOLON,
+        TokenType::OP_PLUS,
+        TokenType::LITERAL_FLOAT,
+        TokenType::SEMICOLON,
+        TokenType::IDENTIFIER,
+        TokenType::OP_DIVIDE
+    };
+
+    ASSERT_EQ(tokens.size(), expectedTokens.size());
+
+    for (const auto& [token, expectedToken] : std::views::zip(tokens, expectedTokens)) {
+        EXPECT_EQ(expectedToken, token.type);
+    }
+}
