@@ -23,8 +23,6 @@ const std::unordered_map<std::string_view, TokenType> LexicalAnalyzer::mKeywords
     { "contract", TokenType::K_CONTRACT },
     { "listener", TokenType::K_LISTENER },
     { "state", TokenType::K_STATE },
-    { "send", TokenType::K_SEND },
-    { "recv", TokenType::K_RECV },
     { "fail", TokenType::K_FAIL },
     { "auto-reset", TokenType::K_AUTO_RESET },
     { "auto-move", TokenType::K_AUTO_MOVE },
@@ -37,8 +35,6 @@ const std::unordered_map<std::string_view, TokenType> LexicalAnalyzer::mKeywords
     { "before", TokenType::K_BEFORE },
     { "async", TokenType::K_ASYNC },
     { "await", TokenType::K_AWAIT },
-    { "predict", TokenType::K_PREDICT },
-    { "parallel", TokenType::K_PARALLEL },
     { "thread", TokenType::K_THREAD },
     { "spawn", TokenType::K_SPAWN },
 };

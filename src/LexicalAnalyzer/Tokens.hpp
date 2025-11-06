@@ -35,8 +35,6 @@ enum class TokenType {
     K_CONTRACT,
     K_LISTENER,
     K_STATE,
-    K_SEND,
-    K_RECV,
     K_FAIL,
     K_AUTO_RESET,
     K_AUTO_MOVE,
@@ -50,8 +48,6 @@ enum class TokenType {
 
     K_ASYNC,
     K_AWAIT,
-    K_PREDICT,
-    K_PARALLEL,
     K_THREAD,
     K_SPAWN,
 
