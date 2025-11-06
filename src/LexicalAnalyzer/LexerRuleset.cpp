@@ -26,6 +26,8 @@ const std::unordered_map<std::string_view, TokenType> LexicalAnalyzer::mKeywords
     { "fail", TokenType::K_FAIL },
     { "auto-reset", TokenType::K_AUTO_RESET },
     { "auto-move", TokenType::K_AUTO_MOVE },
+    { "roles", TokenType::K_ROLES },
+    { "respond", TokenType::K_RESPOND },
     { "on", TokenType::K_ON },
     { "listen", TokenType::K_LISTEN },
     { "target", TokenType::K_TARGET },

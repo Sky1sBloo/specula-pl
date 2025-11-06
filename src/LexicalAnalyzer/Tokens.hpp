@@ -38,6 +38,8 @@ enum class TokenType {
     K_FAIL,
     K_AUTO_RESET,
     K_AUTO_MOVE,
+    K_ROLES,
+    K_RESPOND,
     K_ON,
     K_LISTEN,
     K_TARGET,
@@ -65,6 +67,10 @@ enum class TokenType {
     OP_MULT_EQ,
     OP_DIV_EQ,
     OP_MOD_EQ,
+
+    OP_LEFT_OP,
+    OP_RIGHT_OP,
+    OP_BIDIR_OP,
 
     OP_INCREMENT,
     OP_DECREMENT,
