@@ -72,6 +72,7 @@ void LexicalAnalyzer::flushLeftoverLexeme()
     if (mCurrentState == LexerState::INVALID) {
         throw LexerError(mInvalidStateMsg, mLine, mCharPos);
     }
+    resetState();
 }
 
 LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleState()
@@ -160,6 +161,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleDelimeterState()
         switch (delimeter.value()) {
         case TokenType::SPACE:
         case TokenType::NEW_LINE:
+        case TokenType::TAB:
             isIgnore = true;
             break;
         default:

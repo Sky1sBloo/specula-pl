@@ -41,14 +41,14 @@ void LexicalAnalyzer::saveToken(TokenType type)
 void LexicalAnalyzer::buildTokens(std::string_view text, int line)
 {
     mCharPos = 0;
+    mLine = line;
     for (char c : text) {
         mToRead = c;
         HandleStateResult result;
+        mCharPos++;
         do {
             result = handleState();
         } while (result == HandleStateResult::REPROCESS);
-
-        mCharPos++;
     }
 
     flushLeftoverLexeme();

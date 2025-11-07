@@ -9,7 +9,6 @@ LexerFileReader::LexerFileReader(LexicalAnalyzer& lexer, const std::string& file
     std::string line;
 
     while (std::getline(readFile, line)) {
-        mCurrentLine++;
-        lexer.buildTokens(line);
+        lexer.buildTokens(line, ++mCurrentLine);
     }
 }

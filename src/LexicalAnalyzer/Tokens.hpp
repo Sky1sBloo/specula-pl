@@ -96,6 +96,7 @@ enum class TokenType {
     // Does not need to be included in the final vector
     NEW_LINE,
     SPACE,
+    TAB,
     UNKNOWN
 };
 

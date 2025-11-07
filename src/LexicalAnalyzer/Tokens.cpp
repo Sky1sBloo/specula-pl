@@ -91,7 +91,8 @@ const std::unordered_map<TokenType, std::string, TokenTypeHash> tokenTypeToStrin
 
     {TokenType::NEW_LINE, "NEW_LINE"},
     {TokenType::SPACE, "SPACE"},
-    {TokenType::UNKNOWN, "UNKNOWN"}
+    {TokenType::UNKNOWN, "UNKNOWN"},
+    {TokenType::TAB, "\t"}
 };
 
 
