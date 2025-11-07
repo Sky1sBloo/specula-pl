@@ -23,11 +23,11 @@ void LexicalAnalyzer::flushLeftoverLexeme()
             saveToken(TokenType::LITERAL_FLOAT);
         break;
     case LexerState::CHAR_START:
-        throw LexerError("Char start is not ended", mLine, mCharPos);
+        throw LexerError("Char is not ended", mLine, mCharPos);
         break;
     case LexerState::CHAR_END:
         if (!mLexeme.empty())
-            handleCharEndState();
+            throw LexerError("Char is not ended", mLine, mCharPos);
         break;
     case LexerState::CHAR_ESCAPE_CHAR:
         if (!mLexeme.empty()) {
