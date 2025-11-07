@@ -97,6 +97,7 @@ enum class TokenType {
     NEW_LINE,
     SPACE,
     TAB,
+    COMMA,
     UNKNOWN
 };
 
