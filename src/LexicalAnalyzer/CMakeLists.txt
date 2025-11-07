@@ -1,7 +1,8 @@
 add_library(specula-lexer
     LexicalAnalyzer.cpp
+    LexerStateHandler.cpp
     LexerRuleset.cpp
-    LexerStateIdent.cpp
+    LexerHelperFunc.cpp
     LexerError.cpp
 )
 
