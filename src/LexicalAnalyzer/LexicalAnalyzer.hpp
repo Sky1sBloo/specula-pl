@@ -31,7 +31,7 @@ enum class LexerState {
     OP,
     OP_EQUALS_NEXT,
     OP_INCREMENTABLE,
-    CHAR_SLASH,  
+    CHAR_SLASH,
     OP_MINUS,
     OP_LESS_THAN,
     OP_LEFT_ARROW,
@@ -41,16 +41,25 @@ enum class LexerState {
 
 class LexicalAnalyzer {
 public:
+    LexicalAnalyzer();
     LexicalAnalyzer(std::string_view text);
 
-    void buildTokens(std::string_view text);
+    /**
+     * Clears state and tokens
+     */
+    void reset();
+
+    void buildTokens(std::string_view text, int line = -1);
     const std::vector<Token>& getTokens() const { return mTokens; }
 
 private:
     LexerState mCurrentState;
     char mToRead;
     std::string mLexeme; // to be appended by build tokens
+
     std::string mInvalidStateMsg;
+    int mLine;
+    int mCharPos;
 
     std::vector<Token> mTokens;
     static const std::unordered_map<std::string_view, TokenType> mOperators;

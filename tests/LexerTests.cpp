@@ -69,6 +69,7 @@ TEST(LEXER_TEST, LITERALS)
     };
 
     for (const auto& [str, expectedTok] : std::views::zip(testFlush, expectedTokensFlush)) {
+        lexer.reset();
         lexer.buildTokens(str);
         ASSERT_EQ(tokens.size(), 1);
         EXPECT_EQ(expectedTok, tokens[0].type);
@@ -76,8 +77,16 @@ TEST(LEXER_TEST, LITERALS)
 
     // Should fail
     const std::string expectFail[] = { "'aa'", "'", "''" };
-    for (const std::string& str : expectFail) {
-        EXPECT_THROW(lexer.buildTokens(str), LexerError);
+    const int expectCharPos[] = { 2, 1, 1};
+    for (const auto& [str, charPos]: std::views::zip(expectFail, expectCharPos)) {
+        lexer.reset();
+        try {
+            lexer.buildTokens(str);
+        } catch (const LexerError& ex) {
+            EXPECT_EQ(ex.getCharPos(), charPos);
+        } catch (...) {
+            FAIL() << "Expected Lexer Error";
+        }
     }
 }
 
@@ -102,6 +111,7 @@ TEST(LEXER_TEST, LITERAL_STR)
     };
     ASSERT_EQ(lexer.getTokens().size(), expectedTokens.size());
     for (const auto& [str, expectedTok] : std::views::zip(testFlush, expectedTokensFlush)) {
+        lexer.reset();
         lexer.buildTokens(str);
         ASSERT_EQ(lexer.getTokens().size(), 1);
         EXPECT_EQ(expectedTok, lexer.getTokens()[0].type);
@@ -110,6 +120,7 @@ TEST(LEXER_TEST, LITERAL_STR)
     // should fail
     const std::string expectFail[] = { "\"", "\"Test" };
     for (const std::string& str : expectFail) {
+        lexer.reset();
         EXPECT_THROW(lexer.buildTokens(str), LexerError);
     }
 }
@@ -132,6 +143,7 @@ TEST(LEXER_TEST, ESCAPE_CHAR)
 
     // Should fail
     const std::string teststrfail = "\"\\";
+    lexer.reset();
     EXPECT_THROW(lexer.buildTokens(teststrfail), LexerError);
 
     const std::string testChar = "'\\n' '\\\\' '\\\''";
@@ -140,6 +152,7 @@ TEST(LEXER_TEST, ESCAPE_CHAR)
         Token { TokenType::LITERAL_CHAR, "\\" },
         Token { TokenType::LITERAL_CHAR, "\'" }
     };
+    lexer.reset();
     lexer.buildTokens(testChar);
 
     ASSERT_EQ(lexer.getTokens().size(), expectedTokensChar.size());
@@ -148,6 +161,7 @@ TEST(LEXER_TEST, ESCAPE_CHAR)
         EXPECT_EQ(expectedToken.value, token.value);
     }
     const std::string testCharFail = "\'\\";
+    lexer.reset();
     EXPECT_THROW(lexer.buildTokens(testCharFail), LexerError);
 }
 
@@ -192,6 +206,7 @@ TEST(LEXER_TEST, OPERATORS)
     };
 
     for (const auto& [str, expectedTok] : std::views::zip(testFlush, expectedTokensFlush)) {
+        lexer.reset();
         lexer.buildTokens(str);
         ASSERT_EQ(lexer.getTokens().size(), 1);
         EXPECT_EQ(expectedTok, lexer.getTokens()[0].type);
@@ -223,7 +238,7 @@ TEST(LEXER_TEST, OP_ARROWS)
     }
 
     // Test flush
-    const std::array<std::string, 8> testFlush = { "--", "-=", "<-", "<" , "-", "->", "<->", ">" };
+    const std::array<std::string, 8> testFlush = { "--", "-=", "<-", "<", "-", "->", "<->", ">" };
     const std::array<TokenType, 8> expectedTokensFlush = {
         TokenType::OP_DECREMENT,
         TokenType::OP_MINUS_EQ,
@@ -236,6 +251,7 @@ TEST(LEXER_TEST, OP_ARROWS)
     };
 
     for (const auto& [str, expectedTok] : std::views::zip(testFlush, expectedTokensFlush)) {
+        lexer.reset();
         lexer.buildTokens(str);
         ASSERT_EQ(lexer.getTokens().size(), 1);
         EXPECT_EQ(expectedTok, lexer.getTokens()[0].type);
