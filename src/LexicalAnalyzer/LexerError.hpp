@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-class LexerError : std::runtime_error {
+class LexerError : public std::runtime_error {
 public:
     LexerError(const std::string& message);
 
