@@ -8,6 +8,18 @@ LexicalAnalyzer::LexicalAnalyzer(std::string_view text)
     buildTokens(text);
 }
 
+LexicalAnalyzer::LexicalAnalyzer()
+    : mCurrentState(LexerState::START)
+    , mInvalidStateMsg("")
+{
+}
+
+void LexicalAnalyzer::reset()
+{
+    resetState();
+    mTokens.clear();
+}
+
 void LexicalAnalyzer::resetState()
 {
     mLexeme.clear();
@@ -22,8 +34,6 @@ void LexicalAnalyzer::saveToken(TokenType type)
 
 void LexicalAnalyzer::buildTokens(std::string_view text)
 {
-    resetState();
-    mTokens.clear();
     for (char c : text) {
         mToRead = c;
         HandleStateResult result;
@@ -34,4 +44,3 @@ void LexicalAnalyzer::buildTokens(std::string_view text)
 
     flushLeftoverLexeme();
 }
-

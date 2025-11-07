@@ -41,7 +41,13 @@ enum class LexerState {
 
 class LexicalAnalyzer {
 public:
+    LexicalAnalyzer();
     LexicalAnalyzer(std::string_view text);
+
+    /**
+     * Clears state and tokens
+    */
+    void reset();
 
     void buildTokens(std::string_view text);
     const std::vector<Token>& getTokens() const { return mTokens; }
