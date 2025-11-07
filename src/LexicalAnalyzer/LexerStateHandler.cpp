@@ -194,9 +194,14 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleIdentifierState()
     }
 
     // Check if its a keyword with a dash
-    if (mToRead == '-' && mLexeme == "init") {
-        mLexeme.push_back(mToRead);
-        return HandleStateResult::CONTINUE;
+    const std::string keywordsWithDash[] = { "init", "auto" };
+    if (mToRead == '-') {
+        for (const std::string& kWithDash : keywordsWithDash) {
+            if (mLexeme == kWithDash) {
+                mLexeme.push_back(mToRead);
+                return HandleStateResult::CONTINUE;
+            }
+        }
     }
 
     finalizeIdentifier();
