@@ -58,4 +58,5 @@ const std::unordered_map<char, TokenType> LexicalAnalyzer::mDelimeters {
     { '\n', TokenType::NEW_LINE },
     { '\t', TokenType::TAB },
     { ',', TokenType::COMMA },
+    { '@', TokenType::AT_SYMBOL },
 };

@@ -98,6 +98,7 @@ enum class TokenType {
     SPACE,
     TAB,
     COMMA,
+    AT_SYMBOL,
     UNKNOWN
 };
 
