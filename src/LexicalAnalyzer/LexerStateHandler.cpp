@@ -1,7 +1,7 @@
 #include "LexerError.hpp"
 #include "LexicalAnalyzer.hpp"
-#include <optional>
 #include "Tokens.hpp"
+#include <optional>
 
 void LexicalAnalyzer::flushLeftoverLexeme()
 {
@@ -23,7 +23,7 @@ void LexicalAnalyzer::flushLeftoverLexeme()
             saveToken(TokenType::LITERAL_FLOAT);
         break;
     case LexerState::CHAR_START:
-        throw LexerError("Char start is not ended");
+        throw LexerError("Char start is not ended", mLine, mCharPos);
         break;
     case LexerState::CHAR_END:
         if (!mLexeme.empty())
@@ -33,15 +33,15 @@ void LexicalAnalyzer::flushLeftoverLexeme()
         if (!mLexeme.empty()) {
             handleCharEscapeCharState();
         } else {
-            throw LexerError("Character escape not ended");
+            throw LexerError("Character escape not ended", mLine, mCharPos);
         }
         break;
     case LexerState::STRING_START:
-        throw LexerError("String not ended");
+        throw LexerError("String not ended", mLine, mCharPos);
         break;
     case LexerState::STRING:
         if (mToRead != '"') {
-            throw LexerError("String not ended");
+            throw LexerError("String not ended", mLine, mCharPos);
         }
         handleStringState();
         break;
@@ -49,7 +49,7 @@ void LexicalAnalyzer::flushLeftoverLexeme()
         if (!mLexeme.empty()) {
             handleStringEscapeCharState();
         } else {
-            throw LexerError("Character escape not ended");
+            throw LexerError("Character escape not ended", mLine, mCharPos);
         }
         break;
     case LexerState::OP_INCREMENTABLE:
@@ -70,7 +70,7 @@ void LexicalAnalyzer::flushLeftoverLexeme()
         break;
     }
     if (mCurrentState == LexerState::INVALID) {
-        throw LexerError("INVALID_STATE " + mInvalidStateMsg + "\nReached invalid state at char '" + std::string { mToRead } + "' at lexeme: \"" + mLexeme + "\"  ");
+        throw LexerError(mInvalidStateMsg, mLine, mCharPos);
     }
 }
 
@@ -120,7 +120,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleState()
     case LexerState::COMMENT:
         return handleCommentState();
     case LexerState::INVALID:
-        throw LexerError("INVALID_STATE " + mInvalidStateMsg + "\nReached invalid state at char '" + std::string { mToRead } + "' at lexeme: \"" + mLexeme + "\"  ");
+        throw LexerError(mInvalidStateMsg, mLine, mCharPos);
         break;
     }
 
@@ -283,7 +283,11 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleCharEscapeCharState()
 {
     for (char c : escapeChar) {
         if (mToRead == c) {
-            mLexeme.push_back(charToEscapeChar(mToRead));
+            try {
+                mLexeme.push_back(charToEscapeChar(mToRead));
+            } catch (const std::invalid_argument& ex) {
+                return setStateInvalid(ex.what());
+            }
             mCurrentState = LexerState::CHAR_END;
             return HandleStateResult::CONTINUE;
         }
@@ -312,7 +316,12 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleStringEscapeCharState(
 {
     for (char c : escapeChar) {
         if (mToRead == c) {
-            mLexeme.push_back(charToEscapeChar(mToRead));
+            try {
+                mLexeme.push_back(charToEscapeChar(mToRead));
+            } catch (const std::invalid_argument& ex) {
+                return setStateInvalid(ex.what());
+            }
+
             mCurrentState = LexerState::STRING;
             return HandleStateResult::CONTINUE;
         }
@@ -377,7 +386,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpEqualsNextState()
     }
 
     if (mLexeme.size() != 1) {
-        throw LexerError("Stored lexeme in operator is not 1");
+        return setStateInvalid("Stored lexeme in operator is not 1");
     }
 
     saveToken(getSingleOperatorToken(mLexeme[0]));

@@ -46,17 +46,20 @@ public:
 
     /**
      * Clears state and tokens
-    */
+     */
     void reset();
 
-    void buildTokens(std::string_view text);
+    void buildTokens(std::string_view text, int line = -1);
     const std::vector<Token>& getTokens() const { return mTokens; }
 
 private:
     LexerState mCurrentState;
     char mToRead;
     std::string mLexeme; // to be appended by build tokens
+
     std::string mInvalidStateMsg;
+    int mLine;
+    int mCharPos;
 
     std::vector<Token> mTokens;
     static const std::unordered_map<std::string_view, TokenType> mOperators;
