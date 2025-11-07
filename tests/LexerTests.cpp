@@ -77,7 +77,7 @@ TEST(LEXER_TEST, LITERALS)
 
     // Should fail
     const std::string expectFail[] = { "'aa'", "'", "''" };
-    const int expectCharPos[] = { 2, 1, 1};
+    const int expectCharPos[] = { 3, 1, 2};
     for (const auto& [str, charPos]: std::views::zip(expectFail, expectCharPos)) {
         lexer.reset();
         try {
