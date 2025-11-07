@@ -1,5 +1,9 @@
 #pragma once
 
+#include <cstddef>
+#include <unordered_map>
+#include <string>
+
 enum class TokenType {
     LITERAL_INT,
     LITERAL_FLOAT,
@@ -94,3 +98,13 @@ enum class TokenType {
     SPACE,
     UNKNOWN
 };
+
+
+struct TokenTypeHash {
+    std::size_t operator()(const TokenType& t) const noexcept {
+        return static_cast<std::size_t>(t);
+    }
+};
+
+extern const std::unordered_map<TokenType, std::string, TokenTypeHash> tokenTypeToString; 
+

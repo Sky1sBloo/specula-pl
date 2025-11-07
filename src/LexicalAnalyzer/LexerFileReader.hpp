@@ -11,6 +11,4 @@ private:
     const LexicalAnalyzer& mLexer;
 
     int mCurrentLine;
-
-    void readFile();
 };

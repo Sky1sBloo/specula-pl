@@ -5,6 +5,8 @@ add_library(specula-lexer
     LexerHelperFunc.cpp
     LexerError.cpp
     LexerFileReader.cpp
+    LexerFileWriter.cpp
+    Tokens.cpp
 )
 
 target_include_directories(specula-lexer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

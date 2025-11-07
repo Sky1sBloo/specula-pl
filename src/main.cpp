@@ -1,5 +1,6 @@
 #include "LexerError.hpp"
 #include "LexerFileReader.hpp"
+#include "LexerFileWriter.hpp"
 #include "LexicalAnalyzer.hpp"
 #include <print>
 
@@ -11,9 +12,11 @@ int main(int argc, char** argv)
 
     LexicalAnalyzer lexer;
 
+    const std::string filePath = argv[1];
     try {
-        LexerFileReader lexerFileReader { lexer, argv[1] };
+        LexerFileReader lexerFileReader { lexer, filePath };
     } catch (const LexerError& error) {
         std::print("Lexer Error at line {}:{}\n Message: {}\n", error.getLine(), error.getCharPos(), error.what());
     }
+    LexerFileWriter lexerFileWriter { lexer, filePath + "_tokens" };
 }
