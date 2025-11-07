@@ -35,6 +35,7 @@ const std::unordered_map<TokenType, std::string, TokenTypeHash> tokenTypeToStrin
     { TokenType::K_CONTRACT, "K_CONTRACT" },
     { TokenType::K_LISTENER, "K_LISTENER" },
     { TokenType::K_STATE, "K_STATE" },
+    { TokenType::K_INIT_STATE, "K_INIT_STATE" },
     { TokenType::K_FAIL, "K_FAIL" },
     { TokenType::K_AUTO_RESET, "K_AUTO_RESET" },
     { TokenType::K_AUTO_MOVE, "K_AUTO_MOVE" },

@@ -39,6 +39,7 @@ enum class TokenType {
     K_CONTRACT,
     K_LISTENER,
     K_STATE,
+    K_INIT_STATE,
     K_FAIL,
     K_AUTO_RESET,
     K_AUTO_MOVE,

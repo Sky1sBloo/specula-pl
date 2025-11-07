@@ -193,6 +193,12 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleIdentifierState()
         return HandleStateResult::CONTINUE;
     }
 
+    // Check if its a keyword with a dash
+    if (mToRead == '-' && mLexeme == "init") {
+        mLexeme.push_back(mToRead);
+        return HandleStateResult::CONTINUE;
+    }
+
     finalizeIdentifier();
     resetState();
     return HandleStateResult::REPROCESS;

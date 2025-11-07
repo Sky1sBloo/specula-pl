@@ -23,6 +23,7 @@ const std::unordered_map<std::string_view, TokenType> LexicalAnalyzer::mKeywords
     { "contract", TokenType::K_CONTRACT },
     { "listener", TokenType::K_LISTENER },
     { "state", TokenType::K_STATE },
+    { "init-state", TokenType::K_INIT_STATE},
     { "fail", TokenType::K_FAIL },
     { "auto-reset", TokenType::K_AUTO_RESET },
     { "auto-move", TokenType::K_AUTO_MOVE },
