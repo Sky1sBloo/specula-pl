@@ -19,7 +19,7 @@ enum class LexerState {
     DELIMETER,
     EXPECT_DELIMETER, // next character must be a delimeter
     IDENTIFIER,
-    INTEGER,
+    NUM_START,
     DECIMAL_REACHED,
     FLOAT,
     CHAR_START,
@@ -80,7 +80,7 @@ private:
     HandleStateResult handleExpectDelimeterState();
     HandleStateResult handleIdentifierState();
 
-    HandleStateResult handleIntegerState();
+    HandleStateResult handleNumStartState();
     HandleStateResult handleDecimalState();
     HandleStateResult handleFloatState();
     HandleStateResult handleCharStartState();

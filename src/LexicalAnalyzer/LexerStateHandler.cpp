@@ -10,13 +10,17 @@ void LexicalAnalyzer::flushLeftoverLexeme()
         if (!mLexeme.empty())
             finalizeIdentifier();
         break;
-    case LexerState::INTEGER:
+    case LexerState::NUM_START:
         if (!mLexeme.empty())
             saveToken(TokenType::LITERAL_INT);
         break;
     case LexerState::DECIMAL_REACHED:
-        if (!mLexeme.empty())
+        if (!mLexeme.empty()) {
+            if (mLexeme.ends_with('.')) {
+                throw LexerError("Double is not ended");
+            }
             saveToken(TokenType::LITERAL_DOUBLE);
+        }
         break;
     case LexerState::FLOAT:
         if (!mLexeme.empty())
@@ -86,8 +90,8 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleState()
         return handleExpectDelimeterState();
     case LexerState::IDENTIFIER:
         return handleIdentifierState();
-    case LexerState::INTEGER:
-        return handleIntegerState();
+    case LexerState::NUM_START:
+        return handleNumStartState();
     case LexerState::DECIMAL_REACHED:
         return handleDecimalState();
     case LexerState::FLOAT:
@@ -134,7 +138,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleStartState()
         mCurrentState = LexerState::IDENTIFIER;
         return HandleStateResult::REPROCESS;
     } else if (std::isdigit(mToRead)) {
-        mCurrentState = LexerState::INTEGER;
+        mCurrentState = LexerState::NUM_START;
         return HandleStateResult::REPROCESS;
     } else if (isValidOperator(mToRead)) {
         mCurrentState = LexerState::OP;
@@ -193,12 +197,23 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleIdentifierState()
         return HandleStateResult::CONTINUE;
     }
 
+    // Check if its a keyword with a dash
+    const std::string keywordsWithDash[] = { "init", "auto" };
+    if (mToRead == '-') {
+        for (const std::string& kWithDash : keywordsWithDash) {
+            if (mLexeme == kWithDash) {
+                mLexeme.push_back(mToRead);
+                return HandleStateResult::CONTINUE;
+            }
+        }
+    }
+
     finalizeIdentifier();
     resetState();
     return HandleStateResult::REPROCESS;
 }
 
-LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleIntegerState()
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleNumStartState()
 {
     if (std::isdigit(mToRead)) {
         mLexeme.push_back(mToRead);

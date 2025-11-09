@@ -11,6 +11,9 @@ enum class TokenType {
     LITERAL_CHAR,
     LITERAL_STRING,
     LITERAL_BOOL,
+    LITERAL_URL,
+    LITERAL_PORT,
+    LITERAL_NULL,
 
     K_LET,
     K_TYPE,
@@ -39,6 +42,7 @@ enum class TokenType {
     K_CONTRACT,
     K_LISTENER,
     K_STATE,
+    K_INIT_STATE,
     K_FAIL,
     K_AUTO_RESET,
     K_AUTO_MOVE,
@@ -98,6 +102,7 @@ enum class TokenType {
     SPACE,
     TAB,
     COMMA,
+    AT_SYMBOL,
     UNKNOWN
 };
 

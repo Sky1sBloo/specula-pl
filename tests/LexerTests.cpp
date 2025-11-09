@@ -57,7 +57,7 @@ TEST(LEXER_TEST, LITERALS)
     }
 
     // Test flush
-    const std::array<std::string, 7> testFlush = { "1234", "234.f", "234.", "123.02", "true", "'a'", "'\n'" };
+    const std::array<std::string, 7> testFlush = { "1234", "234.f", "234.0", "123.02", "true", "'a'", "'\n'" };
     const std::array<TokenType, 7> expectedTokensFlush = {
         TokenType::LITERAL_INT,
         TokenType::LITERAL_FLOAT,
@@ -77,7 +77,7 @@ TEST(LEXER_TEST, LITERALS)
 
     // Should fail
     const std::string expectFail[] = { "'aa'", "'", "''" };
-    const int expectCharPos[] = { 2, 1, 1};
+    const int expectCharPos[] = { 3, 1, 2};
     for (const auto& [str, charPos]: std::views::zip(expectFail, expectCharPos)) {
         lexer.reset();
         try {

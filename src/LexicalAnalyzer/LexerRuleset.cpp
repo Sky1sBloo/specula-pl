@@ -4,6 +4,12 @@
 const std::unordered_map<std::string_view, TokenType> LexicalAnalyzer::mKeywords {
     { "let", TokenType::K_LET },
     { "int", TokenType::K_TYPE },
+    { "float", TokenType::K_TYPE },
+    { "double", TokenType::K_TYPE },
+    { "bool", TokenType::K_TYPE },
+    { "char", TokenType::K_TYPE },
+    { "void", TokenType::K_TYPE },
+    { "null", TokenType::LITERAL_NULL },
     { "if", TokenType::K_IF },
     { "else", TokenType::K_ELSE },
     { "for", TokenType::K_FOR },
@@ -23,6 +29,7 @@ const std::unordered_map<std::string_view, TokenType> LexicalAnalyzer::mKeywords
     { "contract", TokenType::K_CONTRACT },
     { "listener", TokenType::K_LISTENER },
     { "state", TokenType::K_STATE },
+    { "init-state", TokenType::K_INIT_STATE },
     { "fail", TokenType::K_FAIL },
     { "auto-reset", TokenType::K_AUTO_RESET },
     { "auto-move", TokenType::K_AUTO_MOVE },
@@ -58,4 +65,5 @@ const std::unordered_map<char, TokenType> LexicalAnalyzer::mDelimeters {
     { '\n', TokenType::NEW_LINE },
     { '\t', TokenType::TAB },
     { ',', TokenType::COMMA },
+    { '@', TokenType::AT_SYMBOL },
 };
