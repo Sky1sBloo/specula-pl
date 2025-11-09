@@ -13,6 +13,7 @@ enum class TokenType {
     LITERAL_BOOL,
     LITERAL_URL,
     LITERAL_PORT,
+    LITERAL_NULL,
 
     K_LET,
     K_TYPE,
