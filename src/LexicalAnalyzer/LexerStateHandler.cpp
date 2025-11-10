@@ -215,7 +215,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleIdentifierState()
 
 LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleNumStartState()
 {
-    if (std::isdigit(mToRead)) {
+    if (std::isdigit(static_cast<unsigned char>(mToRead))) {
         mLexeme.push_back(mToRead);
         return HandleStateResult::CONTINUE;
     }
