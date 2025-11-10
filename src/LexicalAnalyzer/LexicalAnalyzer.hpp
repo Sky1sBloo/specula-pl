@@ -36,6 +36,8 @@ enum class LexerState {
     OP_LESS_THAN,
     OP_LEFT_ARROW,
     COMMENT,
+    MULTILINE_COMMENT,
+    MULTILINE_COMMENT_END,
     INVALID
 };
 
@@ -98,6 +100,8 @@ private:
 
     HandleStateResult handleCharSlashState();
     HandleStateResult handleCommentState();
+    HandleStateResult handleMultilineCommentState();
+    HandleStateResult handleMultilineCommentEndState();
 
     // Saves contents from mLexeme to mTokens
     void saveToken(TokenType type);
