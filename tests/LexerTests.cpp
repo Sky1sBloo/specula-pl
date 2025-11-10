@@ -77,8 +77,8 @@ TEST(LEXER_TEST, LITERALS)
 
     // Should fail
     const std::string expectFail[] = { "'aa'", "'", "''" };
-    const int expectCharPos[] = { 3, 1, 2};
-    for (const auto& [str, charPos]: std::views::zip(expectFail, expectCharPos)) {
+    const int expectCharPos[] = { 3, 1, 2 };
+    for (const auto& [str, charPos] : std::views::zip(expectFail, expectCharPos)) {
         lexer.reset();
         try {
             lexer.buildTokens(str);
@@ -287,6 +287,28 @@ TEST(LEXER_TEST, COMMENTS)
     LexicalAnalyzer lexer { test };
     const std::vector<Token>& tokens = lexer.getTokens();
 
+    const std::array<TokenType, 7> expectedTokens = {
+        TokenType::LITERAL_INT,
+        TokenType::SEMICOLON,
+        TokenType::OP_PLUS,
+        TokenType::LITERAL_FLOAT,
+        TokenType::SEMICOLON,
+        TokenType::IDENTIFIER,
+        TokenType::OP_DIVIDE
+    };
+
+    ASSERT_EQ(tokens.size(), expectedTokens.size());
+
+    for (const auto& [token, expectedToken] : std::views::zip(tokens, expectedTokens)) {
+        EXPECT_EQ(expectedToken, token.type);
+    }
+}
+
+TEST(LEXER_TEST, MULTILINE_COMMENTS)
+{
+    const std::string test = "1; /*Test * lest**/ +2.5f; /* this should be ignored \n Fortuna*/ potato /";
+    LexicalAnalyzer lexer { test };
+    const std::vector<Token>& tokens = lexer.getTokens();
     const std::array<TokenType, 7> expectedTokens = {
         TokenType::LITERAL_INT,
         TokenType::SEMICOLON,

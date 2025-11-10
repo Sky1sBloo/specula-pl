@@ -70,12 +70,15 @@ void LexicalAnalyzer::flushLeftoverLexeme()
     case LexerState::OP_LEFT_ARROW:
         if (!mLexeme.empty())
             saveToken(TokenType::OP_LEFT_OP);
+    case LexerState::MULTILINE_COMMENT:
+    case LexerState::MULTILINE_COMMENT_END:
+        return;
+    case LexerState::INVALID:
+        throw LexerError(mInvalidStateMsg, mLine, mCharPos);
     default:
         break;
     }
-    if (mCurrentState == LexerState::INVALID) {
-        throw LexerError(mInvalidStateMsg, mLine, mCharPos);
-    }
+
     resetState();
 }
 
@@ -124,6 +127,10 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleState()
         return handleCharSlashState();
     case LexerState::COMMENT:
         return handleCommentState();
+    case LexerState::MULTILINE_COMMENT:
+        return handleMultilineCommentState();
+    case LexerState::MULTILINE_COMMENT_END:
+        return handleMultilineCommentEndState();
     case LexerState::INVALID:
         throw LexerError(mInvalidStateMsg, mLine, mCharPos);
         break;
@@ -176,6 +183,8 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleDelimeterState()
             saveToken(delimeter.value());
         }
         resetState();
+    } else {
+        return setStateInvalid("Cannot identify delimeter");
     }
     return HandleStateResult::CONTINUE;
 }
@@ -233,7 +242,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleNumStartState()
     } else {
         return setStateInvalid("Integer state does not recognize character: " + std::string { mToRead });
     }
-    mTokens.push_back({ TokenType::LITERAL_INT, mLexeme });
+    saveToken(TokenType::LITERAL_INT);
     return HandleStateResult::REPROCESS;
 }
 
@@ -416,10 +425,13 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleIncrementableState()
     TokenType onEqualsNext;
     bool isPrevAdd = false;
 
+    /*
     if (mLexeme[0] != '+' && mLexeme[0] != '-') {
-        return setStateInvalid("OP_Incrementable state current lexeme is not valid");
-    }
+    } */
 
+    if (mLexeme.size() != 1) {
+        return setStateInvalid("mLexeme is not 1 on entering incrementable " + std::string { mLexeme });
+    }
     isPrevAdd = mLexeme[0] == '+';
 
     char incrementChar = isPrevAdd ? '+' : '-';
@@ -435,8 +447,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleIncrementableState()
         return HandleStateResult::CONTINUE;
     }
 
-    mTokens.push_back({ getSingleOperatorToken(mLexeme[0]), mLexeme });
-    resetState();
+    saveToken(getSingleOperatorToken(mLexeme[0]));
     return HandleStateResult::REPROCESS;
 }
 
@@ -500,6 +511,10 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleCharSlashState()
         mLexeme.clear();
         mCurrentState = LexerState::COMMENT;
         return HandleStateResult::CONTINUE;
+    } else if (mToRead == '*') {
+        mLexeme.clear();
+        mCurrentState = LexerState::MULTILINE_COMMENT;
+        return HandleStateResult::CONTINUE;
     } else {
         mCurrentState = LexerState::OP_EQUALS_NEXT;
         return HandleStateResult::REPROCESS;
@@ -510,6 +525,26 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleCommentState()
 {
     if (mToRead == '\n') {
         mCurrentState = LexerState::START;
+    }
+    return HandleStateResult::CONTINUE;
+}
+
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleMultilineCommentState()
+{
+    if (mToRead == '*') {
+        mCurrentState = LexerState::MULTILINE_COMMENT_END;
+    }
+    return HandleStateResult::CONTINUE;
+}
+
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleMultilineCommentEndState()
+{
+    if (mToRead == '/') {
+        mCurrentState = LexerState::START;
+    } else if (mToRead == '*') {
+        return HandleStateResult::CONTINUE;
+    } else {
+        mCurrentState = LexerState::MULTILINE_COMMENT;
     }
     return HandleStateResult::CONTINUE;
 }

@@ -35,6 +35,7 @@ void LexicalAnalyzer::resetState()
 void LexicalAnalyzer::saveToken(TokenType type)
 {
     mTokens.push_back({ type, mLexeme });
+    mCurrentState = LexerState::START;
     mLexeme.clear();
 }
 
