@@ -47,6 +47,7 @@ bool LexicalAnalyzer::isValidOperator(char c)
     case '&':
     case '|':
     case '!':
+    case '^':
         return true;
     }
     return false;

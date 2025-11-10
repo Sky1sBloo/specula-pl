@@ -60,6 +60,7 @@ void LexicalAnalyzer::flushLeftoverLexeme()
     case LexerState::OP_EQUALS_NEXT:
     case LexerState::OP_MINUS:
     case LexerState::OP_LESS_THAN:
+    case LexerState::OP_GREATER_THAN:
     case LexerState::OP_LOGICAL:
         if (!mLexeme.empty())
             saveToken(getSingleOperatorToken(mLexeme[0]));
@@ -127,6 +128,8 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleState()
         return handleOpMinusState();
     case LexerState::OP_LESS_THAN:
         return handleOpLessThanState();
+    case LexerState::OP_GREATER_THAN:
+        return handleOpGreaterThanState();
     case LexerState::OP_LEFT_ARROW:
         return handleOpLeftArrowState();
     case LexerState::CHAR_SLASH:
@@ -380,12 +383,21 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpState()
         mLexeme.push_back(mToRead);
         return HandleStateResult::CONTINUE;
     }
+    case '>': {
+        mCurrentState = LexerState::OP_GREATER_THAN;
+        mLexeme.push_back(mToRead);
+        return HandleStateResult::CONTINUE;
+    }
     case '&':
     case '|': {
         mCurrentState = LexerState::OP_LOGICAL;
         mLexeme.push_back(mToRead);
         return HandleStateResult::CONTINUE;
     }
+    case '^':
+        mLexeme.push_back(mToRead);
+        saveToken(TokenType::OP_BITWISE_XOR);
+        return HandleStateResult::CONTINUE;
     }
 
     mCurrentState = getOperatorStartState(mToRead);
@@ -528,10 +540,31 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpLessThanState()
         mCurrentState = LexerState::OP_LEFT_ARROW;
         mLexeme.push_back(mToRead);
         return HandleStateResult::CONTINUE;
+    case '<': {
+        mLexeme.push_back(mToRead);
+        saveToken(TokenType::OP_LEFT_SHIFT);
+        return HandleStateResult::CONTINUE;
+    }
     }
     }
     saveToken(TokenType::OP_LESS);
-    resetState();
+    return HandleStateResult::REPROCESS;
+}
+
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpGreaterThanState()
+{
+    switch (mToRead) {
+    case '=': {
+        mCurrentState = LexerState::OP_EQUALS_NEXT;
+        return HandleStateResult::REPROCESS;
+    }
+    case '>': {
+        mLexeme.push_back(mToRead);
+        saveToken(TokenType::OP_RIGHT_SHIFT);
+        return HandleStateResult::CONTINUE;
+    }
+    }
+    saveToken(TokenType::OP_GREATER);
     return HandleStateResult::REPROCESS;
 }
 

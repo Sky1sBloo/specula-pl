@@ -167,11 +167,11 @@ TEST(LEXER_TEST, ESCAPE_CHAR)
 
 TEST(LEXER_TEST, OPERATORS)
 {
-    const std::string test = "+-/ * *=== =/ +++--.. &&& ^^ ||| ";
+    const std::string test = "+-/ * *=== =/ +++--.. &&& ^^ ||| <<< >>>";
     LexicalAnalyzer lexer { test };
 
     const std::vector<Token>& tokens = lexer.getTokens();
-    const std::array<TokenType, 19> expectedTokens = {
+    const std::array<TokenType, 23> expectedTokens = {
         TokenType::OP_PLUS,
         TokenType::OP_MINUS,
         TokenType::OP_DIVIDE,
@@ -190,7 +190,11 @@ TEST(LEXER_TEST, OPERATORS)
         TokenType::OP_BITWISE_XOR,
         TokenType::OP_BITWISE_XOR,
         TokenType::OP_OR,
-        TokenType::OP_BITWISE_OR
+        TokenType::OP_BITWISE_OR,
+        TokenType::OP_LEFT_SHIFT,
+        TokenType::OP_LESS,
+        TokenType::OP_RIGHT_SHIFT,
+        TokenType::OP_GREATER,
     };
     ASSERT_EQ(tokens.size(), expectedTokens.size());
     for (const auto& [token, expectedToken] : std::views::zip(tokens, expectedTokens)) {
@@ -198,7 +202,7 @@ TEST(LEXER_TEST, OPERATORS)
     }
 
     // Test flush
-    const std::array<std::string, 14> testFlush = { "+", "-", "/", "=", "+=", "-=", "/=", "++", "--", "&", "&&", "||", "|", "^"};
+    const std::array<std::string, 18> testFlush = { "+", "-", "/", "=", "+=", "-=", "/=", "++", "--", "&", "&&", "||", "|", "^", "<", ">", "<<", ">>"};
     const TokenType expectedTokensFlush[] = {
         TokenType::OP_PLUS,
         TokenType::OP_MINUS,
@@ -213,7 +217,11 @@ TEST(LEXER_TEST, OPERATORS)
         TokenType::OP_AND,
         TokenType::OP_OR,
         TokenType::OP_BITWISE_OR,
-        TokenType::OP_BITWISE_XOR
+        TokenType::OP_BITWISE_XOR,
+        TokenType::OP_LESS,
+        TokenType::OP_GREATER,
+        TokenType::OP_LEFT_SHIFT,
+        TokenType::OP_RIGHT_SHIFT
     };
 
     for (const auto& [str, expectedTok] : std::views::zip(testFlush, expectedTokensFlush)) {
@@ -231,13 +239,12 @@ TEST(LEXER_TEST, OP_ARROWS)
 
     const std::vector<Token>& tokens = lexer.getTokens();
 
-    const std::array<TokenType, 9> expectedTokens = {
+    const std::array<TokenType, 8> expectedTokens = {
         TokenType::OP_MINUS_EQ,
         TokenType::OP_DECREMENT,
         TokenType::OP_LEFT_OP,
         TokenType::OP_MINUS,
-        TokenType::OP_LESS,
-        TokenType::OP_LESS,
+        TokenType::OP_LEFT_SHIFT,
         TokenType::OP_BIDIR_OP,
         TokenType::OP_RIGHT_OP,
         TokenType::OP_GREATER

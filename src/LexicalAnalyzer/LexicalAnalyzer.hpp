@@ -35,6 +35,7 @@ enum class LexerState {
     CHAR_SLASH,
     OP_MINUS,
     OP_LESS_THAN,
+    OP_GREATER_THAN,
     OP_LEFT_ARROW,
     COMMENT,
     MULTILINE_COMMENT,
@@ -98,6 +99,7 @@ private:
     HandleStateResult handleOpLogicalState();
     HandleStateResult handleOpMinusState();
     HandleStateResult handleOpLessThanState();
+    HandleStateResult handleOpGreaterThanState();
     HandleStateResult handleOpLeftArrowState();
 
     HandleStateResult handleCharSlashState();
