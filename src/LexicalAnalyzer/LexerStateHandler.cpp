@@ -60,6 +60,7 @@ void LexicalAnalyzer::flushLeftoverLexeme()
     case LexerState::OP_EQUALS_NEXT:
     case LexerState::OP_MINUS:
     case LexerState::OP_LESS_THAN:
+    case LexerState::OP_LOGICAL:
         if (!mLexeme.empty())
             saveToken(getSingleOperatorToken(mLexeme[0]));
         break;
@@ -74,6 +75,9 @@ void LexicalAnalyzer::flushLeftoverLexeme()
     case LexerState::MULTILINE_COMMENT_END:
         return;
     case LexerState::INVALID:
+        if (mInvalidStateMsg.empty()) {
+            mInvalidStateMsg = "Unknown: (possibly undefined symbol)";
+        }
         throw LexerError(mInvalidStateMsg, mLine, mCharPos);
     default:
         break;
@@ -117,6 +121,8 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleState()
         return handleOpEqualsNextState();
     case LexerState::OP_INCREMENTABLE:
         return handleIncrementableState();
+    case LexerState::OP_LOGICAL:
+        return handleOpLogicalState();
     case LexerState::OP_MINUS:
         return handleOpMinusState();
     case LexerState::OP_LESS_THAN:
@@ -374,6 +380,12 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpState()
         mLexeme.push_back(mToRead);
         return HandleStateResult::CONTINUE;
     }
+    case '&':
+    case '|': {
+        mCurrentState = LexerState::OP_LOGICAL;
+        mLexeme.push_back(mToRead);
+        return HandleStateResult::CONTINUE;
+    }
     }
 
     mCurrentState = getOperatorStartState(mToRead);
@@ -448,6 +460,37 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleIncrementableState()
     }
 
     saveToken(getSingleOperatorToken(mLexeme[0]));
+    return HandleStateResult::REPROCESS;
+}
+
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpLogicalState()
+{
+    if (mToRead == '=') {
+        mCurrentState = LexerState::OP_EQUALS_NEXT;
+        return HandleStateResult::REPROCESS;
+    }
+    if (mLexeme.size() != 1) {
+        return setStateInvalid("mLexeme is not 1 on entering op logical state");
+    }
+
+    char firstChar = mLexeme.at(0);
+
+    if (mToRead == firstChar) {
+        mLexeme.push_back(mToRead);
+        switch (mToRead) {
+        case '&':
+            saveToken(TokenType::OP_AND);
+            break;
+        case '|':
+            saveToken(TokenType::OP_OR);
+            break;
+        default:
+            return setStateInvalid("mToRead is an invalid character in logical state");
+        }
+        return HandleStateResult::CONTINUE;
+    }
+
+    saveToken(getSingleOperatorToken(firstChar));
     return HandleStateResult::REPROCESS;
 }
 

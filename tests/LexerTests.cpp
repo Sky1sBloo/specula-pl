@@ -167,11 +167,11 @@ TEST(LEXER_TEST, ESCAPE_CHAR)
 
 TEST(LEXER_TEST, OPERATORS)
 {
-    const std::string test = "+-/ * *=== =/ +++--..";
+    const std::string test = "+-/ * *=== =/ +++--.. &&& ^^ ||| ";
     LexicalAnalyzer lexer { test };
 
     const std::vector<Token>& tokens = lexer.getTokens();
-    const std::array<TokenType, 13> expectedTokens = {
+    const std::array<TokenType, 19> expectedTokens = {
         TokenType::OP_PLUS,
         TokenType::OP_MINUS,
         TokenType::OP_DIVIDE,
@@ -184,7 +184,13 @@ TEST(LEXER_TEST, OPERATORS)
         TokenType::OP_PLUS,
         TokenType::OP_DECREMENT,
         TokenType::OP_PERIOD,
-        TokenType::OP_PERIOD
+        TokenType::OP_PERIOD,
+        TokenType::OP_AND,
+        TokenType::OP_BITWISE_AND,
+        TokenType::OP_BITWISE_XOR,
+        TokenType::OP_BITWISE_XOR,
+        TokenType::OP_OR,
+        TokenType::OP_BITWISE_OR
     };
     ASSERT_EQ(tokens.size(), expectedTokens.size());
     for (const auto& [token, expectedToken] : std::views::zip(tokens, expectedTokens)) {
@@ -192,7 +198,7 @@ TEST(LEXER_TEST, OPERATORS)
     }
 
     // Test flush
-    const std::array<std::string, 9> testFlush = { "+", "-", "/", "=", "+=", "-=", "/=", "++", "--" };
+    const std::array<std::string, 14> testFlush = { "+", "-", "/", "=", "+=", "-=", "/=", "++", "--", "&", "&&", "||", "|", "^"};
     const TokenType expectedTokensFlush[] = {
         TokenType::OP_PLUS,
         TokenType::OP_MINUS,
@@ -202,7 +208,12 @@ TEST(LEXER_TEST, OPERATORS)
         TokenType::OP_MINUS_EQ,
         TokenType::OP_DIV_EQ,
         TokenType::OP_INCREMENT,
-        TokenType::OP_DECREMENT
+        TokenType::OP_DECREMENT,
+        TokenType::OP_BITWISE_AND,
+        TokenType::OP_AND,
+        TokenType::OP_OR,
+        TokenType::OP_BITWISE_OR,
+        TokenType::OP_BITWISE_XOR
     };
 
     for (const auto& [str, expectedTok] : std::views::zip(testFlush, expectedTokensFlush)) {

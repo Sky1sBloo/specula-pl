@@ -44,6 +44,9 @@ bool LexicalAnalyzer::isValidOperator(char c)
     case '.':
     case '<':
     case '>':
+    case '&':
+    case '|':
+    case '!':
         return true;
     }
     return false;
@@ -88,6 +91,14 @@ TokenType LexicalAnalyzer::getSingleOperatorToken(char c)
         return TokenType::OP_LESS;
     case '>':
         return TokenType::OP_GREATER;
+    case '&':
+        return TokenType::OP_BITWISE_AND;
+    case '|':
+        return TokenType::OP_BITWISE_OR;
+    case '^':
+        return TokenType::OP_BITWISE_XOR;
+    case '!':
+        return TokenType::OP_NOT;
     }
     return TokenType::UNKNOWN;
 }
