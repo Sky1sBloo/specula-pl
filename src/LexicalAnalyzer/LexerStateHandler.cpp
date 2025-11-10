@@ -398,6 +398,10 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpState()
         mLexeme.push_back(mToRead);
         saveToken(TokenType::OP_BITWISE_XOR);
         return HandleStateResult::CONTINUE;
+    case '!':
+        mLexeme.push_back(mToRead);
+        saveToken(TokenType::OP_NOT);
+        return HandleStateResult::CONTINUE;
     }
 
     mCurrentState = getOperatorStartState(mToRead);
