@@ -31,9 +31,11 @@ enum class LexerState {
     OP,
     OP_EQUALS_NEXT,
     OP_INCREMENTABLE,
+    OP_LOGICAL,
     CHAR_SLASH,
     OP_MINUS,
     OP_LESS_THAN,
+    OP_GREATER_THAN,
     OP_LEFT_ARROW,
     COMMENT,
     MULTILINE_COMMENT,
@@ -94,8 +96,10 @@ private:
     HandleStateResult handleOpState();
     HandleStateResult handleOpEqualsNextState();
     HandleStateResult handleIncrementableState();
+    HandleStateResult handleOpLogicalState();
     HandleStateResult handleOpMinusState();
     HandleStateResult handleOpLessThanState();
+    HandleStateResult handleOpGreaterThanState();
     HandleStateResult handleOpLeftArrowState();
 
     HandleStateResult handleCharSlashState();

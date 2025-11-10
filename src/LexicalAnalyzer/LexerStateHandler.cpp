@@ -60,6 +60,8 @@ void LexicalAnalyzer::flushLeftoverLexeme()
     case LexerState::OP_EQUALS_NEXT:
     case LexerState::OP_MINUS:
     case LexerState::OP_LESS_THAN:
+    case LexerState::OP_GREATER_THAN:
+    case LexerState::OP_LOGICAL:
         if (!mLexeme.empty())
             saveToken(getSingleOperatorToken(mLexeme[0]));
         break;
@@ -74,6 +76,9 @@ void LexicalAnalyzer::flushLeftoverLexeme()
     case LexerState::MULTILINE_COMMENT_END:
         return;
     case LexerState::INVALID:
+        if (mInvalidStateMsg.empty()) {
+            mInvalidStateMsg = "Unknown: (possibly undefined symbol)";
+        }
         throw LexerError(mInvalidStateMsg, mLine, mCharPos);
     default:
         break;
@@ -117,10 +122,14 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleState()
         return handleOpEqualsNextState();
     case LexerState::OP_INCREMENTABLE:
         return handleIncrementableState();
+    case LexerState::OP_LOGICAL:
+        return handleOpLogicalState();
     case LexerState::OP_MINUS:
         return handleOpMinusState();
     case LexerState::OP_LESS_THAN:
         return handleOpLessThanState();
+    case LexerState::OP_GREATER_THAN:
+        return handleOpGreaterThanState();
     case LexerState::OP_LEFT_ARROW:
         return handleOpLeftArrowState();
     case LexerState::CHAR_SLASH:
@@ -374,6 +383,21 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpState()
         mLexeme.push_back(mToRead);
         return HandleStateResult::CONTINUE;
     }
+    case '>': {
+        mCurrentState = LexerState::OP_GREATER_THAN;
+        mLexeme.push_back(mToRead);
+        return HandleStateResult::CONTINUE;
+    }
+    case '&':
+    case '|': {
+        mCurrentState = LexerState::OP_LOGICAL;
+        mLexeme.push_back(mToRead);
+        return HandleStateResult::CONTINUE;
+    }
+    case '^':
+        mLexeme.push_back(mToRead);
+        saveToken(TokenType::OP_BITWISE_XOR);
+        return HandleStateResult::CONTINUE;
     }
 
     mCurrentState = getOperatorStartState(mToRead);
@@ -451,6 +475,37 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleIncrementableState()
     return HandleStateResult::REPROCESS;
 }
 
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpLogicalState()
+{
+    if (mToRead == '=') {
+        mCurrentState = LexerState::OP_EQUALS_NEXT;
+        return HandleStateResult::REPROCESS;
+    }
+    if (mLexeme.size() != 1) {
+        return setStateInvalid("mLexeme is not 1 on entering op logical state");
+    }
+
+    char firstChar = mLexeme.at(0);
+
+    if (mToRead == firstChar) {
+        mLexeme.push_back(mToRead);
+        switch (mToRead) {
+        case '&':
+            saveToken(TokenType::OP_AND);
+            break;
+        case '|':
+            saveToken(TokenType::OP_OR);
+            break;
+        default:
+            return setStateInvalid("mToRead is an invalid character in logical state");
+        }
+        return HandleStateResult::CONTINUE;
+    }
+
+    saveToken(getSingleOperatorToken(firstChar));
+    return HandleStateResult::REPROCESS;
+}
+
 LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpMinusState()
 {
     switch (mToRead) {
@@ -485,10 +540,31 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpLessThanState()
         mCurrentState = LexerState::OP_LEFT_ARROW;
         mLexeme.push_back(mToRead);
         return HandleStateResult::CONTINUE;
+    case '<': {
+        mLexeme.push_back(mToRead);
+        saveToken(TokenType::OP_LEFT_SHIFT);
+        return HandleStateResult::CONTINUE;
+    }
     }
     }
     saveToken(TokenType::OP_LESS);
-    resetState();
+    return HandleStateResult::REPROCESS;
+}
+
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpGreaterThanState()
+{
+    switch (mToRead) {
+    case '=': {
+        mCurrentState = LexerState::OP_EQUALS_NEXT;
+        return HandleStateResult::REPROCESS;
+    }
+    case '>': {
+        mLexeme.push_back(mToRead);
+        saveToken(TokenType::OP_RIGHT_SHIFT);
+        return HandleStateResult::CONTINUE;
+    }
+    }
+    saveToken(TokenType::OP_GREATER);
     return HandleStateResult::REPROCESS;
 }
 

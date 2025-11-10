@@ -79,6 +79,17 @@ enum class TokenType {
     OP_LESS,
     OP_GREATER,
 
+    OP_AND,
+    OP_OR,
+    OP_NOT,
+
+    OP_BITWISE_AND,
+    OP_BITWISE_OR,
+    OP_BITWISE_XOR,
+
+    OP_LEFT_SHIFT,
+    OP_RIGHT_SHIFT,
+
     OP_LEFT_OP,
     OP_RIGHT_OP,
     OP_BIDIR_OP,

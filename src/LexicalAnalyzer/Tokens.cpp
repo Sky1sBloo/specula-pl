@@ -76,6 +76,15 @@ const std::unordered_map<TokenType, std::string, TokenTypeHash> tokenTypeToStrin
     { TokenType::OP_RIGHT_OP, "OP_RIGHT_OP" },
     { TokenType::OP_BIDIR_OP, "OP_BIDIR_OP" },
 
+    { TokenType::OP_AND, "OP_AND" },
+    { TokenType::OP_OR, "OP_OR" },
+    { TokenType::OP_NOT, "OP_NOT" },
+    { TokenType::OP_BITWISE_AND, "OP_BITWISE_AND" },
+    { TokenType::OP_BITWISE_OR, "OP_BITWISE_OR" },
+    { TokenType::OP_BITWISE_XOR, "OP_BITWISE_XOR" },
+    { TokenType::OP_LEFT_SHIFT, "OP_LEFT_SHIFT" },
+    { TokenType::OP_RIGHT_SHIFT, "OP_RIGHT_SHIFT" },
+
     { TokenType::OP_INCREMENT, "OP_INCREMENT" },
     { TokenType::OP_DECREMENT, "OP_DECREMENT" },
 
