@@ -18,5 +18,5 @@ int main(int argc, char** argv)
     } catch (const LexerError& error) {
         std::print("Lexer Error at line {}:{}\n Message: {}\n", error.getLine(), error.getCharPos(), error.what());
     }
-    LexerFileWriter lexerFileWriter { lexer, filePath + "_tokens" };
+    LexerFileWriter lexerFileWriter { lexer, filePath };
 }
