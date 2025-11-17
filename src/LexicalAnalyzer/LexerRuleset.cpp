@@ -46,6 +46,13 @@ const std::unordered_map<std::string_view, TokenType> LexicalAnalyzer::mKeywords
     { "await", TokenType::K_AWAIT },
     { "thread", TokenType::K_THREAD },
     { "spawn", TokenType::K_SPAWN },
+    { "own", TokenType::K_OWN },
+    { "move", TokenType::K_MOVE },
+    { "shared", TokenType::K_SHARED },
+    { "view", TokenType::K_VIEW },
+    { "mut", TokenType::K_MUT },
+    { "const", TokenType::K_CONST },
+    { "network", TokenType::K_NETWORK },
 };
 
 const std::unordered_map<std::string_view, TokenType> LexicalAnalyzer::mOperators {

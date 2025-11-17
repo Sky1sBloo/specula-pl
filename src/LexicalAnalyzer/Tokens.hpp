@@ -61,6 +61,15 @@ enum class TokenType {
     K_THREAD,
     K_SPAWN,
 
+    K_OWN,
+    K_MOVE,
+    K_SHARED,
+    K_VIEW,
+    K_SHARE,
+    K_MUT,
+    K_CONST,
+    K_NETWORK,
+
     OP_EQUALS,
     OP_PLUS,
     OP_MINUS,
