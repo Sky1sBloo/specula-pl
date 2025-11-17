@@ -68,6 +68,9 @@ enum class TokenType {
     K_SHARE,
     K_MUT,
     K_CONST,
+    K_THR_LOCAL,
+    K_SYNC,
+    K_INFER,
     K_NETWORK,
 
     OP_EQUALS,

@@ -57,6 +57,9 @@ const std::unordered_map<TokenType, std::string, TokenTypeHash> tokenTypeToStrin
     { TokenType::K_SHARE, "K_SHARE" },
     { TokenType::K_MUT, "K_MUT" },
     { TokenType::K_CONST, "K_CONST" },
+    { TokenType::K_THR_LOCAL, "K_THR_LOCAL" },
+    { TokenType::K_SYNC, "K_SYNC" },
+    { TokenType::K_INFER, "K_INFER" },
     { TokenType::K_NETWORK, "K_NETWORK" },
 
     { TokenType::K_ASYNC, "K_ASYNC" },

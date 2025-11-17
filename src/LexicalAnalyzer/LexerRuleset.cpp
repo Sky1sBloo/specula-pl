@@ -52,6 +52,9 @@ const std::unordered_map<std::string_view, TokenType> LexicalAnalyzer::mKeywords
     { "view", TokenType::K_VIEW },
     { "mut", TokenType::K_MUT },
     { "const", TokenType::K_CONST },
+    { "thr_local", TokenType::K_THR_LOCAL },
+    { "sync", TokenType::K_SYNC },
+    { "infer", TokenType::K_INFER },
     { "network", TokenType::K_NETWORK },
 };
 
