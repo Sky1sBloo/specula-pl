@@ -1,6 +1,7 @@
 #include "LexerError.hpp"
 #include "LexicalAnalyzer.hpp"
 #include "Tokens.hpp"
+#include <cstddef>
 #include <optional>
 
 void LexicalAnalyzer::flushLeftoverLexeme()
@@ -10,6 +11,11 @@ void LexicalAnalyzer::flushLeftoverLexeme()
         if (!mLexeme.empty())
             finalizeIdentifier();
         break;
+    case LexerState::IDENTIFIER_DASH: {
+        if (!mLexeme.empty())
+            finalizeIdentifierDash();
+        break;
+    }
     case LexerState::NUM_START:
         if (!mLexeme.empty())
             saveToken(TokenType::LITERAL_INT);
@@ -98,6 +104,8 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleState()
         return handleExpectDelimeterState();
     case LexerState::IDENTIFIER:
         return handleIdentifierState();
+    case LexerState::IDENTIFIER_DASH:
+        return handleIdentifierDashState();
     case LexerState::NUM_START:
         return handleNumStartState();
     case LexerState::DECIMAL_REACHED:
@@ -221,12 +229,25 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleIdentifierState()
         for (const std::string& kWithDash : keywordsWithDash) {
             if (mLexeme == kWithDash) {
                 mLexeme.push_back(mToRead);
+                mCurrentState = LexerState::IDENTIFIER_DASH;
                 return HandleStateResult::CONTINUE;
             }
         }
     }
 
     finalizeIdentifier();
+    resetState();
+    return HandleStateResult::REPROCESS;
+}
+
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleIdentifierDashState()
+{
+    if (isValidIdentifier(mToRead)) {
+        mLexeme.push_back(mToRead);
+        return HandleStateResult::CONTINUE;
+    }
+
+    finalizeIdentifierDash();
     resetState();
     return HandleStateResult::REPROCESS;
 }

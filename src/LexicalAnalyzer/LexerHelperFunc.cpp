@@ -32,6 +32,30 @@ void LexicalAnalyzer::finalizeIdentifier()
     }
 }
 
+void LexicalAnalyzer::finalizeIdentifierDash()
+{
+    std::optional<TokenType> keyword = getKeyword(mLexeme);
+
+    if (keyword.has_value()) {
+        saveToken(keyword.value());
+    } else {
+        std::size_t pos = mLexeme.find('-');
+        if (pos == std::string::npos) {
+            setStateInvalid("On identifier dash end state but no dash is found");
+        }
+        std::string leftIdent = mLexeme.substr(0, pos);
+        std::string rightIdent = mLexeme.substr(pos + 1);
+        if (!leftIdent.empty()) {
+            mTokens.push_back({ TokenType::IDENTIFIER, leftIdent });
+        }
+        mTokens.push_back({ TokenType::OP_MINUS, "-" });
+        if (!rightIdent.empty()) {
+            mTokens.push_back({ TokenType::IDENTIFIER, rightIdent });
+        }
+        mLexeme.clear();
+    }
+}
+
 bool LexicalAnalyzer::isValidOperator(char c)
 {
     switch (c) {
