@@ -44,9 +44,19 @@ enum class LexerState {
     INVALID
 };
 
+/**
+ * Main class for handling lexical tokens
+ */
 class LexicalAnalyzer {
 public:
+    /**
+     * Default constructor
+     */
     LexicalAnalyzer();
+
+    /**
+     * Constructor but also build tokens
+     */
     LexicalAnalyzer(std::string_view text);
 
     /**
@@ -54,7 +64,19 @@ public:
      */
     void reset();
 
+    /**
+     * Setups tokens based on the text
+     *
+     * @param text Text to parse
+     * @param line Used for error handling
+     *
+     * @throws LexerError
+    */
     void buildTokens(std::string_view text, int line = -1);
+
+    /**
+     * Gets the tokens from the processed string
+    */
     const std::vector<Token>& getTokens() const { return mTokens; }
 
 private:
@@ -76,10 +98,15 @@ private:
         CONTINUE,
         REPROCESS // When handleState doesn't store the character to the lexeme (mainly for exiting states)
     };
+
+    // Calls respective state functions
     HandleStateResult handleState();
+
     void resetState();
+    // Calls when no string is being read
     void flushLeftoverLexeme();
 
+    // State functions
     HandleStateResult handleStartState();
     HandleStateResult handleDelimeterState();
     HandleStateResult handleExpectDelimeterState();
@@ -109,9 +136,11 @@ private:
     HandleStateResult handleMultilineCommentState();
     HandleStateResult handleMultilineCommentEndState();
 
+    /// Helper functions
     // Saves contents from mLexeme to mTokens
     void saveToken(TokenType type);
 
+    // Used for throwing an error
     HandleStateResult setStateInvalid(std::string_view message);
 
     bool isValidIdentifier(char c);
