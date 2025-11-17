@@ -52,7 +52,7 @@ TEST(LEXER_TEST, IDENTIFIER_WITH_DASH)
         TokenType::IDENTIFIER,
         TokenType::OP_MINUS,
         TokenType::OP_MINUS,
-        TokenType::IDENTIFIER,
+        TokenType::K_MOVE,
         TokenType::IDENTIFIER,
         TokenType::OP_MINUS,
         TokenType::K_STATE,
