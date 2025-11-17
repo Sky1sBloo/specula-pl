@@ -19,6 +19,7 @@ enum class LexerState {
     DELIMETER,
     EXPECT_DELIMETER, // next character must be a delimeter
     IDENTIFIER,
+    IDENTIFIER_DASH,
     NUM_START,
     DECIMAL_REACHED,
     FLOAT,
@@ -83,6 +84,7 @@ private:
     HandleStateResult handleDelimeterState();
     HandleStateResult handleExpectDelimeterState();
     HandleStateResult handleIdentifierState();
+    HandleStateResult handleIdentifierDashState();
 
     HandleStateResult handleNumStartState();
     HandleStateResult handleDecimalState();
@@ -114,6 +116,7 @@ private:
 
     bool isValidIdentifier(char c);
     void finalizeIdentifier();
+    void finalizeIdentifierDash();
 
     bool isValidOperator(char c);
     LexerState getOperatorStartState(char c);

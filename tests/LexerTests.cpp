@@ -28,6 +28,36 @@ TEST(LEXER_TEST, KEYWORD_IDENTIFIER)
         TokenType::K_CONTRACT
     };
 
+    ASSERT_EQ(tokens.size(), expectedTokens.size());
+    for (const auto& [token, expectedToken] : std::views::zip(tokens, expectedTokens)) {
+        EXPECT_EQ(expectedToken, token.type);
+    }
+}
+
+TEST(LEXER_TEST, IDENTIFIER_WITH_DASH)
+{
+    const std::string test = "init-state auto-reset auto-move auto-potato init-reset auto--move init - state";
+    LexicalAnalyzer lexer { test };
+    const std::vector<Token>& tokens = lexer.getTokens();
+    const std::array<TokenType, 16> expectedTokens = {
+        TokenType::K_INIT_STATE,
+        TokenType::K_AUTO_RESET,
+        TokenType::K_AUTO_MOVE,
+        TokenType::IDENTIFIER,
+        TokenType::OP_MINUS,
+        TokenType::IDENTIFIER,
+        TokenType::IDENTIFIER,
+        TokenType::OP_MINUS,
+        TokenType::IDENTIFIER,
+        TokenType::IDENTIFIER,
+        TokenType::OP_MINUS,
+        TokenType::OP_MINUS,
+        TokenType::IDENTIFIER,
+        TokenType::IDENTIFIER,
+        TokenType::OP_MINUS,
+        TokenType::K_STATE,
+    };
+    ASSERT_EQ(tokens.size(), expectedTokens.size());
     for (const auto& [token, expectedToken] : std::views::zip(tokens, expectedTokens)) {
         EXPECT_EQ(expectedToken, token.type);
     }
