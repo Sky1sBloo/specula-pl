@@ -26,7 +26,9 @@ int main(int argc, char** argv)
         } catch (const std::invalid_argument& iErr) {
             std::print("{}\n", iErr.what());
         }
-        LexerFileWriter lexerFileWriter { lexer, file };
-        lexer.reset();
+        if (!lexer.getTokens().empty()) {
+            LexerFileWriter lexerFileWriter { lexer, file };
+            lexer.reset();
+        }
     }
 }
