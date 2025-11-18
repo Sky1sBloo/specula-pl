@@ -18,11 +18,11 @@ cmake --build ./build
 ```
 3. Run the project
 ```
-./build/specula [file]
+./build/specula [file1] [file2] ...
 ```
 4. Output will be at
 ```
-file_tokens
+file_tokens file2_tokens ...
 ```
 ## Running Tests
 The tests are located in the `tests` folder and the build files in the `build/tests` folder. To run it:
