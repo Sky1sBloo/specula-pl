@@ -25,6 +25,7 @@ enum class TokenType {
     K_WHILE,
     K_DO,
     K_IN,
+    K_BREAK,
 
     K_RET,
     K_FN,

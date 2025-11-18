@@ -16,6 +16,7 @@ const std::unordered_map<std::string_view, TokenType> LexicalAnalyzer::mKeywords
     { "while", TokenType::K_WHILE },
     { "do", TokenType::K_DO },
     { "in", TokenType::K_IN },
+    { "break", TokenType::K_BREAK },
     { "ret", TokenType::K_RET },
     { "fn", TokenType::K_FN },
     { "struct", TokenType::K_STRUCT },
@@ -55,7 +56,7 @@ const std::unordered_map<std::string_view, TokenType> LexicalAnalyzer::mKeywords
     { "thr_local", TokenType::K_THR_LOCAL },
     { "sync", TokenType::K_SYNC },
     { "infer", TokenType::K_INFER },
-    { "network", TokenType::K_NETWORK },
+    { "network", TokenType::K_NETWORK }
 };
 
 const std::unordered_map<std::string_view, TokenType> LexicalAnalyzer::mOperators {

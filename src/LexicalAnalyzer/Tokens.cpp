@@ -18,6 +18,7 @@ const std::unordered_map<TokenType, std::string, TokenTypeHash> tokenTypeToStrin
     { TokenType::K_WHILE, "K_WHILE" },
     { TokenType::K_DO, "K_DO" },
     { TokenType::K_IN, "K_IN" },
+    { TokenType::K_BREAK, "K_BREAK" },
 
     { TokenType::K_RET, "K_RET" },
     { TokenType::K_FN, "K_FN" },
