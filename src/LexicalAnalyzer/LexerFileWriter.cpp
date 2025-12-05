@@ -2,14 +2,17 @@
 #include <filesystem>
 #include <fstream>
 
+#include "TokenJsonSerializer.hpp"
+
 LexerFileWriter::LexerFileWriter(LexicalAnalyzer& lexer, const std::string& filePath)
     : mLexer(lexer)
 {
     std::filesystem::path inputPath { filePath };
     std::filesystem::path outputPath = inputPath.parent_path() / (inputPath.stem().string() + "_tokens" + inputPath.extension().string());
     std::ofstream writeFile { outputPath };
-    for (const Token& token : lexer.getTokens()) {
-        writeFile << tokenTypeToString.at(token.type) << " | " << token.value << '\n';
+    if (!writeFile.is_open()) {
+        return;
     }
-    writeFile.close();
+    writeFile << specula::serializer::serializeTokensPayload(lexer.getTokens());
+    writeFile << std::endl;
 }

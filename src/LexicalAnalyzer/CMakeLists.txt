@@ -6,6 +6,7 @@ add_library(specula-lexer
     LexerError.cpp
     LexerFileReader.cpp
     LexerFileWriter.cpp
+    TokenJsonSerializer.cpp
     Tokens.cpp
 )
 
