@@ -1,7 +1,7 @@
 .cache
 build/
 build-wasm/
-frontend/node_modules/
-frontend/dist/
-frontend/public/wasm/lexer.js
-frontend/public/wasm/lexer.wasm
+node_modules/
+dist/
+public/wasm/lexer.js
+public/wasm/lexer.wasm

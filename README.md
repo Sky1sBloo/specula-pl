@@ -34,11 +34,6 @@ with the format
 	]
 }
 ```
-## Running Tests
-The tests are located in the `tests` folder and the build files in the `build/tests` folder. To run it:
-```
-./build/tests/specula
-```
 
 ## Building the WebAssembly Module
 1. Install Emscripten and activate the SDK environment (`emsdk_env` script).
@@ -73,3 +68,8 @@ npm run build      # outputs to frontend/dist
 ```
 Serve the `dist/` folder via any static host (GitHub Pages, Netlify, etc.).
 
+## Running Tests
+The tests are located in the `tests` folder and the build files in the `build/tests` folder. To run it:
+```
+./build/tests/specula
+```
