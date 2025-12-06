@@ -18,12 +18,12 @@ FetchContent_Declare(
 
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
-add_subdirectory(src/LexicalAnalyzer)
-add_executable(specula src/main.cpp)
+add_subdirectory(lexer/src/LexicalAnalyzer)
+add_executable(specula lexer/src/main.cpp)
 target_link_libraries(specula PRIVATE specula-lexer)
 
 if (SPECULA_BUILD_WASM)
-  add_executable(specula-wasm src/wasm/SpeculaWasm.cpp)
+  add_executable(specula-wasm lexer/src/wasm/SpeculaWasm.cpp)
   target_link_libraries(specula-wasm PRIVATE specula-lexer)
   target_compile_options(specula-wasm PRIVATE -fexceptions)
   target_link_options(specula-wasm PRIVATE
@@ -43,6 +43,6 @@ if (SPECULA_BUILD_WASM)
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/wasm"
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/wasm"
   )
+else() 
+    add_subdirectory(lexer/tests)
 endif()
-
-add_subdirectory(tests)

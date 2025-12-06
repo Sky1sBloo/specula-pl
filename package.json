@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build:lexer": "bash ./scripts/build-wasm.sh",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview"
