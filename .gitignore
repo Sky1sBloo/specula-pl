@@ -3,3 +3,5 @@ build/
 build-wasm/
 frontend/node_modules/
 frontend/dist/
+frontend/public/wasm/lexer.js
+frontend/public/wasm/lexer.wasm
