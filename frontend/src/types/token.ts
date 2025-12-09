@@ -19,5 +19,11 @@ export interface LexerPayload {
   ok: boolean;
   tokens: LexerToken[];
   diagnostics?: string[];
-  error?: string;
+  error?: LexerError;
+}
+
+export interface LexerError {
+    message: string;
+    line: number;
+    char: number;
 }
