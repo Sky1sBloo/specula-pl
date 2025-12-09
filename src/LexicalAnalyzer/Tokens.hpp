@@ -83,6 +83,8 @@ enum class TokenType {
     OP_PERIOD,
 
     OP_EQ_COMP,
+    OP_EQ_LESS,
+    OP_EQ_GREATER,
     OP_PLUS_EQ,
     OP_MINUS_EQ,
     OP_MULT_EQ,
@@ -138,4 +140,3 @@ struct TokenTypeHash {
 };
 
 extern const std::unordered_map<TokenType, std::string, TokenTypeHash> tokenTypeToString; 
-

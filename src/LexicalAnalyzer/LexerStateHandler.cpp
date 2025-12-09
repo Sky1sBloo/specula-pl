@@ -1,8 +1,6 @@
 #include "LexerError.hpp"
 #include "LexicalAnalyzer.hpp"
 #include "Tokens.hpp"
-#include <cstddef>
-#include <optional>
 
 void LexicalAnalyzer::flushLeftoverLexeme()
 {
@@ -558,8 +556,9 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpLessThanState()
 {
     switch (mToRead) {
     case '=': {
-        mCurrentState = LexerState::OP_EQUALS_NEXT;
-        return HandleStateResult::REPROCESS;
+        mLexeme.push_back(mToRead);
+        saveToken(TokenType::OP_EQ_LESS);
+        return HandleStateResult::CONTINUE;
     }
     case '-': {
         mCurrentState = LexerState::OP_LEFT_ARROW;
@@ -580,8 +579,9 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpGreaterThanState()
 {
     switch (mToRead) {
     case '=': {
-        mCurrentState = LexerState::OP_EQUALS_NEXT;
-        return HandleStateResult::REPROCESS;
+        mLexeme.push_back(mToRead);
+        saveToken(TokenType::OP_EQ_LESS);
+        return HandleStateResult::CONTINUE;
     }
     case '>': {
         mLexeme.push_back(mToRead);
