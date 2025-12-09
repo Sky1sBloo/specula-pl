@@ -979,23 +979,21 @@ export default function App() {
                     <div style={{ fontSize: '1.4rem', letterSpacing: '0.4em' }}>SPECULA</div>
                 </div>
                 <div style={navLinksStyle}>
-                    {navItems.map((item) => (
-                        <span key={item}>{item}</span>
-                    ))}
+                    <p style={{ marginLeft: '10px' }}>Stateful  Contracts  Language  for  Safe  Systems</p>
                 </div>
-                <div style={{ color: palette.muted, fontSize: '0.9rem', justifySelf: 'end', textAlign: 'right' }}>
+                {/* <div style={{ color: palette.muted, fontSize: '0.9rem', justifySelf: 'end', textAlign: 'right' }}>
                     v1.0
-                </div>
+                </div> */}
             </nav>
 
             <section style={heroCopyStyle}>
                 <div style={{ color: palette.muted, letterSpacing: '0.45em', fontSize: '0.8rem' }}>
-                    SPECULA WEB LEXER
+                WEB LEXER
                 </div>
                 <h1 style={heroTitleStyle}>S P E C U L A</h1>
-                <p style={heroLeadStyle}>
+                {/* <p style={heroLeadStyle}>
                     Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit. Sed Do Eiusmod Tempor Incididunt Ut
-                </p>
+                </p> */}
                 <div style={ctaRowStyle}>
                     <button style={primaryButton} onClick={() => setSource(exampleSnippet)}>
                         Load Example
