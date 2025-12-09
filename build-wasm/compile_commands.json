@@ -1,0 +1,98 @@
+[
+{
+  "directory": "C:/Users/gav/Documents/specula-pl/build-wasm",
+  "command": "C:\\Users\\gav\\Documents\\emsdk\\upstream\\emscripten\\em++.bat -c C:\\Users\\gav\\Documents\\specula-pl\\src\\main.cpp  @CMakeFiles/specula.dir/includes_CXX.rsp -std=gnu++23 -o CMakeFiles\\specula.dir\\src\\main.cpp.o -fPIC",
+  "file": "C:/Users/gav/Documents/specula-pl/src/main.cpp",
+  "output": "CMakeFiles/specula.dir/src/main.cpp.o"
+},
+{
+  "directory": "C:/Users/gav/Documents/specula-pl/build-wasm",
+  "command": "C:\\Users\\gav\\Documents\\emsdk\\upstream\\emscripten\\em++.bat -c C:\\Users\\gav\\Documents\\specula-pl\\src\\wasm\\SpeculaWasm.cpp  @CMakeFiles/specula-wasm.dir/includes_CXX.rsp -std=gnu++23 -fexceptions -o CMakeFiles\\specula-wasm.dir\\src\\wasm\\SpeculaWasm.cpp.o -fPIC",
+  "file": "C:/Users/gav/Documents/specula-pl/src/wasm/SpeculaWasm.cpp",
+  "output": "CMakeFiles/specula-wasm.dir/src/wasm/SpeculaWasm.cpp.o"
+},
+{
+  "directory": "C:/Users/gav/Documents/specula-pl/build-wasm/_deps/googletest-build/googlemock",
+  "command": "C:\\Users\\gav\\Documents\\emsdk\\upstream\\emscripten\\em++.bat -c C:\\Users\\gav\\Documents\\specula-pl\\build-wasm\\_deps\\googletest-src\\googlemock\\src\\gmock-all.cc  @CMakeFiles/gmock.dir/includes_CXX.rsp -std=c++23 -Wall -Wshadow -Wconversion -DGTEST_HAS_PTHREAD=1 -fexceptions -W -Wpointer-arith -Wreturn-type -Wcast-qual -Wwrite-strings -Wswitch -Wunused-parameter -Wcast-align -Wchar-subscripts -Winline -Wredundant-decls -o CMakeFiles\\gmock.dir\\src\\gmock-all.cc.o -fPIC",
+  "file": "C:/Users/gav/Documents/specula-pl/build-wasm/_deps/googletest-src/googlemock/src/gmock-all.cc",
+  "output": "_deps/googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o"
+},
+{
+  "directory": "C:/Users/gav/Documents/specula-pl/build-wasm/_deps/googletest-build/googlemock",
+  "command": "C:\\Users\\gav\\Documents\\emsdk\\upstream\\emscripten\\em++.bat -c C:\\Users\\gav\\Documents\\specula-pl\\build-wasm\\_deps\\googletest-src\\googlemock\\src\\gmock_main.cc  @CMakeFiles/gmock_main.dir/includes_CXX.rsp -std=c++23 -Wall -Wshadow -Wconversion -DGTEST_HAS_PTHREAD=1 -fexceptions -W -Wpointer-arith -Wreturn-type -Wcast-qual -Wwrite-strings -Wswitch -Wunused-parameter -Wcast-align -Wchar-subscripts -Winline -Wredundant-decls -o CMakeFiles\\gmock_main.dir\\src\\gmock_main.cc.o -fPIC",
+  "file": "C:/Users/gav/Documents/specula-pl/build-wasm/_deps/googletest-src/googlemock/src/gmock_main.cc",
+  "output": "_deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o"
+},
+{
+  "directory": "C:/Users/gav/Documents/specula-pl/build-wasm/_deps/googletest-build/googletest",
+  "command": "C:\\Users\\gav\\Documents\\emsdk\\upstream\\emscripten\\em++.bat -c C:\\Users\\gav\\Documents\\specula-pl\\build-wasm\\_deps\\googletest-src\\googletest\\src\\gtest-all.cc  @CMakeFiles/gtest.dir/includes_CXX.rsp -std=c++23 -Wall -Wshadow -Wconversion -DGTEST_HAS_PTHREAD=1 -fexceptions -W -Wpointer-arith -Wreturn-type -Wcast-qual -Wwrite-strings -Wswitch -Wunused-parameter -Wcast-align -Wchar-subscripts -Winline -Wredundant-decls -o CMakeFiles\\gtest.dir\\src\\gtest-all.cc.o -fPIC",
+  "file": "C:/Users/gav/Documents/specula-pl/build-wasm/_deps/googletest-src/googletest/src/gtest-all.cc",
+  "output": "_deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o"
+},
+{
+  "directory": "C:/Users/gav/Documents/specula-pl/build-wasm/_deps/googletest-build/googletest",
+  "command": "C:\\Users\\gav\\Documents\\emsdk\\upstream\\emscripten\\em++.bat -c C:\\Users\\gav\\Documents\\specula-pl\\build-wasm\\_deps\\googletest-src\\googletest\\src\\gtest_main.cc  @CMakeFiles/gtest_main.dir/includes_CXX.rsp -std=c++23 -Wall -Wshadow -Wconversion -DGTEST_HAS_PTHREAD=1 -fexceptions -W -Wpointer-arith -Wreturn-type -Wcast-qual -Wwrite-strings -Wswitch -Wunused-parameter -Wcast-align -Wchar-subscripts -Winline -Wredundant-decls -o CMakeFiles\\gtest_main.dir\\src\\gtest_main.cc.o -fPIC",
+  "file": "C:/Users/gav/Documents/specula-pl/build-wasm/_deps/googletest-src/googletest/src/gtest_main.cc",
+  "output": "_deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o"
+},
+{
+  "directory": "C:/Users/gav/Documents/specula-pl/build-wasm/src/LexicalAnalyzer",
+  "command": "C:\\Users\\gav\\Documents\\emsdk\\upstream\\emscripten\\em++.bat -c C:\\Users\\gav\\Documents\\specula-pl\\src\\LexicalAnalyzer\\LexicalAnalyzer.cpp  @CMakeFiles/specula-lexer.dir/includes_CXX.rsp -std=gnu++23 -o CMakeFiles\\specula-lexer.dir\\LexicalAnalyzer.cpp.o -fPIC",
+  "file": "C:/Users/gav/Documents/specula-pl/src/LexicalAnalyzer/LexicalAnalyzer.cpp",
+  "output": "src/LexicalAnalyzer/CMakeFiles/specula-lexer.dir/LexicalAnalyzer.cpp.o"
+},
+{
+  "directory": "C:/Users/gav/Documents/specula-pl/build-wasm/src/LexicalAnalyzer",
+  "command": "C:\\Users\\gav\\Documents\\emsdk\\upstream\\emscripten\\em++.bat -c C:\\Users\\gav\\Documents\\specula-pl\\src\\LexicalAnalyzer\\LexerStateHandler.cpp  @CMakeFiles/specula-lexer.dir/includes_CXX.rsp -std=gnu++23 -o CMakeFiles\\specula-lexer.dir\\LexerStateHandler.cpp.o -fPIC",
+  "file": "C:/Users/gav/Documents/specula-pl/src/LexicalAnalyzer/LexerStateHandler.cpp",
+  "output": "src/LexicalAnalyzer/CMakeFiles/specula-lexer.dir/LexerStateHandler.cpp.o"
+},
+{
+  "directory": "C:/Users/gav/Documents/specula-pl/build-wasm/src/LexicalAnalyzer",
+  "command": "C:\\Users\\gav\\Documents\\emsdk\\upstream\\emscripten\\em++.bat -c C:\\Users\\gav\\Documents\\specula-pl\\src\\LexicalAnalyzer\\LexerRuleset.cpp  @CMakeFiles/specula-lexer.dir/includes_CXX.rsp -std=gnu++23 -o CMakeFiles\\specula-lexer.dir\\LexerRuleset.cpp.o -fPIC",
+  "file": "C:/Users/gav/Documents/specula-pl/src/LexicalAnalyzer/LexerRuleset.cpp",
+  "output": "src/LexicalAnalyzer/CMakeFiles/specula-lexer.dir/LexerRuleset.cpp.o"
+},
+{
+  "directory": "C:/Users/gav/Documents/specula-pl/build-wasm/src/LexicalAnalyzer",
+  "command": "C:\\Users\\gav\\Documents\\emsdk\\upstream\\emscripten\\em++.bat -c C:\\Users\\gav\\Documents\\specula-pl\\src\\LexicalAnalyzer\\LexerHelperFunc.cpp  @CMakeFiles/specula-lexer.dir/includes_CXX.rsp -std=gnu++23 -o CMakeFiles\\specula-lexer.dir\\LexerHelperFunc.cpp.o -fPIC",
+  "file": "C:/Users/gav/Documents/specula-pl/src/LexicalAnalyzer/LexerHelperFunc.cpp",
+  "output": "src/LexicalAnalyzer/CMakeFiles/specula-lexer.dir/LexerHelperFunc.cpp.o"
+},
+{
+  "directory": "C:/Users/gav/Documents/specula-pl/build-wasm/src/LexicalAnalyzer",
+  "command": "C:\\Users\\gav\\Documents\\emsdk\\upstream\\emscripten\\em++.bat -c C:\\Users\\gav\\Documents\\specula-pl\\src\\LexicalAnalyzer\\LexerError.cpp  @CMakeFiles/specula-lexer.dir/includes_CXX.rsp -std=gnu++23 -o CMakeFiles\\specula-lexer.dir\\LexerError.cpp.o -fPIC",
+  "file": "C:/Users/gav/Documents/specula-pl/src/LexicalAnalyzer/LexerError.cpp",
+  "output": "src/LexicalAnalyzer/CMakeFiles/specula-lexer.dir/LexerError.cpp.o"
+},
+{
+  "directory": "C:/Users/gav/Documents/specula-pl/build-wasm/src/LexicalAnalyzer",
+  "command": "C:\\Users\\gav\\Documents\\emsdk\\upstream\\emscripten\\em++.bat -c C:\\Users\\gav\\Documents\\specula-pl\\src\\LexicalAnalyzer\\LexerFileReader.cpp  @CMakeFiles/specula-lexer.dir/includes_CXX.rsp -std=gnu++23 -o CMakeFiles\\specula-lexer.dir\\LexerFileReader.cpp.o -fPIC",
+  "file": "C:/Users/gav/Documents/specula-pl/src/LexicalAnalyzer/LexerFileReader.cpp",
+  "output": "src/LexicalAnalyzer/CMakeFiles/specula-lexer.dir/LexerFileReader.cpp.o"
+},
+{
+  "directory": "C:/Users/gav/Documents/specula-pl/build-wasm/src/LexicalAnalyzer",
+  "command": "C:\\Users\\gav\\Documents\\emsdk\\upstream\\emscripten\\em++.bat -c C:\\Users\\gav\\Documents\\specula-pl\\src\\LexicalAnalyzer\\LexerFileWriter.cpp  @CMakeFiles/specula-lexer.dir/includes_CXX.rsp -std=gnu++23 -o CMakeFiles\\specula-lexer.dir\\LexerFileWriter.cpp.o -fPIC",
+  "file": "C:/Users/gav/Documents/specula-pl/src/LexicalAnalyzer/LexerFileWriter.cpp",
+  "output": "src/LexicalAnalyzer/CMakeFiles/specula-lexer.dir/LexerFileWriter.cpp.o"
+},
+{
+  "directory": "C:/Users/gav/Documents/specula-pl/build-wasm/src/LexicalAnalyzer",
+  "command": "C:\\Users\\gav\\Documents\\emsdk\\upstream\\emscripten\\em++.bat -c C:\\Users\\gav\\Documents\\specula-pl\\src\\LexicalAnalyzer\\TokenJsonSerializer.cpp  @CMakeFiles/specula-lexer.dir/includes_CXX.rsp -std=gnu++23 -o CMakeFiles\\specula-lexer.dir\\TokenJsonSerializer.cpp.o -fPIC",
+  "file": "C:/Users/gav/Documents/specula-pl/src/LexicalAnalyzer/TokenJsonSerializer.cpp",
+  "output": "src/LexicalAnalyzer/CMakeFiles/specula-lexer.dir/TokenJsonSerializer.cpp.o"
+},
+{
+  "directory": "C:/Users/gav/Documents/specula-pl/build-wasm/src/LexicalAnalyzer",
+  "command": "C:\\Users\\gav\\Documents\\emsdk\\upstream\\emscripten\\em++.bat -c C:\\Users\\gav\\Documents\\specula-pl\\src\\LexicalAnalyzer\\Tokens.cpp  @CMakeFiles/specula-lexer.dir/includes_CXX.rsp -std=gnu++23 -o CMakeFiles\\specula-lexer.dir\\Tokens.cpp.o -fPIC",
+  "file": "C:/Users/gav/Documents/specula-pl/src/LexicalAnalyzer/Tokens.cpp",
+  "output": "src/LexicalAnalyzer/CMakeFiles/specula-lexer.dir/Tokens.cpp.o"
+},
+{
+  "directory": "C:/Users/gav/Documents/specula-pl/build-wasm/tests",
+  "command": "C:\\Users\\gav\\Documents\\emsdk\\upstream\\emscripten\\em++.bat -c C:\\Users\\gav\\Documents\\specula-pl\\tests\\LexerTests.cpp  @CMakeFiles/specula-unit-tests.dir/includes_CXX.rsp -std=gnu++23 -o CMakeFiles\\specula-unit-tests.dir\\LexerTests.cpp.o -fPIC",
+  "file": "C:/Users/gav/Documents/specula-pl/tests/LexerTests.cpp",
+  "output": "tests/CMakeFiles/specula-unit-tests.dir/LexerTests.cpp.o"
+}
+]

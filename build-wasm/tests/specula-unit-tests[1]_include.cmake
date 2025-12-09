@@ -1,0 +1,5 @@
+if(EXISTS "C:/Users/gav/Documents/specula-pl/build-wasm/tests/specula-unit-tests[1]_tests.cmake")
+  include("C:/Users/gav/Documents/specula-pl/build-wasm/tests/specula-unit-tests[1]_tests.cmake")
+else()
+  add_test(specula-unit-tests_NOT_BUILT specula-unit-tests_NOT_BUILT)
+endif()

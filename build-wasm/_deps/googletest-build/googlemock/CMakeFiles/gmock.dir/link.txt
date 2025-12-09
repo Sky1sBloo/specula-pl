@@ -1,0 +1,2 @@
+C:\Users\gav\Documents\emsdk\upstream\emscripten\emar.bat qc ..\..\..\lib\libgmock.a "CMakeFiles/gmock.dir/src/gmock-all.cc.o"
+C:\Users\gav\Documents\emsdk\upstream\emscripten\emranlib.bat ..\..\..\lib\libgmock.a

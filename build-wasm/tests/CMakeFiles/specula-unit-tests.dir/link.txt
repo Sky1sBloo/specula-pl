@@ -1,0 +1,1 @@
+C:\Users\gav\Documents\emsdk\upstream\emscripten\em++.bat @CMakeFiles\specula-unit-tests.dir\objects1.rsp -o specula-unit-tests.js @CMakeFiles\specula-unit-tests.dir\linkLibs.rsp
