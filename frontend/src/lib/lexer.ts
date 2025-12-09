@@ -19,9 +19,14 @@ const resolveModule = async (): Promise<LexerWasmModule> => {
 
 export const tokenizeSource = async (source: string): Promise<LexerPayload> => {
   const module = await resolveModule();
-  const result = module.tokenize(source);
-  if (typeof result === 'string') {
-    return JSON.parse(result) as LexerPayload;
+  try {
+    const result = module.tokenize(source);
+    if (typeof result === 'string') {
+      return JSON.parse(result) as LexerPayload;
+    }
+    return result as LexerPayload;
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : 'Lexer runtime failure.';
+    throw new Error(`Unable to tokenize source: ${detail}`);
   }
-  return result as LexerPayload;
 };
