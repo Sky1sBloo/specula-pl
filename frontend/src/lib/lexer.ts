@@ -8,7 +8,8 @@ let modulePromise: Promise<LexerWasmModule> | null = null;
 
 const resolveModule = async (): Promise<LexerWasmModule> => {
   if (!modulePromise) {
-    const moduleUrl = new URL('/wasm/lexer.js', window.location.origin).toString();
+    const baseUrl = new URL(import.meta.env.BASE_URL ?? '/', window.location.origin);
+    const moduleUrl = new URL('wasm/lexer.js', baseUrl).toString();
     modulePromise = import(/* @vite-ignore */ moduleUrl)
       .then((factory: any) => factory.default ?? factory)
       .then((createModule: any) => createModule());
