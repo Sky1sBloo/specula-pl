@@ -1,2 +1,0 @@
-C:\Users\gav\Documents\emsdk\upstream\emscripten\emar.bat qc ..\..\..\lib\libgtest_main.a CMakeFiles/gtest_main.dir/src/gtest_main.cc.o
-C:\Users\gav\Documents\emsdk\upstream\emscripten\emranlib.bat ..\..\..\lib\libgtest_main.a

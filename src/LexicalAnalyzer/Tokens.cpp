@@ -77,6 +77,8 @@ const std::unordered_map<TokenType, std::string, TokenTypeHash> tokenTypeToStrin
     { TokenType::OP_PERIOD, "OP_PERIOD" },
 
     { TokenType::OP_EQ_COMP, "OP_EQ_COMP" },
+    { TokenType::OP_EQ_LESS, "OP_EQ_LESS" },
+    { TokenType::OP_EQ_GREATER, "OP_EQ_GREATER" },
     { TokenType::OP_PLUS_EQ, "OP_PLUS_EQ" },
     { TokenType::OP_MINUS_EQ, "OP_MINUS_EQ" },
     { TokenType::OP_MULT_EQ, "OP_MULT_EQ" },

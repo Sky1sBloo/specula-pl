@@ -1,2 +1,0 @@
-C:\Users\gav\Documents\emsdk\upstream\emscripten\emar.bat qc ..\..\..\lib\libgtest.a "CMakeFiles/gtest.dir/src/gtest-all.cc.o"
-C:\Users\gav\Documents\emsdk\upstream\emscripten\emranlib.bat ..\..\..\lib\libgtest.a
