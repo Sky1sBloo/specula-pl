@@ -157,7 +157,7 @@ export const lineNumberColumnStyle: CSSProperties = {
     background: 'rgba(1,3,20,0.85)',
     color: palette.muted,
     fontFamily: "'JetBrains Mono', 'Space Grotesk', monospace",
-    fontSize: '0.85rem',
+    fontSize: '0.95rem',
     padding: '18px 12px',
     textAlign: 'right',
     borderRight: '1px solid rgba(255,255,255,0.08)',
