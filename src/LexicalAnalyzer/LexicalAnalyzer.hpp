@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include <vector>
 
+#include "ErrorLines.hpp"
 #include "Tokens.hpp"
 
 struct Token {
@@ -84,11 +85,13 @@ private:
     char mToRead;
     std::string mLexeme; // to be appended by build tokens
 
-    std::string mInvalidStateMsg;
     int mLine;
     int mCharPos;
 
     std::vector<Token> mTokens;
+    std::vector<ErrorLines> mErrors;
+
+
     static const std::unordered_map<std::string_view, TokenType> mOperators;
     static const std::unordered_map<char, TokenType> mDelimeters;
     static const std::unordered_map<std::string_view, TokenType> mKeywords;
@@ -108,6 +111,7 @@ private:
 
     // State functions
     HandleStateResult handleStartState();
+    HandleStateResult handleInvalidState();
     HandleStateResult handleDelimeterState();
     HandleStateResult handleExpectDelimeterState();
     HandleStateResult handleIdentifierState();
@@ -141,7 +145,7 @@ private:
     void saveToken(TokenType type);
 
     // Used for throwing an error
-    HandleStateResult setStateInvalid(std::string_view message);
+    HandleStateResult setStateInvalid(std::string message);
 
     bool isValidIdentifier(char c);
     void finalizeIdentifier();

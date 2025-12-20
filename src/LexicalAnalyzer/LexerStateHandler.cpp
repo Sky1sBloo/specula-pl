@@ -17,39 +17,45 @@ void LexicalAnalyzer::flushLeftoverLexeme()
     case LexerState::NUM_START:
         if (!mLexeme.empty())
             saveToken(TokenType::L_INT);
+        saveToken(TokenType::UNKNOWN);
         break;
     case LexerState::DECIMAL_REACHED:
         if (!mLexeme.empty()) {
             if (mLexeme.ends_with('.')) {
-                throw LexerError("Double is not ended");
+                setStateInvalid("Double is not ended");
             }
             saveToken(TokenType::L_DOUBLE);
+            saveToken(TokenType::UNKNOWN);
         }
         break;
     case LexerState::FLOAT:
         if (!mLexeme.empty())
             saveToken(TokenType::L_FLOAT);
+        saveToken(TokenType::UNKNOWN);
         break;
     case LexerState::CHAR_START:
-        throw LexerError("Char is not ended", mLine, mCharPos);
+        setStateInvalid("Char is not ended");
         break;
     case LexerState::CHAR_END:
         if (!mLexeme.empty())
-            throw LexerError("Char is not ended", mLine, mCharPos);
+            setStateInvalid("Char is not ended");
+        saveToken(TokenType::UNKNOWN);
         break;
     case LexerState::CHAR_ESCAPE_CHAR:
         if (!mLexeme.empty()) {
             handleCharEscapeCharState();
         } else {
-            throw LexerError("Character escape not ended", mLine, mCharPos);
+            setStateInvalid("Character escape not ended");
+            saveToken(TokenType::UNKNOWN);
         }
         break;
     case LexerState::STRING_START:
-        throw LexerError("String not ended", mLine, mCharPos);
+        setStateInvalid("String not ended");
         break;
     case LexerState::STRING:
         if (mToRead != '"') {
-            throw LexerError("String not ended", mLine, mCharPos);
+            setStateInvalid("String not ended");
+            saveToken(TokenType::UNKNOWN);
         }
         handleStringState();
         break;
@@ -57,7 +63,8 @@ void LexicalAnalyzer::flushLeftoverLexeme()
         if (!mLexeme.empty()) {
             handleStringEscapeCharState();
         } else {
-            throw LexerError("Character escape not ended", mLine, mCharPos);
+            setStateInvalid("Character escape not ended");
+            saveToken(TokenType::UNKNOWN);
         }
         break;
     case LexerState::OP_INCREMENTABLE:
@@ -80,10 +87,7 @@ void LexicalAnalyzer::flushLeftoverLexeme()
     case LexerState::MULTILINE_COMMENT_END:
         return;
     case LexerState::INVALID:
-        if (mInvalidStateMsg.empty()) {
-            mInvalidStateMsg = "Unknown: (possibly undefined symbol)";
-        }
-        throw LexerError(mInvalidStateMsg, mLine, mCharPos);
+        saveToken(TokenType::UNKNOWN);
     default:
         break;
     }
@@ -147,8 +151,8 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleState()
     case LexerState::MULTILINE_COMMENT_END:
         return handleMultilineCommentEndState();
     case LexerState::INVALID:
-        throw LexerError(mInvalidStateMsg, mLine, mCharPos);
-        break;
+        return handleInvalidState();
+        // throw LexerError(mInvalidStateMsg, mLine, mCharPos);
     }
 
     return HandleStateResult::CONTINUE;
@@ -177,6 +181,18 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleStartState()
     }
 
     return setStateInvalid("Unrecognized initial character");
+}
+
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleInvalidState()
+{
+    bool isDelimeter = getDelimeter(mToRead).has_value();
+    if (!isDelimeter) {
+        mLexeme.push_back(mToRead);
+        return HandleStateResult::CONTINUE;
+    }
+    saveToken(TokenType::UNKNOWN);
+    mCurrentState = LexerState::DELIMETER;
+    return HandleStateResult::REPROCESS;
 }
 
 LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleDelimeterState()

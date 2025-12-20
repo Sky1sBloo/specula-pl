@@ -1,11 +1,13 @@
+#include "ErrorLines.hpp"
 #include "LexicalAnalyzer.hpp"
 #include "Tokens.hpp"
 #include <stdexcept>
+#include <string>
 
-LexicalAnalyzer::HandleStateResult LexicalAnalyzer::setStateInvalid(std::string_view message)
+LexicalAnalyzer::HandleStateResult LexicalAnalyzer::setStateInvalid(std::string message)
 {
     mCurrentState = LexerState::INVALID;
-    mInvalidStateMsg = message;
+    mErrors.push_back(ErrorLines { message, mCharPos, mLine });
     return HandleStateResult::REPROCESS;
 }
 
