@@ -72,12 +72,12 @@ public:
      * @param line Used for error handling
      *
      * @throws LexerError
-    */
+     */
     void buildTokens(std::string_view text, int line = -1);
 
     /**
      * Gets the tokens from the processed string
-    */
+     */
     const std::vector<Token>& getTokens() const { return mTokens; }
 
 private:
@@ -91,10 +91,10 @@ private:
     std::vector<Token> mTokens;
     std::vector<ErrorLines> mErrors;
 
-
     static const std::unordered_map<std::string_view, TokenType> mOperators;
     static const std::unordered_map<char, TokenType> mDelimeters;
     static const std::unordered_map<std::string_view, TokenType> mKeywords;
+    static constexpr std::array<char, 2> mForceStringEscape = { '\n', '\r' }; // characters that force string to terminate
     static constexpr std::array<char, 11> escapeChar = { '\'', '"', '\\', '?', 'a', 'b', 'f', 'n', 'r', 't', 'v' };
 
     enum class HandleStateResult {

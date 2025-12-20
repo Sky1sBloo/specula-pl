@@ -331,10 +331,16 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleCharStartState()
 
     if (mToRead == '\'') {
         return setStateInvalid("Character is empty");
-    } else {
-        mLexeme.push_back(mToRead);
-        mCurrentState = LexerState::CHAR_END;
     }
+
+    for (char newLine : mForceStringEscape) {
+        if (newLine == mToRead) {
+            setStateInvalid("New line before string close");
+        }
+    }
+
+    mLexeme.push_back(mToRead);
+    mCurrentState = LexerState::CHAR_END;
 
     return HandleStateResult::CONTINUE;
 }
@@ -376,6 +382,12 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleStringState()
     if (mToRead == '\\') {
         mCurrentState = LexerState::STRING_ESCAPE_CHAR;
         return HandleStateResult::CONTINUE;
+    }
+    // check if it contains newline
+    for (char newLine : mForceStringEscape) {
+        if (newLine == mToRead) {
+            setStateInvalid("New line before string close");
+        }
     }
     mLexeme.push_back(mToRead);
     mCurrentState = LexerState::STRING;
