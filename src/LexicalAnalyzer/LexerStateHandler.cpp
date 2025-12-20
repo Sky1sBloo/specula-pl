@@ -16,19 +16,19 @@ void LexicalAnalyzer::flushLeftoverLexeme()
     }
     case LexerState::NUM_START:
         if (!mLexeme.empty())
-            saveToken(TokenType::LITERAL_INT);
+            saveToken(TokenType::L_INT);
         break;
     case LexerState::DECIMAL_REACHED:
         if (!mLexeme.empty()) {
             if (mLexeme.ends_with('.')) {
                 throw LexerError("Double is not ended");
             }
-            saveToken(TokenType::LITERAL_DOUBLE);
+            saveToken(TokenType::L_DOUBLE);
         }
         break;
     case LexerState::FLOAT:
         if (!mLexeme.empty())
-            saveToken(TokenType::LITERAL_FLOAT);
+            saveToken(TokenType::L_FLOAT);
         break;
     case LexerState::CHAR_START:
         throw LexerError("Char is not ended", mLine, mCharPos);
@@ -270,7 +270,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleNumStartState()
     } else {
         return setStateInvalid("Integer state does not recognize character: " + std::string { mToRead });
     }
-    saveToken(TokenType::LITERAL_INT);
+    saveToken(TokenType::L_INT);
     return HandleStateResult::REPROCESS;
 }
 
@@ -291,7 +291,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleDecimalState()
     } else {
         return setStateInvalid("Decimal state does not recognize character: " + std::string { mToRead });
     }
-    saveToken(TokenType::LITERAL_DOUBLE);
+    saveToken(TokenType::L_DOUBLE);
     return HandleStateResult::REPROCESS;
 }
 
@@ -301,7 +301,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleFloatState()
         return setStateInvalid("Float state postfix is not f");
     }
     mLexeme.push_back(mToRead);
-    saveToken(TokenType::LITERAL_FLOAT);
+    saveToken(TokenType::L_FLOAT);
     mCurrentState = LexerState::EXPECT_DELIMETER;
     return HandleStateResult::CONTINUE;
 }
@@ -328,7 +328,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleCharEndState()
     if (mToRead != '\'') {
         return setStateInvalid("Character length is more than 1");
     }
-    saveToken(TokenType::LITERAL_CHAR);
+    saveToken(TokenType::L_CHAR);
     mCurrentState = LexerState::START;
     return HandleStateResult::CONTINUE;
 }
@@ -353,7 +353,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleCharEscapeCharState()
 LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleStringState()
 {
     if (mToRead == '"') {
-        saveToken(TokenType::LITERAL_STRING);
+        saveToken(TokenType::L_STRING);
         mCurrentState = LexerState::START;
         return HandleStateResult::CONTINUE;
     }
@@ -415,7 +415,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpState()
     }
     case '^':
         mLexeme.push_back(mToRead);
-        saveToken(TokenType::OP_BITWISE_XOR);
+        saveToken(TokenType::OP_BITW_XOR);
         return HandleStateResult::CONTINUE;
     case '!':
         mLexeme.push_back(mToRead);
@@ -435,7 +435,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpEqualsNextState()
         TokenType newToken;
         switch (mLexeme[0]) {
         case '=':
-            newToken = TokenType::OP_EQ_COMP;
+            newToken = TokenType::OP_REL_EQ;
             break;
         case '+':
             newToken = TokenType::OP_PLUS_EQ;
@@ -488,7 +488,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleIncrementableState()
         return HandleStateResult::REPROCESS;
     } else if (mToRead == incrementChar) {
         mLexeme.push_back(mToRead);
-        TokenType incrementToken = isPrevAdd ? TokenType::OP_INCREMENT : TokenType::OP_DECREMENT;
+        TokenType incrementToken = isPrevAdd ? TokenType::OP_INCR : TokenType::OP_DECR;
         saveToken(incrementToken);
         resetState();
         return HandleStateResult::CONTINUE;
@@ -557,7 +557,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpLessThanState()
     switch (mToRead) {
     case '=': {
         mLexeme.push_back(mToRead);
-        saveToken(TokenType::OP_EQ_LESS);
+        saveToken(TokenType::OP_REL_LESS_EQ);
         return HandleStateResult::CONTINUE;
     }
     case '-': {
@@ -566,12 +566,12 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpLessThanState()
         return HandleStateResult::CONTINUE;
     case '<': {
         mLexeme.push_back(mToRead);
-        saveToken(TokenType::OP_LEFT_SHIFT);
+        saveToken(TokenType::OP_SHIFT_L);
         return HandleStateResult::CONTINUE;
     }
     }
     }
-    saveToken(TokenType::OP_LESS);
+    saveToken(TokenType::OP_REL_LESS);
     return HandleStateResult::REPROCESS;
 }
 
@@ -580,16 +580,16 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpGreaterThanState()
     switch (mToRead) {
     case '=': {
         mLexeme.push_back(mToRead);
-        saveToken(TokenType::OP_EQ_LESS);
+        saveToken(TokenType::OP_REL_GREATER_EQ);
         return HandleStateResult::CONTINUE;
     }
     case '>': {
         mLexeme.push_back(mToRead);
-        saveToken(TokenType::OP_RIGHT_SHIFT);
+        saveToken(TokenType::OP_SHIFT_R);
         return HandleStateResult::CONTINUE;
     }
     }
-    saveToken(TokenType::OP_GREATER);
+    saveToken(TokenType::OP_REL_GREATER);
     return HandleStateResult::REPROCESS;
 }
 
