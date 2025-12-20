@@ -26,9 +26,9 @@ void LexicalAnalyzer::finalizeIdentifier()
     if (keyword.has_value()) {
         saveToken(keyword.value());
     } else if (isBoolean) {
-        saveToken(TokenType::LITERAL_BOOL);
+        saveToken(TokenType::L_BOOL);
     } else {
-        saveToken(TokenType::IDENTIFIER);
+        saveToken(TokenType::IDENT);
     }
 }
 
@@ -46,11 +46,11 @@ void LexicalAnalyzer::finalizeIdentifierDash()
         std::string leftIdent = mLexeme.substr(0, pos);
         std::string rightIdent = mLexeme.substr(pos + 1);
         if (!leftIdent.empty()) {
-            mTokens.push_back({ TokenType::IDENTIFIER, leftIdent });
+            mTokens.push_back({ TokenType::IDENT, leftIdent });
         }
         mTokens.push_back({ TokenType::OP_MINUS, "-" });
         if (!rightIdent.empty()) {
-            mTokens.push_back({ TokenType::IDENTIFIER, rightIdent });
+            mTokens.push_back({ TokenType::IDENT, rightIdent });
         }
         mLexeme.clear();
     }
@@ -113,15 +113,15 @@ TokenType LexicalAnalyzer::getSingleOperatorToken(char c)
     case '.':
         return TokenType::OP_PERIOD;
     case '<':
-        return TokenType::OP_LESS;
+        return TokenType::OP_REL_LESS;
     case '>':
-        return TokenType::OP_GREATER;
+        return TokenType::OP_REL_GREATER;
     case '&':
-        return TokenType::OP_BITWISE_AND;
+        return TokenType::OP_BITW_AND;
     case '|':
-        return TokenType::OP_BITWISE_OR;
+        return TokenType::OP_BITW_OR;
     case '^':
-        return TokenType::OP_BITWISE_XOR;
+        return TokenType::OP_BITW_XOR;
     case '!':
         return TokenType::OP_NOT;
     }

@@ -5,15 +5,15 @@
 #include <string>
 
 enum class TokenType {
-    LITERAL_INT,
-    LITERAL_FLOAT,
-    LITERAL_DOUBLE,
-    LITERAL_CHAR,
-    LITERAL_STRING,
-    LITERAL_BOOL,
-    LITERAL_URL,
-    LITERAL_PORT,
-    LITERAL_NULL,
+    L_INT,
+    L_FLOAT,
+    L_DOUBLE,
+    L_CHAR,
+    L_STRING,
+    L_BOOL,
+    L_URL,
+    L_PORT,
+    L_NULL,
 
     K_LET,
     K_TYPE,
@@ -82,46 +82,46 @@ enum class TokenType {
     OP_MOD,
     OP_PERIOD,
 
-    OP_EQ_COMP,
-    OP_EQ_LESS,
-    OP_EQ_GREATER,
+    OP_REL_EQ,
+    OP_REL_LESS_EQ,
+    OP_REL_GREATER_EQ,
+    OP_REL_LESS,
+    OP_REL_GREATER,
+
     OP_PLUS_EQ,
     OP_MINUS_EQ,
     OP_MULT_EQ,
     OP_DIV_EQ,
     OP_MOD_EQ,
 
-    OP_LESS,
-    OP_GREATER,
 
     OP_AND,
     OP_OR,
     OP_NOT,
 
-    OP_BITWISE_AND,
-    OP_BITWISE_OR,
-    OP_BITWISE_XOR,
+    OP_BITW_AND,
+    OP_BITW_OR,
+    OP_BITW_XOR,
 
-    OP_LEFT_SHIFT,
-    OP_RIGHT_SHIFT,
+    OP_SHIFT_L,
+    OP_SHIFT_R,
 
     OP_LEFT_OP,
     OP_RIGHT_OP,
     OP_BIDIR_OP,
 
-    OP_INCREMENT,
-    OP_DECREMENT,
+    OP_INCR,
+    OP_DECR,
 
-    PARENTHESIS_OPEN,
-    PARENTHESIS_CLOSE,
-    BRACKET_OPEN,
-    BRACKET_CLOSE,
-    CURLY_BRACKET_OPEN,
-    CURLY_BRACKET_CLOSE,
-
-    COLON,
-    SEMICOLON,
-    IDENTIFIER,
+    D_PAR_OP,
+    D_PAR_CLO,
+    D_BRAC_OP,
+    D_BRAC_CLO,
+    D_CBRAC_OP,
+    D_CBRAC_CLO,
+    D_COLON,
+    D_SEMICOLON,
+    IDENT,
 
     // Does not need to be included in the final vector
     NEW_LINE,
