@@ -1,6 +1,8 @@
 #pragma once
 
 #include "LexicalAnalyzer.hpp"
+#include "Tokens.hpp"
+#include <nlohmann/json.hpp>
 #include <string>
 
 /**
@@ -12,4 +14,22 @@ public:
 
 private:
     const LexicalAnalyzer& mLexer;
+    nlohmann::json mOutput;
 };
+
+inline void to_json(nlohmann::json& j, const ErrorLines& eL)
+{
+    j = {
+        { "message", eL.message },
+        { "line", eL.line },
+        { "charPos", eL.charPos }
+    };
+}
+
+inline void to_json(nlohmann::json& j, const Token& token)
+{
+    j = {
+        { "type", tokenTypeToString.at(token.type) },
+        { "value", token.value }
+    };
+}
