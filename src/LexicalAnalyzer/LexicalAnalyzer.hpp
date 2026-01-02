@@ -80,6 +80,11 @@ public:
      */
     const std::vector<Token>& getTokens() const { return mTokens; }
 
+    /**
+     * Gets all errors in tokenizing
+     */
+    const std::vector<ErrorLines>& getErrors() const { return mErrors; }
+
 private:
     LexerState mCurrentState;
     char mToRead;
