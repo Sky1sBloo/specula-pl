@@ -1,5 +1,3 @@
-FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.12.0/json.tar.xz)
-FetchContent_MakeAvailable(json)
 add_library(specula-lexer
     LexicalAnalyzer.cpp
     LexerStateHandler.cpp
@@ -12,6 +10,6 @@ add_library(specula-lexer
 )
 
 target_include_directories(specula-lexer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(specula-lexer PRIVATE nlohmann_json::nlohmann_json)
+target_link_libraries(specula-lexer PUBLIC nlohmann_json::nlohmann_json)
 target_compile_features(specula-lexer PUBLIC cxx_std_23)
 set_target_properties(specula-lexer PROPERTIES CXX_EXTENSIONS OFF)
