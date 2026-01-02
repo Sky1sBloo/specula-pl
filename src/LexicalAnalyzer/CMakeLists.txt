@@ -10,3 +10,5 @@ add_library(specula-lexer
 )
 
 target_include_directories(specula-lexer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_compile_features(specula-lexer PUBLIC cxx_std_23)
+set_target_properties(specula-lexer PROPERTIES CXX_EXTENSIONS OFF)
