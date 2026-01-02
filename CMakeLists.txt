@@ -12,7 +12,6 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 add_subdirectory(src/LexicalAnalyzer)
-add_subdirectory(src/json)
 add_executable(specula src/main.cpp)
 target_compile_features(specula PUBLIC cxx_std_23)
 target_link_libraries(specula PRIVATE specula-lexer)

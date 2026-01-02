@@ -1,6 +1,6 @@
 #include "LexerError.hpp"
-#include "LexerFileReader.hpp"
-#include "LexerFileWriter.hpp"
+#include "FileHandler/LexerFileReader.hpp"
+#include "FileHandler/LexerFileWriter.hpp"
 #include "LexicalAnalyzer.hpp"
 #include <print>
 #include <stdexcept>
