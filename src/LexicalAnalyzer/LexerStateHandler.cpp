@@ -15,30 +15,33 @@ void LexicalAnalyzer::flushLeftoverLexeme()
         break;
     }
     case LexerState::NUM_START:
-        if (!mLexeme.empty())
+        if (!mLexeme.empty()) {
             saveToken(TokenType::L_INT);
-        saveToken(TokenType::UNKNOWN);
+        }
         break;
     case LexerState::DECIMAL_REACHED:
         if (!mLexeme.empty()) {
             if (mLexeme.ends_with('.')) {
                 setStateInvalid("Double is not ended");
+                saveToken(TokenType::UNKNOWN);
             }
             saveToken(TokenType::L_DOUBLE);
         }
         break;
     case LexerState::FLOAT:
-        if (!mLexeme.empty())
+        if (!mLexeme.empty()) {
             saveToken(TokenType::L_FLOAT);
-        saveToken(TokenType::UNKNOWN);
+        }
         break;
     case LexerState::CHAR_START:
         setStateInvalid("Char is not ended");
+        saveToken(TokenType::UNKNOWN);
         break;
     case LexerState::CHAR_END:
-        if (!mLexeme.empty())
+        if (!mLexeme.empty()) {
             setStateInvalid("Char is not ended");
-        saveToken(TokenType::UNKNOWN);
+            saveToken(TokenType::UNKNOWN);
+        }
         break;
     case LexerState::CHAR_ESCAPE_CHAR:
         if (!mLexeme.empty()) {
