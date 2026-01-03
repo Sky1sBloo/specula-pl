@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include <vector>
 
+#include "ErrorLines.hpp"
 #include "Tokens.hpp"
 
 struct Token {
@@ -71,27 +72,34 @@ public:
      * @param line Used for error handling
      *
      * @throws LexerError
-    */
+     */
     void buildTokens(std::string_view text, int line = -1);
 
     /**
      * Gets the tokens from the processed string
-    */
+     */
     const std::vector<Token>& getTokens() const { return mTokens; }
+
+    /**
+     * Gets all errors in tokenizing
+     */
+    const std::vector<ErrorLines>& getErrors() const { return mErrors; }
 
 private:
     LexerState mCurrentState;
     char mToRead;
     std::string mLexeme; // to be appended by build tokens
 
-    std::string mInvalidStateMsg;
     int mLine;
     int mCharPos;
 
     std::vector<Token> mTokens;
+    std::vector<ErrorLines> mErrors;
+
     static const std::unordered_map<std::string_view, TokenType> mOperators;
     static const std::unordered_map<char, TokenType> mDelimeters;
     static const std::unordered_map<std::string_view, TokenType> mKeywords;
+    static constexpr std::array<char, 2> mForceStringEscape = { '\n', '\r' }; // characters that force string to terminate
     static constexpr std::array<char, 11> escapeChar = { '\'', '"', '\\', '?', 'a', 'b', 'f', 'n', 'r', 't', 'v' };
 
     enum class HandleStateResult {
@@ -108,6 +116,7 @@ private:
 
     // State functions
     HandleStateResult handleStartState();
+    HandleStateResult handleInvalidState();
     HandleStateResult handleDelimeterState();
     HandleStateResult handleExpectDelimeterState();
     HandleStateResult handleIdentifierState();
@@ -141,7 +150,7 @@ private:
     void saveToken(TokenType type);
 
     // Used for throwing an error
-    HandleStateResult setStateInvalid(std::string_view message);
+    HandleStateResult setStateInvalid(std::string message);
 
     bool isValidIdentifier(char c);
     void finalizeIdentifier();

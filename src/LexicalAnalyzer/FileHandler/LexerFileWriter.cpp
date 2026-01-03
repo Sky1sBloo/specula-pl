@@ -8,8 +8,18 @@ LexerFileWriter::LexerFileWriter(LexicalAnalyzer& lexer, const std::string& file
     std::filesystem::path inputPath { filePath };
     std::filesystem::path outputPath = inputPath.parent_path() / (inputPath.stem().string() + "_tokens" + inputPath.extension().string());
     std::ofstream writeFile { outputPath };
+    mOutput["file"] = {
+        {"name", inputPath.stem().string()},
+        {"type", "specula_src"}
+    };
+    mOutput["errors"] = lexer.getErrors();
+    mOutput["tokens"] = lexer.getTokens();
+    writeFile << std::setw(4) << mOutput;
+   
+    /*
     for (const Token& token : lexer.getTokens()) {
         writeFile << tokenTypeToString.at(token.type) << " | " << token.value << '\n';
-    }
+    } */
+
     writeFile.close();
 }

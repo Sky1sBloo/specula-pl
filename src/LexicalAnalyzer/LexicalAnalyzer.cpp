@@ -3,7 +3,6 @@
 
 LexicalAnalyzer::LexicalAnalyzer(std::string_view text)
     : mCurrentState(LexerState::START)
-    , mInvalidStateMsg("")
     , mLine(0)
     , mCharPos(0)
 {
@@ -12,7 +11,6 @@ LexicalAnalyzer::LexicalAnalyzer(std::string_view text)
 
 LexicalAnalyzer::LexicalAnalyzer()
     : mCurrentState(LexerState::START)
-    , mInvalidStateMsg("")
     , mLine(0)
     , mCharPos(0)
 {
@@ -22,6 +20,7 @@ void LexicalAnalyzer::reset()
 {
     resetState();
     mTokens.clear();
+    mErrors.clear();
     mLine = 0;
     mCharPos = 0;
 }

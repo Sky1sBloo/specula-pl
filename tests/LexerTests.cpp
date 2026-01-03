@@ -65,7 +65,7 @@ TEST(LEXER_TEST, IDENT_WITH_DASH)
 
 TEST(LEXER_TEST, LS)
 {
-    const std::string test = "1234 123.4 1234.f 123. false; true 'a' '\n'";
+    const std::string test = "1234 123.4 1234.f 123.5 false; true 'a' '\n'";
     LexicalAnalyzer lexer { test };
 
     const std::vector<Token>& tokens = lexer.getTokens();
@@ -151,7 +151,8 @@ TEST(LEXER_TEST, L_STR)
     const std::string expectFail[] = { "\"", "\"Test" };
     for (const std::string& str : expectFail) {
         lexer.reset();
-        EXPECT_THROW(lexer.buildTokens(str), LexerError);
+        lexer.buildTokens(str);
+        EXPECT_EQ(lexer.getErrors().size(), 1);
     }
 }
 
@@ -174,7 +175,8 @@ TEST(LEXER_TEST, ESCAPE_CHAR)
     // Should fail
     const std::string teststrfail = "\"\\";
     lexer.reset();
-    EXPECT_THROW(lexer.buildTokens(teststrfail), LexerError);
+    lexer.buildTokens(teststrfail);
+    EXPECT_EQ(lexer.getErrors().size(), 1);
 
     const std::string testChar = "'\\n' '\\\\' '\\\''";
     const std::array<Token, 3> expectedTokensChar = {
@@ -192,7 +194,8 @@ TEST(LEXER_TEST, ESCAPE_CHAR)
     }
     const std::string testCharFail = "\'\\";
     lexer.reset();
-    EXPECT_THROW(lexer.buildTokens(testCharFail), LexerError);
+    lexer.buildTokens(testCharFail);
+    EXPECT_EQ(lexer.getErrors().size(), 1);
 }
 
 TEST(LEXER_TEST, OPERATORS)
@@ -229,7 +232,7 @@ TEST(LEXER_TEST, OPERATORS)
     };
     ASSERT_EQ(tokens.size(), expectedTokens.size());
     for (const auto& [token, expectedToken] : std::views::zip(tokens, expectedTokens)) {
-        //EXPECT_EQ(tokenTypeToString.at(expectedToken), tokenTypeToString.at(token.type));
+        // EXPECT_EQ(tokenTypeToString.at(expectedToken), tokenTypeToString.at(token.type));
         EXPECT_EQ(expectedToken, token.type);
     }
 
