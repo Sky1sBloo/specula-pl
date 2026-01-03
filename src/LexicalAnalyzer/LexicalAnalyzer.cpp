@@ -20,6 +20,7 @@ void LexicalAnalyzer::reset()
 {
     resetState();
     mTokens.clear();
+    mErrors.clear();
     mLine = 0;
     mCharPos = 0;
 }
