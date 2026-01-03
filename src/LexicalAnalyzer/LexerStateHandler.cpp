@@ -25,7 +25,6 @@ void LexicalAnalyzer::flushLeftoverLexeme()
                 setStateInvalid("Double is not ended");
             }
             saveToken(TokenType::L_DOUBLE);
-            saveToken(TokenType::UNKNOWN);
         }
         break;
     case LexerState::FLOAT:
@@ -300,14 +299,24 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleDecimalState()
         mCurrentState = LexerState::FLOAT;
         return HandleStateResult::REPROCESS;
     }
+    LexerState nextState = LexerState::INVALID;
     if (isValidOperator(mToRead)) {
-        mCurrentState = LexerState::OP;
+        nextState = LexerState::OP;
     } else if (getDelimeter(mToRead).has_value()) {
-        mCurrentState = LexerState::DELIMETER;
+        nextState = LexerState::DELIMETER;
     } else {
         return setStateInvalid("Decimal state does not recognize character: " + std::string { mToRead });
     }
+    if (nextState == LexerState::INVALID) {
+        throw LexerError("Decimal state not ended");
+    }
+
+    if (mLexeme.ends_with('.')) {
+        return setStateInvalid("Decimal ends with .");
+    }
+
     saveToken(TokenType::L_DOUBLE);
+    mCurrentState = nextState;
     return HandleStateResult::REPROCESS;
 }
 
