@@ -32,6 +32,7 @@ inline void to_json(nlohmann::json& j, const Token& token)
         { "type", tokenTypeToString.at(token.type) },
         { "value", token.value },
         { "char_start", token.charStart },
-        { "char_end", token.charEnd }
+        { "char_end", token.charEnd },
+        { "line", token.line }
     };
 }

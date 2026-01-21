@@ -15,6 +15,7 @@ struct Token {
     std::string value;
     int charStart;
     int charEnd;
+    int line;
 };
 
 enum class LexerState {
