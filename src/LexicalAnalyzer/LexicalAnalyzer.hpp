@@ -13,6 +13,9 @@
 struct Token {
     TokenType type;
     std::string value;
+    int charStart;
+    int charEnd;
+    int line;
 };
 
 enum class LexerState {
@@ -92,6 +95,7 @@ private:
 
     int mLine;
     int mCharPos;
+    int mCharStart;  // saves the start of the token
 
     std::vector<Token> mTokens;
     std::vector<ErrorLines> mErrors;

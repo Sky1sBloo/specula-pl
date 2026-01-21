@@ -1,5 +1,6 @@
 #include "LexicalAnalyzer.hpp"
 #include "Tokens.hpp"
+#include <iostream>
 
 LexicalAnalyzer::LexicalAnalyzer(std::string_view text)
     : mCurrentState(LexerState::START)
@@ -33,7 +34,7 @@ void LexicalAnalyzer::resetState()
 
 void LexicalAnalyzer::saveToken(TokenType type)
 {
-    mTokens.push_back({ type, mLexeme });
+    mTokens.push_back({ type, mLexeme, mCharStart, mCharPos, mLine });
     mCurrentState = LexerState::START;
     mLexeme.clear();
 }

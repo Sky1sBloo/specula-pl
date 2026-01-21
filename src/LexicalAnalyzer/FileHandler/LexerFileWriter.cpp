@@ -16,10 +16,5 @@ LexerFileWriter::LexerFileWriter(LexicalAnalyzer& lexer, const std::string& file
     mOutput["tokens"] = lexer.getTokens();
     writeFile << std::setw(4) << mOutput;
    
-    /*
-    for (const Token& token : lexer.getTokens()) {
-        writeFile << tokenTypeToString.at(token.type) << " | " << token.value << '\n';
-    } */
-
     writeFile.close();
 }

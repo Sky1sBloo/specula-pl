@@ -162,6 +162,7 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleState()
 
 LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleStartState()
 {
+    mCharStart = mCharPos;
     if (isValidIdentifier(mToRead)) {
         mCurrentState = LexerState::IDENTIFIER;
         return HandleStateResult::REPROCESS;
