@@ -77,6 +77,7 @@ const std::unordered_map<TokenType, std::string, TokenTypeHash> tokenTypeToStrin
     { TokenType::OP_PERIOD, "OP_PERIOD" },
 
     { TokenType::OP_REL_EQ, "OP_REL_EQ" },
+    { TokenType::OP_REL_NOT_EQ, "OP_REL_NOT_EQ" },
     { TokenType::OP_REL_LESS, "OP_REL_LESS" },
     { TokenType::OP_REL_GREATER, "OP_REL_GREATER" },
     { TokenType::OP_REL_LESS_EQ, "OP_REL_LESS_EQ" },
