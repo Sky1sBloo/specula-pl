@@ -459,8 +459,8 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpState()
         saveToken(TokenType::OP_BITW_XOR);
         return HandleStateResult::CONTINUE;
     case '!':
+        mCurrentState = LexerState::OP_EQUALS_NEXT;
         mLexeme.push_back(mToRead);
-        saveToken(TokenType::OP_NOT);
         return HandleStateResult::CONTINUE;
     }
 
@@ -492,6 +492,9 @@ LexicalAnalyzer::HandleStateResult LexicalAnalyzer::handleOpEqualsNextState()
             break;
         case '%':
             newToken = TokenType::OP_MOD_EQ;
+            break;
+        case '!':
+            newToken = TokenType::OP_REL_NOT_EQ;
             break;
         }
         saveToken(newToken);
