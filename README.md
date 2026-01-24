@@ -62,7 +62,7 @@ const createLexer = () => import('./wasm/lexer.js');
 4. Cache the initialized module (React context or a simple singleton) so that subsequent calls reuse the same instance.
 
 ## Frontend UI (React)
-The GitHub Pages-ready interface lives in `frontend/` and mirrors the provided SynTA mockup with a dual-panel layout (script editor + code-block inspector).
+The GitHub Pages-ready interface lives in `frontend/` a dual-panel layout (script editor + code-block inspector).
 
 ### Prerequisites
 - Node.js 18+
