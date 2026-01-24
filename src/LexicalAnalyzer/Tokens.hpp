@@ -67,6 +67,7 @@ enum class TokenType {
     K_SHARED,
     K_VIEW,
     K_SHARE,
+    K_REF,
     K_MUT,
     K_CONST,
     K_THR_LOCAL,

@@ -50,6 +50,8 @@ const std::unordered_map<std::string_view, TokenType> LexicalAnalyzer::mKeywords
     { "own", TokenType::K_OWN },
     { "move", TokenType::K_MOVE },
     { "shared", TokenType::K_SHARED },
+    { "share", TokenType::K_SHARE },
+    { "ref", TokenType::K_REF },
     { "view", TokenType::K_VIEW },
     { "mut", TokenType::K_MUT },
     { "const", TokenType::K_CONST },
