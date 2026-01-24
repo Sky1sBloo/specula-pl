@@ -7,6 +7,7 @@ const std::unordered_map<TokenType, std::string, TokenTypeHash> tokenTypeToStrin
     { TokenType::L_CHAR, "L_CHAR" },
     { TokenType::L_STRING, "L_STRING" },
     { TokenType::L_BOOL, "L_BOOL" },
+    { TokenType::L_NULL, "L_NULL" },
 
     { TokenType::K_LET, "K_LET" },
     { TokenType::K_TYPE, "K_TYPE" },
