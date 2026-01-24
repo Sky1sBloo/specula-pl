@@ -308,15 +308,15 @@ export default function App() {
                 normalizedPayload.ok
                     ? `Lexing complete • ${tokenCount} ${descriptor}`
                     : 'Lexer reported diagnostics'
-            ); 
+            );
             if (!normalizedPayload.ok) {
                 if (!normalizedPayload.error) {
                     setErrorText("Unexpected lexer issue");
                 } else {
                     setErrorText(`Error at: ${normalizedPayload.error.line}:${normalizedPayload.error.char}\n Error: ${normalizedPayload.error.message}`);
-                } 
+                }
             }
-            setLastRunError(null); 
+            setLastRunError(null);
         },
         onError: (err: unknown) => {
             const message = err instanceof Error ? err.message : 'Unknown lexer failure.';
@@ -541,7 +541,7 @@ export default function App() {
         <div style={Styles.appShell}>
             <nav style={Styles.navStyles}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', justifySelf: 'start' }}>
-                    <div style={{ fontSize: '1.4rem', letterSpacing: '0.4em' }}>SPECULA</div>
+                    <img src="/specula-pl/wasm/assets/specula-logo_med.png" alt="Specula" style={{ height: '32px', width: 'auto' }} />
                 </div>
                 <div style={Styles.navLinksStyle}>
                     <p style={{ marginLeft: '10px' }}>Stateful  Contracts  Language  for  Safe  Systems</p>
@@ -552,10 +552,8 @@ export default function App() {
             </nav>
 
             <section style={Styles.heroCopyStyle}>
-                <div style={{ color: Styles.palette.muted, letterSpacing: '0.45em', fontSize: '0.8rem' }}>
-                WEB LEXER
-                </div>
-                <h1 style={Styles.heroTitleStyle}>S P E C U L A</h1>
+
+                <img src="/specula-pl/wasm/assets/specula.png" alt="Specula" style={{ maxWidth: '600px', height: 'auto' }} />
                 {/* <p style={heroLeadStyle}>
                     Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit. Sed Do Eiusmod Tempor Incididunt Ut
                 </p> */}
