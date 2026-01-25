@@ -27,6 +27,7 @@ const std::unordered_map<std::string_view, TokenType> LexicalAnalyzer::mKeywords
     { "import", TokenType::K_IMPORT },
     { "export", TokenType::K_EXPORT },
     { "export_default", TokenType::K_EXPORT_DEFAULT },
+    { "from", TokenType::K_FROM },
     { "contract", TokenType::K_CONTRACT },
     { "listener", TokenType::K_LISTENER },
     { "state", TokenType::K_STATE },
