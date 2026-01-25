@@ -39,6 +39,7 @@ enum class TokenType {
     K_IMPORT,
     K_EXPORT,
     K_EXPORT_DEFAULT,
+    K_FROM,
 
     K_CONTRACT,
     K_LISTENER,
