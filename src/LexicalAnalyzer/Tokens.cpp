@@ -33,6 +33,7 @@ const std::unordered_map<TokenType, std::string, TokenTypeHash> tokenTypeToStrin
     { TokenType::K_IMPORT, "K_IMPORT" },
     { TokenType::K_EXPORT, "K_EXPORT" },
     { TokenType::K_EXPORT_DEFAULT, "K_EXPORT_DEFAULT" },
+    { TokenType::K_FROM, "K_FROM" },
 
     { TokenType::K_CONTRACT, "K_CONTRACT" },
     { TokenType::K_LISTENER, "K_LISTENER" },
