@@ -48,6 +48,7 @@ enum class TokenType {
     K_FAIL,
     K_AUTO_RESET,
     K_AUTO_MOVE,
+    K_TO,
     K_ROLES,
     K_RESPOND,
     K_ON,
