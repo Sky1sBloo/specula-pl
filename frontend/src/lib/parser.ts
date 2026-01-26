@@ -1,7 +1,7 @@
 import type { LexerPayload, LexerToken } from '../types/token';
 
 // Use the Node.js backend as a proxy to avoid CORS issues
-const PARSER_API_URL = 'http://localhost:3001/parse';
+const PARSER_API_URL = import.meta.env.VITE_PARSER_API_URL || 'http://localhost:3001/parse';
 
 export interface ParserPayload {
   ok: boolean;
@@ -80,12 +80,12 @@ export const analyzeSource = async (
   }
 
   // Convert lexer errors to the format expected by parser
-  const lexerErrors = lexerPayload.error 
-    ? [{ 
-        line: lexerPayload.error.line, 
-        charPos: lexerPayload.error.char, 
-        message: lexerPayload.error.message 
-      }] 
+  const lexerErrors = lexerPayload.error
+    ? [{
+      line: lexerPayload.error.line,
+      charPos: lexerPayload.error.char,
+      message: lexerPayload.error.message
+    }]
     : [];
 
   return parseTokens(lexerPayload.tokens, lexerErrors);

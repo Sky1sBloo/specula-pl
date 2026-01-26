@@ -17,7 +17,7 @@ FROM node:18-slim
 
 WORKDIR /app
 
-# Copy compiled lexer from build stage
+# Copy compiled lexer
 COPY --from=cpp-build /app/build/specula /app/specula
 
 # Copy and install lexer server

@@ -17,11 +17,11 @@ app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 
 // Path to the C++ lexer executable
-// Windows: build/Debug/specula.exe, macOS/Linux: build/specula
+// Can be set via LEXER_EXECUTABLE env var, or defaults to local build paths
 const isWindows = process.platform === 'win32';
-const LEXER_EXECUTABLE = isWindows 
+const LEXER_EXECUTABLE = process.env.LEXER_EXECUTABLE || (isWindows
   ? path.join(__dirname, '..', 'build', 'Debug', 'specula.exe')
-  : path.join(__dirname, '..', 'build', 'specula');
+  : path.join(__dirname, '..', 'build', 'specula'));
 
 /**
  * Generate a unique temporary filename
@@ -36,8 +36,8 @@ function generateTempFilename() {
  */
 async function cleanupFiles(inputFile, outputFile) {
   try {
-    await fs.unlink(inputFile).catch(() => {});
-    await fs.unlink(outputFile).catch(() => {});
+    await fs.unlink(inputFile).catch(() => { });
+    await fs.unlink(outputFile).catch(() => { });
   } catch (error) {
     console.error('Error cleaning up temporary files:', error.message);
   }
@@ -109,7 +109,7 @@ app.post('/lex', async (req, res) => {
         if (responseSent) return;
         responseSent = true;
         await cleanupFiles(tempInputFile, tempOutputFile);
-        
+
         if (error.code === 'ENOENT') {
           return res.status(500).json({
             error: 'Lexer did not generate output file. The lexer may have encountered an error.'

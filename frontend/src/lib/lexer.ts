@@ -1,6 +1,6 @@
 import type { LexerPayload } from '../types/token';
 
-const API_URL = 'http://localhost:3001/lex';
+const API_URL = import.meta.env.VITE_LEXER_API_URL || 'http://localhost:3001/lex';
 
 /**
  * Tokenize source code by calling the REST API backend
