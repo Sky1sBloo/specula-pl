@@ -1,0 +1,14 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+*.md
+build/
+dist/
+.env
+.DS_Store
+*.log
+frontend/node_modules
+lexer/node_modules
+parser/bin
+parser/obj
