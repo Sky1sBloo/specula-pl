@@ -1,0 +1,121 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 9,
+            "char_start": 1,
+            "line": 1,
+            "type": "K_CONTRACT",
+            "value": "contract"
+        },
+        {
+            "char_end": 23,
+            "char_start": 10,
+            "line": 1,
+            "type": "IDENT",
+            "value": "EmptySections"
+        },
+        {
+            "char_end": 24,
+            "char_start": 24,
+            "line": 1,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 15,
+            "char_start": 5,
+            "line": 2,
+            "type": "K_INIT_STATE",
+            "value": "init-state"
+        },
+        {
+            "char_end": 20,
+            "char_start": 16,
+            "line": 2,
+            "type": "IDENT",
+            "value": "Idle"
+        },
+        {
+            "char_end": 20,
+            "char_start": 20,
+            "line": 2,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 10,
+            "char_start": 5,
+            "line": 3,
+            "type": "K_ROLES",
+            "value": "roles"
+        },
+        {
+            "char_end": 10,
+            "char_start": 10,
+            "line": 3,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 17,
+            "char_start": 12,
+            "line": 3,
+            "type": "IDENT",
+            "value": "Robot"
+        },
+        {
+            "char_end": 17,
+            "char_start": 17,
+            "line": 3,
+            "type": "COMMA",
+            "value": ","
+        },
+        {
+            "char_end": 29,
+            "char_start": 19,
+            "line": 3,
+            "type": "IDENT",
+            "value": "Controller"
+        },
+        {
+            "char_end": 29,
+            "char_start": 29,
+            "line": 3,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 10,
+            "char_start": 5,
+            "line": 5,
+            "type": "K_STATE",
+            "value": "state"
+        },
+        {
+            "char_end": 15,
+            "char_start": 11,
+            "line": 5,
+            "type": "IDENT",
+            "value": "Idle"
+        },
+        {
+            "char_end": 15,
+            "char_start": 15,
+            "line": 5,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 8,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        }
+    ]
+}

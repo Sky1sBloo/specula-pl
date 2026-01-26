@@ -1,0 +1,51 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 10,
+            "char_start": 1,
+            "line": 1,
+            "type": "K_AUTO_MOVE",
+            "value": "auto-move"
+        },
+        {
+            "char_end": 16,
+            "char_start": 11,
+            "line": 1,
+            "type": "K_AFTER",
+            "value": "after"
+        },
+        {
+            "char_end": 26,
+            "char_start": 17,
+            "line": 1,
+            "type": "IDENT",
+            "value": "Completed"
+        },
+        {
+            "char_end": 29,
+            "char_start": 27,
+            "line": 1,
+            "type": "K_TO",
+            "value": "to"
+        },
+        {
+            "char_end": 34,
+            "char_start": 30,
+            "line": 1,
+            "type": "IDENT",
+            "value": "Idle"
+        },
+        {
+            "char_end": 34,
+            "char_start": 34,
+            "line": 1,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        }
+    ]
+}

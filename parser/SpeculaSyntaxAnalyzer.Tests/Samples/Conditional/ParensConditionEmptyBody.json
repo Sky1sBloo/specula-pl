@@ -1,0 +1,15 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        { "char_end": 2, "char_start": 1, "line": 1, "type": "K_IF", "value": "if" },
+        { "char_end": 3, "char_start": 3, "line": 1, "type": "D_PAR_OP", "value": "(" },
+        { "char_end": 4, "char_start": 4, "line": 1, "type": "L_INT", "value": "1" },
+        { "char_end": 5, "char_start": 5, "line": 1, "type": "D_PAR_CLO", "value": ")" },
+        { "char_end": 7, "char_start": 7, "line": 1, "type": "D_CBRAC_OP", "value": "{" },
+        { "char_end": 8, "char_start": 8, "line": 1, "type": "D_CBRAC_CLO", "value": "}" }
+    ]
+}

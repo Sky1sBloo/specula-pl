@@ -1,0 +1,30 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testfile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 1,
+            "type": "D_BRAC_OP",
+            "value": "["
+        },
+        {
+            "char_end": 14,
+            "char_start": 2,
+            "line": 1,
+            "type": "IDENT",
+            "value": "randomstring"
+        },
+        {
+            "char_end": 14,
+            "char_start": 14,
+            "line": 1,
+            "type": "D_BRAC_CLO",
+            "value": "]"
+        }
+    ]
+}

@@ -1,0 +1,212 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 4,
+            "char_start": 1,
+            "line": 1,
+            "type": "K_FOR",
+            "value": "for"
+        },
+        {
+            "char_end": 5,
+            "char_start": 5,
+            "line": 1,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 7,
+            "char_start": 6,
+            "line": 1,
+            "type": "IDENT",
+            "value": "i"
+        },
+        {
+            "char_end": 9,
+            "char_start": 8,
+            "line": 1,
+            "type": "OP_EQUALS",
+            "value": "="
+        },
+        {
+            "char_end": 11,
+            "char_start": 10,
+            "line": 1,
+            "type": "L_INT",
+            "value": "0"
+        },
+        {
+            "char_end": 11,
+            "char_start": 11,
+            "line": 1,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 14,
+            "char_start": 13,
+            "line": 1,
+            "type": "IDENT",
+            "value": "i"
+        },
+        {
+            "char_end": 16,
+            "char_start": 15,
+            "line": 1,
+            "type": "OP_REL_LESS",
+            "value": "<"
+        },
+        {
+            "char_end": 19,
+            "char_start": 17,
+            "line": 1,
+            "type": "L_INT",
+            "value": "10"
+        },
+        {
+            "char_end": 19,
+            "char_start": 19,
+            "line": 1,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 22,
+            "char_start": 21,
+            "line": 1,
+            "type": "IDENT",
+            "value": "i"
+        },
+        {
+            "char_end": 24,
+            "char_start": 23,
+            "line": 1,
+            "type": "OP_EQUALS",
+            "value": "="
+        },
+        {
+            "char_end": 26,
+            "char_start": 25,
+            "line": 1,
+            "type": "IDENT",
+            "value": "i"
+        },
+        {
+            "char_end": 28,
+            "char_start": 27,
+            "line": 1,
+            "type": "OP_PLUS",
+            "value": "+"
+        },
+        {
+            "char_end": 30,
+            "char_start": 29,
+            "line": 1,
+            "type": "L_INT",
+            "value": "1"
+        },
+        {
+            "char_end": 30,
+            "char_start": 30,
+            "line": 1,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 32,
+            "char_start": 32,
+            "line": 1,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 8,
+            "char_start": 5,
+            "line": 2,
+            "type": "K_LET",
+            "value": "let"
+        },
+        {
+            "char_end": 10,
+            "char_start": 9,
+            "line": 2,
+            "type": "IDENT",
+            "value": "x"
+        },
+        {
+            "char_end": 12,
+            "char_start": 11,
+            "line": 2,
+            "type": "OP_EQUALS",
+            "value": "="
+        },
+        {
+            "char_end": 14,
+            "char_start": 13,
+            "line": 2,
+            "type": "L_INT",
+            "value": "2"
+        },
+        {
+            "char_end": 16,
+            "char_start": 15,
+            "line": 2,
+            "type": "OP_PLUS",
+            "value": "+"
+        },
+        {
+            "char_end": 17,
+            "char_start": 17,
+            "line": 2,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 19,
+            "char_start": 18,
+            "line": 2,
+            "type": "L_INT",
+            "value": "5"
+        },
+        {
+            "char_end": 21,
+            "char_start": 20,
+            "line": 2,
+            "type": "OP_MULT",
+            "value": "*"
+        },
+        {
+            "char_end": 23,
+            "char_start": 22,
+            "line": 2,
+            "type": "L_INT",
+            "value": "2"
+        },
+        {
+            "char_end": 23,
+            "char_start": 23,
+            "line": 2,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 24,
+            "char_start": 24,
+            "line": 2,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 3,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        }
+    ]
+}

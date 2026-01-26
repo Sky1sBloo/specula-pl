@@ -1,0 +1,22 @@
+{
+    "file": {
+        "name": "test",
+        "type": "specula_src"
+    },
+    "errors": [],
+    "tokens": [
+        { "line": 1, "char_start": 0, "char_end": 1, "type": "IDENT", "value": "a" },
+        { "line": 1, "char_start": 3, "char_end": 4, "type": "OP_PLUS", "value": "+" },
+        { "line": 1, "char_start": 5, "char_end": 6, "type": "IDENT", "value": "b" },
+        { "line": 1, "char_start": 7, "char_end": 8, "type": "OP_MINUS", "value": "-" },
+        { "line": 1, "char_start": 9, "char_end": 18, "type": "IDENT", "value": "testStruct" },
+        { "line": 1, "char_start": 19, "char_end": 20, "type": "D_CBRAC_OP", "value": "{" },
+        { "line": 1, "char_start": 21, "char_end": 22, "type": "IDENT", "value": "x" },
+        { "line": 1, "char_start": 22, "char_end": 23, "type": "D_COLON", "value": ":" },
+        { "line": 1, "char_start": 24, "char_end": 25, "type": "L_INT", "value": "5" },
+        { "line": 1, "char_start": 25, "char_end": 26, "type": "COMMA", "value": "," },
+        { "line": 1, "char_start": 27, "char_end": 28, "type": "IDENT", "value": "x" },
+        { "line": 1, "char_start": 28, "char_end": 29, "type": "D_CBRAC_CLO", "value": "}" },
+        { "line": 1, "char_start": 29, "char_end": 30, "type": "D_SEMICOLON", "value": ";" }
+    ]
+}

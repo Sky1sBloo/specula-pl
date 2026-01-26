@@ -1,0 +1,44 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 1,
+            "type": "D_BRAC_OP",
+            "value": "["
+        },
+        {
+            "char_end": 12,
+            "char_start": 2,
+            "line": 1,
+            "type": "IDENT",
+            "value": "Controller"
+        },
+        {
+            "char_end": 14,
+            "char_start": 13,
+            "line": 1,
+            "type": "OP_RIGHT_OP",
+            "value": "->"
+        },
+        {
+            "char_end": 21,
+            "char_start": 16,
+            "line": 1,
+            "type": "IDENT",
+            "value": "Robot"
+        },
+        {
+            "char_end": 21,
+            "char_start": 21,
+            "line": 1,
+            "type": "D_BRAC_CLO",
+            "value": "]"
+        }
+    ]
+}

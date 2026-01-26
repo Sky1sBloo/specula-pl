@@ -1,0 +1,233 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 9,
+            "char_start": 1,
+            "line": 42,
+            "type": "K_LISTENER",
+            "value": "listener"
+        },
+        {
+            "char_end": 16,
+            "char_start": 10,
+            "line": 42,
+            "type": "K_TARGET",
+            "value": "target"
+        },
+        {
+            "char_end": 16,
+            "char_start": 16,
+            "line": 42,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 23,
+            "char_start": 17,
+            "line": 42,
+            "type": "IDENT",
+            "value": "server"
+        },
+        {
+            "char_end": 24,
+            "char_start": 23,
+            "line": 42,
+            "type": "OP_PERIOD",
+            "value": "."
+        },
+        {
+            "char_end": 27,
+            "char_start": 24,
+            "line": 42,
+            "type": "IDENT",
+            "value": "url"
+        },
+        {
+            "char_end": 27,
+            "char_start": 27,
+            "line": 42,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 34,
+            "char_start": 29,
+            "line": 42,
+            "type": "K_USING",
+            "value": "using"
+        },
+        {
+            "char_end": 51,
+            "char_start": 35,
+            "line": 42,
+            "type": "IDENT",
+            "value": "BackgroundWorker"
+        },
+        {
+            "char_end": 54,
+            "char_start": 52,
+            "line": 42,
+            "type": "K_AS",
+            "value": "as"
+        },
+        {
+            "char_end": 61,
+            "char_start": 55,
+            "line": 42,
+            "type": "IDENT",
+            "value": "Worker"
+        },
+        {
+            "char_end": 62,
+            "char_start": 62,
+            "line": 42,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 11,
+            "char_start": 5,
+            "line": 43,
+            "type": "K_THREAD",
+            "value": "thread"
+        },
+        {
+            "char_end": 19,
+            "char_start": 12,
+            "line": 43,
+            "type": "IDENT",
+            "value": "monitor"
+        },
+        {
+            "char_end": 19,
+            "char_start": 19,
+            "line": 43,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 20,
+            "char_start": 20,
+            "line": 43,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 22,
+            "char_start": 22,
+            "line": 43,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 14,
+            "char_start": 9,
+            "line": 44,
+            "type": "K_WHILE",
+            "value": "while"
+        },
+        {
+            "char_end": 15,
+            "char_start": 15,
+            "line": 44,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 20,
+            "char_start": 16,
+            "line": 44,
+            "type": "L_BOOL",
+            "value": "true"
+        },
+        {
+            "char_end": 20,
+            "char_start": 20,
+            "line": 44,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 22,
+            "char_start": 22,
+            "line": 44,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 16,
+            "char_start": 13,
+            "line": 45,
+            "type": "K_LET",
+            "value": "let"
+        },
+        {
+            "char_end": 23,
+            "char_start": 17,
+            "line": 45,
+            "type": "IDENT",
+            "value": "status"
+        },
+        {
+            "char_end": 25,
+            "char_start": 24,
+            "line": 45,
+            "type": "OP_EQUALS",
+            "value": "="
+        },
+        {
+            "char_end": 37,
+            "char_start": 26,
+            "line": 45,
+            "type": "IDENT",
+            "value": "checkHealth"
+        },
+        {
+            "char_end": 37,
+            "char_start": 37,
+            "line": 45,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 38,
+            "char_start": 38,
+            "line": 45,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 39,
+            "char_start": 39,
+            "line": 45,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 9,
+            "char_start": 9,
+            "line": 46,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        },
+        {
+            "char_end": 5,
+            "char_start": 5,
+            "line": 47,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        },
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 48,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        }
+    ]
+}

@@ -1,0 +1,51 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 1,
+            "type": "D_BRAC_OP",
+            "value": "["
+        },
+        {
+            "char_end": 8,
+            "char_start": 2,
+            "line": 1,
+            "type": "K_SHARED",
+            "value": "shared"
+        },
+        {
+            "char_end": 8,
+            "char_start": 8,
+            "line": 1,
+            "type": "D_BRAC_OP",
+            "value": "["
+        },
+        {
+            "char_end": 15,
+            "char_start": 9,
+            "line": 1,
+            "type": "K_SHARED",
+            "value": "shared"
+        },
+        {
+            "char_end": 15,
+            "char_start": 15,
+            "line": 1,
+            "type": "D_BRAC_CLO",
+            "value": "]"
+        },
+        {
+            "char_end": 16,
+            "char_start": 16,
+            "line": 1,
+            "type": "D_BRAC_CLO",
+            "value": "]"
+        }
+    ]
+}

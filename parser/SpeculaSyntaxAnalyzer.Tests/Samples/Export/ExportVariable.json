@@ -1,0 +1,79 @@
+{
+  "errors": [],
+  "file": {
+    "name": "testFile",
+    "type": "specula_src"
+  },
+  "tokens": [
+    {
+      "char_end": 1,
+      "char_start": 1,
+      "line": 1,
+      "type": "D_BRAC_OP",
+      "value": "["
+    },
+    {
+      "char_end": 7,
+      "char_start": 2,
+      "line": 1,
+      "type": "K_EXPORT",
+      "value": "export"
+    },
+    {
+      "char_end": 8,
+      "char_start": 8,
+      "line": 1,
+      "type": "D_BRAC_CLO",
+      "value": "]"
+    },
+    {
+      "char_end": 11,
+      "char_start": 10,
+      "line": 1,
+      "type": "K_LET",
+      "value": "let"
+    },
+    {
+      "char_end": 17,
+      "char_start": 14,
+      "line": 1,
+      "type": "IDENT",
+      "value": "myVar"
+    },
+    {
+      "char_end": 18,
+      "char_start": 19,
+      "line": 1,
+      "type": "D_COLON",
+      "value": ":"
+    },
+    {
+      "char_end": 22,
+      "char_start": 21,
+      "line": 1,
+      "type": "K_TYPE",
+      "value": "int"
+    },
+    {
+      "char_end": 23,
+      "char_start": 24,
+      "line": 1,
+      "type": "OP_EQUALS",
+      "value": "="
+    },
+    {
+      "char_end": 25,
+      "char_start": 26,
+      "line": 1,
+      "type": "L_INT",
+      "value": "42"
+    },
+    {
+      "char_end": 26,
+      "char_start": 28,
+      "line": 1,
+      "type": "D_SEMICOLON",
+      "value": ";"
+    }
+  ]
+}

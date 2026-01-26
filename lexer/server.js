@@ -16,8 +16,12 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 
-// Path to the C++ lexer executable (macOS/Linux: 'specula', Windows: 'specula.exe')
-const LEXER_EXECUTABLE = path.join(__dirname, '..', 'build', 'specula');
+// Path to the C++ lexer executable
+// Windows: build/Debug/specula.exe, macOS/Linux: build/specula
+const isWindows = process.platform === 'win32';
+const LEXER_EXECUTABLE = isWindows 
+  ? path.join(__dirname, '..', 'build', 'Debug', 'specula.exe')
+  : path.join(__dirname, '..', 'build', 'specula');
 
 /**
  * Generate a unique temporary filename

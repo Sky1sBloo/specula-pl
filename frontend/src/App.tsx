@@ -5,6 +5,7 @@ import { analyzeSource, type ParserPayload } from './lib/parser';
 import type { ChangeEvent } from 'react';
 import type { LexerPayload, LexerToken } from './types/token';
 import * as Styles from './css/Styles';
+import { parseErrorMessage, formatErrorForTree, formatErrorForDropdown } from './lib/formatParserError';
 
 import OutputBadge from './components/OutputBadge';
 import TokenRow from './components/TokenRow';
@@ -614,7 +615,7 @@ export default function App() {
 
         let result = '';
         const typeName = (node as Record<string, unknown>)['$type'];
-        
+
         if (isRoot) {
             result += (typeName ? String(typeName) : 'root') + '\n';
         } else {
@@ -625,7 +626,7 @@ export default function App() {
         filteredEntries.forEach(([key, value], index) => {
             const entryIsLast = index === filteredEntries.length - 1;
             const childPrefix = prefix + (isRoot ? '' : (isLast ? '    ' : '│   '));
-            
+
             if (value === null || value === undefined) {
                 result += childPrefix + (entryIsLast ? '└── ' : '├── ') + `${key}: null\n`;
             } else if (typeof value !== 'object') {
@@ -670,9 +671,9 @@ export default function App() {
         }
 
         if (typeof node !== 'object') {
-            const valueColor = typeof node === 'string' ? '#a8d4a8' : 
-                              typeof node === 'number' ? '#d4a8d4' : 
-                              typeof node === 'boolean' ? '#d4d4a8' : Styles.palette.frost;
+            const valueColor = typeof node === 'string' ? '#a8d4a8' :
+                typeof node === 'number' ? '#d4a8d4' :
+                    typeof node === 'boolean' ? '#d4d4a8' : Styles.palette.frost;
             return <span style={{ color: valueColor }}>{JSON.stringify(node)}</span>;
         }
 
@@ -680,7 +681,7 @@ export default function App() {
             if (node.length === 0) {
                 return <span style={{ color: Styles.palette.muted }}>[]</span>;
             }
-            
+
             const isExpanded = expandedNodes.has(path);
             return (
                 <div style={{ marginLeft: depth > 0 ? '16px' : 0 }}>
@@ -779,10 +780,13 @@ export default function App() {
                     zIndex: 10
                 }}
                 onClick={() => {
-                    const tree = parserPayload?.root 
+                    const tree = parserPayload?.root
                         ? generateAsciiTree(parserPayload.root)
-                        : parserPayload?.errors?.length 
-                            ? `Errors:\n${parserPayload.errors.map(e => `  ❌ ${e}`).join('\n')}`
+                        : parserPayload?.errors?.length
+                            ? `Errors:\n${parserPayload.errors.map(e => {
+                                const parsed = parseErrorMessage(e);
+                                return `  ❌ ${formatErrorForTree(parsed)}`;
+                            }).join('\n')}`
                             : 'No data';
                     navigator.clipboard?.writeText(tree);
                 }}
@@ -802,15 +806,21 @@ export default function App() {
                 lineHeight: '1.6'
             }}>
                 {parserPayload?.errors && parserPayload.errors.length > 0 && (
-                    <span style={{ color: '#f85149' }}>
-                        {'Errors:\\n'}
-                        {parserPayload.errors.map(e => `   ${e}`).join('\\n')}
-                        {'\\n\\n'}
-                    </span>
+                    <div style={{ marginBottom: '16px', padding: '12px', background: 'rgba(248,81,73,0.1)', borderRadius: '6px', border: '1px solid rgba(248,81,73,0.3)' }}>
+                        <div style={{ color: '#f85149', fontWeight: 600, marginBottom: '8px' }}>Errors:</div>
+                        {parserPayload.errors.map((e, i) => {
+                            const parsed = parseErrorMessage(e);
+                            return (
+                                <div key={i} style={{ color: '#f85149', fontSize: '0.85rem', marginLeft: '16px' }}>
+                                    • {formatErrorForTree(parsed)}
+                                </div>
+                            );
+                        })}
+                    </div>
                 )}
-                {parserPayload?.root 
+                {parserPayload?.root
                     ? generateAsciiTree(parserPayload.root)
-                    : parserPayload?.errors?.length 
+                    : parserPayload?.errors?.length
                         ? '(Parse tree not available due to errors)'
                         : 'No parse tree data'
                 }
@@ -860,13 +870,18 @@ export default function App() {
                 {parserPayload?.errors && parserPayload.errors.length > 0 && (
                     <div style={{ marginBottom: '16px', padding: '12px', background: 'rgba(248,81,73,0.1)', borderRadius: '6px', border: '1px solid rgba(248,81,73,0.3)' }}>
                         <div style={{ color: '#f85149', fontWeight: 600, marginBottom: '8px' }}>Errors:</div>
-                        {parserPayload.errors.map((e, i) => (
-                            <div key={i} style={{ color: '#f85149', fontSize: '0.85rem', marginLeft: '16px' }}>• {e}</div>
-                        ))}
+                        {parserPayload.errors.map((e, i) => {
+                            const parsed = parseErrorMessage(e);
+                            return (
+                                <div key={i} style={{ color: '#f85149', fontSize: '0.85rem', marginLeft: '16px' }}>
+                                    • {formatErrorForTree(parsed)}
+                                </div>
+                            );
+                        })}
                     </div>
                 )}
                 <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.85rem', whiteSpace: 'nowrap' }}>
-                    {parserPayload?.root 
+                    {parserPayload?.root
                         ? renderDropdownNode(parserPayload.root)
                         : <span style={{ color: Styles.palette.muted }}>No parse tree data</span>
                     }

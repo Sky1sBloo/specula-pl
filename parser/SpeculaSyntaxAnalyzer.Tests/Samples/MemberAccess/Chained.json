@@ -1,0 +1,65 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 8,
+            "char_start": 1,
+            "line": 1,
+            "type": "K_NETWORK",
+            "value": "network"
+        },
+        {
+            "char_end": 9,
+            "char_start": 8,
+            "line": 1,
+            "type": "OP_PERIOD",
+            "value": "."
+        },
+        {
+            "char_end": 15,
+            "char_start": 9,
+            "line": 1,
+            "type": "IDENT",
+            "value": "client"
+        },
+        {
+            "char_end": 16,
+            "char_start": 15,
+            "line": 1,
+            "type": "OP_PERIOD",
+            "value": "."
+        },
+        {
+            "char_end": 23,
+            "char_start": 16,
+            "line": 1,
+            "type": "IDENT",
+            "value": "address"
+        },
+        {
+            "char_end": 24,
+            "char_start": 23,
+            "line": 1,
+            "type": "OP_PERIOD",
+            "value": "."
+        },
+        {
+            "char_end": 28,
+            "char_start": 24,
+            "line": 1,
+            "type": "IDENT",
+            "value": "ipv4"
+        },
+        {
+            "char_end": 28,
+            "char_start": 28,
+            "line": 1,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        }
+    ]
+}

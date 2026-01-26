@@ -1,0 +1,79 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 10,
+            "char_start": 1,
+            "line": 1,
+            "type": "K_INTERFACE",
+            "value": "interface"
+        },
+        {
+            "char_end": 14,
+            "char_start": 11,
+            "line": 1,
+            "type": "IDENT",
+            "value": "Bad"
+        },
+        {
+            "char_end": 15,
+            "char_start": 15,
+            "line": 1,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 19,
+            "char_start": 17,
+            "line": 1,
+            "type": "K_FN",
+            "value": "fn"
+        },
+        {
+            "char_end": 26,
+            "char_start": 20,
+            "line": 1,
+            "type": "IDENT",
+            "value": "method"
+        },
+        {
+            "char_end": 26,
+            "char_start": 26,
+            "line": 1,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 27,
+            "char_start": 27,
+            "line": 1,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 28,
+            "char_start": 28,
+            "line": 1,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 34,
+            "char_start": 30,
+            "line": 1,
+            "type": "K_TYPE",
+            "value": "void"
+        },
+        {
+            "char_end": 35,
+            "char_start": 35,
+            "line": 1,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        }
+    ]
+}

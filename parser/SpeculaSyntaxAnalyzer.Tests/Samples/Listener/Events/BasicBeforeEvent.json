@@ -1,0 +1,65 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 7,
+            "char_start": 1,
+            "line": 1,
+            "type": "K_BEFORE",
+            "value": "before"
+        },
+        {
+            "char_end": 19,
+            "char_start": 8,
+            "line": 1,
+            "type": "IDENT",
+            "value": "SendCommand"
+        },
+        {
+            "char_end": 20,
+            "char_start": 20,
+            "line": 1,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 13,
+            "char_start": 5,
+            "line": 2,
+            "type": "IDENT",
+            "value": "validate"
+        },
+        {
+            "char_end": 13,
+            "char_start": 13,
+            "line": 2,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 14,
+            "char_start": 14,
+            "line": 2,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 15,
+            "char_start": 15,
+            "line": 2,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 3,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        }
+    ]
+}

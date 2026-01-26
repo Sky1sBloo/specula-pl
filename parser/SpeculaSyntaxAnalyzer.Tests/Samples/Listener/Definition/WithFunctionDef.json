@@ -1,0 +1,163 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 9,
+            "char_start": 1,
+            "line": 1,
+            "type": "K_LISTENER",
+            "value": "listener"
+        },
+        {
+            "char_end": 16,
+            "char_start": 10,
+            "line": 1,
+            "type": "K_TARGET",
+            "value": "target"
+        },
+        {
+            "char_end": 16,
+            "char_start": 16,
+            "line": 1,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 27,
+            "char_start": 17,
+            "line": 1,
+            "type": "L_STRING",
+            "value": "0.0.0.0:6"
+        },
+        {
+            "char_end": 28,
+            "char_start": 28,
+            "line": 1,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 35,
+            "char_start": 30,
+            "line": 1,
+            "type": "K_USING",
+            "value": "using"
+        },
+        {
+            "char_end": 49,
+            "char_start": 36,
+            "line": 1,
+            "type": "IDENT",
+            "value": "MotionControl"
+        },
+        {
+            "char_end": 52,
+            "char_start": 50,
+            "line": 1,
+            "type": "K_AS",
+            "value": "as"
+        },
+        {
+            "char_end": 58,
+            "char_start": 53,
+            "line": 1,
+            "type": "IDENT",
+            "value": "Server"
+        },
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 2,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 7,
+            "char_start": 5,
+            "line": 3,
+            "type": "K_FN",
+            "value": "fn"
+        },
+        {
+            "char_end": 12,
+            "char_start": 8,
+            "line": 3,
+            "type": "IDENT",
+            "value": "test"
+        },
+        {
+            "char_end": 12,
+            "char_start": 12,
+            "line": 3,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 13,
+            "char_start": 13,
+            "line": 3,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 5,
+            "char_start": 5,
+            "line": 4,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 14,
+            "char_start": 9,
+            "line": 5,
+            "type": "IDENT",
+            "value": "print"
+        },
+        {
+            "char_end": 14,
+            "char_start": 14,
+            "line": 5,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 17,
+            "char_start": 15,
+            "line": 5,
+            "type": "L_CHAR",
+            "value": "a"
+        },
+        {
+            "char_end": 18,
+            "char_start": 18,
+            "line": 5,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 19,
+            "char_start": 19,
+            "line": 5,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 5,
+            "char_start": 5,
+            "line": 6,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        },
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 7,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        }
+    ]
+}

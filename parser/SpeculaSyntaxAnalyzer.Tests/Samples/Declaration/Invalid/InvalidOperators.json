@@ -1,0 +1,53 @@
+{
+    "errors": [],
+    "file": { "name": "testFile", "type": "specula_src" },
+    "tokens": [
+        { "char_end": 4, "char_start": 1, "line": 1, "type": "K_LET", "value": "let" },
+        { "char_end": 6, "char_start": 5, "line": 1, "type": "IDENT", "value": "a" },
+        { "char_end": 9, "char_start": 7, "line": 1, "type": "OP_PLUS_EQ", "value": "+=" },
+        { "char_end": 11, "char_start": 10, "line": 1, "type": "L_INT", "value": "1" },
+        { "char_end": 12, "char_start": 12, "line": 1, "type": "D_SEMICOLON", "value": ";" },
+
+        { "char_end": 4, "char_start": 1, "line": 2, "type": "K_LET", "value": "let" },
+        { "char_end": 6, "char_start": 5, "line": 2, "type": "IDENT", "value": "b" },
+        { "char_end": 7, "char_start": 7, "line": 2, "type": "D_COLON", "value": ":" },
+        { "char_end": 12, "char_start": 9, "line": 2, "type": "K_TYPE", "value": "int" },
+        { "char_end": 16, "char_start": 14, "line": 2, "type": "OP_PLUS_EQ", "value": "+=" },
+        { "char_end": 18, "char_start": 17, "line": 2, "type": "L_INT", "value": "1" },
+        { "char_end": 19, "char_start": 19, "line": 2, "type": "D_SEMICOLON", "value": ";" },
+
+        { "char_end": 4, "char_start": 1, "line": 3, "type": "K_LET", "value": "let" },
+        { "char_end": 6, "char_start": 5, "line": 3, "type": "IDENT", "value": "c" },
+        { "char_end": 9, "char_start": 7, "line": 3, "type": "OP_MINUS_EQ", "value": "-=" },
+        { "char_end": 11, "char_start": 10, "line": 3, "type": "L_INT", "value": "2" },
+        { "char_end": 12, "char_start": 12, "line": 3, "type": "D_SEMICOLON", "value": ";" },
+
+        { "char_end": 4, "char_start": 1, "line": 4, "type": "K_LET", "value": "let" },
+        { "char_end": 6, "char_start": 5, "line": 4, "type": "IDENT", "value": "d" },
+        { "char_end": 7, "char_start": 7, "line": 4, "type": "D_COLON", "value": ":" },
+        { "char_end": 12, "char_start": 9, "line": 4, "type": "K_TYPE", "value": "int" },
+        { "char_end": 16, "char_start": 14, "line": 4, "type": "OP_MINUS_EQ", "value": "-=" },
+        { "char_end": 18, "char_start": 17, "line": 4, "type": "L_INT", "value": "2" },
+        { "char_end": 19, "char_start": 19, "line": 4, "type": "D_SEMICOLON", "value": ";" },
+
+        { "char_end": 4, "char_start": 1, "line": 5, "type": "K_LET", "value": "let" },
+        { "char_end": 6, "char_start": 5, "line": 5, "type": "IDENT", "value": "e" },
+        { "char_end": 9, "char_start": 7, "line": 5, "type": "OP_MULT_EQ", "value": "*=" },
+        { "char_end": 11, "char_start": 10, "line": 5, "type": "L_INT", "value": "3" },
+        { "char_end": 12, "char_start": 12, "line": 5, "type": "D_SEMICOLON", "value": ";" },
+
+        { "char_end": 4, "char_start": 1, "line": 6, "type": "K_LET", "value": "let" },
+        { "char_end": 6, "char_start": 5, "line": 6, "type": "IDENT", "value": "f" },
+        { "char_end": 7, "char_start": 7, "line": 6, "type": "D_COLON", "value": ":" },
+        { "char_end": 12, "char_start": 9, "line": 6, "type": "K_TYPE", "value": "int" },
+        { "char_end": 16, "char_start": 14, "line": 6, "type": "OP_DIV_EQ", "value": "/=" },
+        { "char_end": 18, "char_start": 17, "line": 6, "type": "L_INT", "value": "4" },
+        { "char_end": 19, "char_start": 19, "line": 6, "type": "D_SEMICOLON", "value": ";" },
+
+        { "char_end": 4, "char_start": 1, "line": 7, "type": "K_LET", "value": "let" },
+        { "char_end": 6, "char_start": 5, "line": 7, "type": "IDENT", "value": "g" },
+        { "char_end": 9, "char_start": 7, "line": 7, "type": "OP_MOD_EQ", "value": "%=" },
+        { "char_end": 11, "char_start": 10, "line": 7, "type": "L_INT", "value": "5" },
+        { "char_end": 12, "char_start": 12, "line": 7, "type": "D_SEMICOLON", "value": ";" }
+    ]
+}

@@ -1,0 +1,30 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 1,
+            "type": "IDENT",
+            "value": "y"
+        },
+        {
+            "char_end": 4,
+            "char_start": 2,
+            "line": 1,
+            "type": "OP_MINUS_EQ",
+            "value": "-="
+        },
+        {
+            "char_end": 5,
+            "char_start": 5,
+            "line": 1,
+            "type": "L_INT",
+            "value": "2"
+        }
+    ]
+}

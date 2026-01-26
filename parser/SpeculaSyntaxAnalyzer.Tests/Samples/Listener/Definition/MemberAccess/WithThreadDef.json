@@ -1,0 +1,156 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 9,
+            "char_start": 1,
+            "line": 57,
+            "type": "K_LISTENER",
+            "value": "listener"
+        },
+        {
+            "char_end": 16,
+            "char_start": 10,
+            "line": 57,
+            "type": "K_TARGET",
+            "value": "target"
+        },
+        {
+            "char_end": 16,
+            "char_start": 16,
+            "line": 57,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 30,
+            "char_start": 17,
+            "line": 57,
+            "type": "L_STRING",
+            "value": "0.0.0.0:6000"
+        },
+        {
+            "char_end": 31,
+            "char_start": 31,
+            "line": 57,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 46,
+            "char_start": 33,
+            "line": 57,
+            "type": "IDENT",
+            "value": "MotionControl"
+        },
+        {
+            "char_end": 49,
+            "char_start": 47,
+            "line": 57,
+            "type": "K_AS",
+            "value": "as"
+        },
+        {
+            "char_end": 55,
+            "char_start": 50,
+            "line": 57,
+            "type": "IDENT",
+            "value": "Robot"
+        },
+        {
+            "char_end": 56,
+            "char_start": 56,
+            "line": 57,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 7,
+            "char_start": 5,
+            "line": 58,
+            "type": "K_ON",
+            "value": "on"
+        },
+        {
+            "char_end": 19,
+            "char_start": 8,
+            "line": 58,
+            "type": "IDENT",
+            "value": "MoveCommand"
+        },
+        {
+            "char_end": 20,
+            "char_start": 20,
+            "line": 58,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 22,
+            "char_start": 22,
+            "line": 58,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        },
+        {
+            "char_end": 24,
+            "char_start": 24,
+            "line": 58,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 16,
+            "char_start": 9,
+            "line": 59,
+            "type": "K_RESPOND",
+            "value": "respond"
+        },
+        {
+            "char_end": 20,
+            "char_start": 17,
+            "line": 59,
+            "type": "IDENT",
+            "value": "Ack"
+        },
+        {
+            "char_end": 20,
+            "char_start": 20,
+            "line": 59,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 21,
+            "char_start": 21,
+            "line": 59,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 22,
+            "char_start": 22,
+            "line": 59,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 5,
+            "char_start": 5,
+            "line": 60,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        },
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 61,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        }
+    ]
+}

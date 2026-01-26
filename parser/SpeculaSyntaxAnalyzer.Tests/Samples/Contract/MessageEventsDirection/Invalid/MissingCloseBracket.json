@@ -1,0 +1,114 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 1,
+            "type": "D_BRAC_OP",
+            "value": "["
+        },
+        {
+            "char_end": 12,
+            "char_start": 2,
+            "line": 1,
+            "type": "IDENT",
+            "value": "Controller"
+        },
+        {
+            "char_end": 18,
+            "char_start": 13,
+            "line": 1,
+            "type": "IDENT",
+            "value": "Robot"
+        },
+        {
+            "char_end": 18,
+            "char_start": 18,
+            "line": 1,
+            "type": "D_BRAC_CLO",
+            "value": "]"
+        },
+        {
+            "char_end": 12,
+            "char_start": 1,
+            "line": 2,
+            "type": "IDENT",
+            "value": "MoveCommand"
+        },
+        {
+            "char_end": 13,
+            "char_start": 13,
+            "line": 2,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 24,
+            "char_start": 15,
+            "line": 2,
+            "type": "IDENT",
+            "value": "direction"
+        },
+        {
+            "char_end": 24,
+            "char_start": 24,
+            "line": 2,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 29,
+            "char_start": 26,
+            "line": 2,
+            "type": "IDENT",
+            "value": "str"
+        },
+        {
+            "char_end": 30,
+            "char_start": 30,
+            "line": 2,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        },
+        {
+            "char_end": 32,
+            "char_start": 32,
+            "line": 2,
+            "type": "AT_SYMBOL",
+            "value": "@"
+        },
+        {
+            "char_end": 37,
+            "char_start": 33,
+            "line": 2,
+            "type": "IDENT",
+            "value": "Idle"
+        },
+        {
+            "char_end": 39,
+            "char_start": 38,
+            "line": 2,
+            "type": "OP_RIGHT_OP",
+            "value": "->"
+        },
+        {
+            "char_end": 52,
+            "char_start": 41,
+            "line": 2,
+            "type": "IDENT",
+            "value": "CommandSent"
+        },
+        {
+            "char_end": 52,
+            "char_start": 52,
+            "line": 2,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        }
+    ]
+}

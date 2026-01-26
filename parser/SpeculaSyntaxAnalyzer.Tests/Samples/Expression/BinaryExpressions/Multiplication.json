@@ -1,0 +1,30 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 5,
+            "char_start": 1,
+            "line": 1,
+            "type": "L_DOUBLE",
+            "value": "5.00"
+        },
+        {
+            "char_end": 7,
+            "char_start": 6,
+            "line": 1,
+            "type": "OP_MULT",
+            "value": "*"
+        },
+        {
+            "char_end": 12,
+            "char_start": 8,
+            "line": 1,
+            "type": "IDENT",
+            "value": "ident"
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 4,
+            "char_start": 0,
+            "line": 1,
+            "type": "L_BOOL",
+            "value": "true"
+        }
+    ]
+}

@@ -1,0 +1,177 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 9,
+            "char_start": 1,
+            "line": 80,
+            "type": "K_LISTENER",
+            "value": "listener"
+        },
+        {
+            "char_end": 16,
+            "char_start": 10,
+            "line": 80,
+            "type": "K_TARGET",
+            "value": "target"
+        },
+        {
+            "char_end": 16,
+            "char_start": 16,
+            "line": 80,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 30,
+            "char_start": 17,
+            "line": 80,
+            "type": "L_STRING",
+            "value": "0.0.0.0:6000"
+        },
+        {
+            "char_end": 31,
+            "char_start": 31,
+            "line": 80,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 38,
+            "char_start": 33,
+            "line": 80,
+            "type": "K_USING",
+            "value": "using"
+        },
+        {
+            "char_end": 52,
+            "char_start": 39,
+            "line": 80,
+            "type": "IDENT",
+            "value": "MotionControl"
+        },
+        {
+            "char_end": 55,
+            "char_start": 53,
+            "line": 80,
+            "type": "K_AS",
+            "value": "as"
+        },
+        {
+            "char_end": 61,
+            "char_start": 56,
+            "line": 80,
+            "type": "IDENT",
+            "value": "Robot"
+        },
+        {
+            "char_end": 62,
+            "char_start": 62,
+            "line": 80,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 7,
+            "char_start": 5,
+            "line": 81,
+            "type": "K_ON",
+            "value": "on"
+        },
+        {
+            "char_end": 19,
+            "char_start": 8,
+            "line": 81,
+            "type": "IDENT",
+            "value": "MoveCommand"
+        },
+        {
+            "char_end": 20,
+            "char_start": 20,
+            "line": 81,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 31,
+            "char_start": 22,
+            "line": 81,
+            "type": "IDENT",
+            "value": "direction"
+        },
+        {
+            "char_end": 31,
+            "char_start": 31,
+            "line": 81,
+            "type": "COMMA",
+            "value": ","
+        },
+        {
+            "char_end": 33,
+            "char_start": 33,
+            "line": 81,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        },
+        {
+            "char_end": 35,
+            "char_start": 35,
+            "line": 81,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 16,
+            "char_start": 9,
+            "line": 82,
+            "type": "K_RESPOND",
+            "value": "respond"
+        },
+        {
+            "char_end": 20,
+            "char_start": 17,
+            "line": 82,
+            "type": "IDENT",
+            "value": "Ack"
+        },
+        {
+            "char_end": 20,
+            "char_start": 20,
+            "line": 82,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 21,
+            "char_start": 21,
+            "line": 82,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 22,
+            "char_start": 22,
+            "line": 82,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 5,
+            "char_start": 5,
+            "line": 83,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        },
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 84,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        }
+    ]
+}

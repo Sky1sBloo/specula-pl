@@ -1,0 +1,177 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 3,
+            "char_start": 1,
+            "line": 1,
+            "type": "K_FN",
+            "value": "fn"
+        },
+        {
+            "char_end": 11,
+            "char_start": 4,
+            "line": 1,
+            "type": "IDENT",
+            "value": "compute"
+        },
+        {
+            "char_end": 11,
+            "char_start": 11,
+            "line": 1,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 13,
+            "char_start": 12,
+            "line": 1,
+            "type": "IDENT",
+            "value": "x"
+        },
+        {
+            "char_end": 13,
+            "char_start": 13,
+            "line": 1,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 21,
+            "char_start": 15,
+            "line": 1,
+            "type": "IDENT",
+            "value": "String"
+        },
+        {
+            "char_end": 21,
+            "char_start": 21,
+            "line": 1,
+            "type": "D_BRAC_OP",
+            "value": "["
+        },
+        {
+            "char_end": 26,
+            "char_start": 22,
+            "line": 1,
+            "type": "K_VIEW",
+            "value": "view"
+        },
+        {
+            "char_end": 26,
+            "char_start": 26,
+            "line": 1,
+            "type": "D_BRAC_CLO",
+            "value": "]"
+        },
+        {
+            "char_end": 27,
+            "char_start": 27,
+            "line": 1,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 30,
+            "char_start": 29,
+            "line": 1,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 38,
+            "char_start": 32,
+            "line": 1,
+            "type": "IDENT",
+            "value": "string"
+        },
+        {
+            "char_end": 39,
+            "char_start": 39,
+            "line": 1,
+            "type": "D_BRAC_OP",
+            "value": "["
+        },
+        {
+            "char_end": 45,
+            "char_start": 40,
+            "line": 1,
+            "type": "K_THR_LOCAL",
+            "value": "thr_local"
+        },
+        {
+            "char_end": 45,
+            "char_start": 45,
+            "line": 1,
+            "type": "COMMA",
+            "value": ","
+        },
+        {
+            "char_end": 50,
+            "char_start": 47,
+            "line": 1,
+            "type": "K_MUT",
+            "value": "mut"
+        },
+        {
+            "char_end": 50,
+            "char_start": 50,
+            "line": 1,
+            "type": "D_BRAC_CLO",
+            "value": "]"
+        },
+        {
+            "char_end": 52,
+            "char_start": 52,
+            "line": 1,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 10,
+            "char_start": 5,
+            "line": 2,
+            "type": "IDENT",
+            "value": "print"
+        },
+        {
+            "char_end": 10,
+            "char_start": 10,
+            "line": 2,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 26,
+            "char_start": 11,
+            "line": 2,
+            "type": "L_STRING",
+            "value": "I'm a function"
+        },
+        {
+            "char_end": 27,
+            "char_start": 27,
+            "line": 2,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 28,
+            "char_start": 28,
+            "line": 2,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 3,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        }
+    ]
+}

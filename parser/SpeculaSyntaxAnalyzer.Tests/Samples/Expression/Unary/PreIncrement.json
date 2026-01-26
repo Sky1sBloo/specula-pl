@@ -1,0 +1,23 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 2,
+            "char_start": 1,
+            "line": 1,
+            "type": "OP_INCR",
+            "value": "++"
+        },
+        {
+            "char_end": 3,
+            "char_start": 3,
+            "line": 1,
+            "type": "IDENT",
+            "value": "x"
+        }
+    ]
+}

@@ -1,0 +1,79 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 3,
+            "char_start": 1,
+            "line": 1,
+            "type": "K_ON",
+            "value": "on"
+        },
+        {
+            "char_end": 8,
+            "char_start": 4,
+            "line": 1,
+            "type": "IDENT",
+            "value": "Move"
+        },
+        {
+            "char_end": 9,
+            "char_start": 9,
+            "line": 1,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 16,
+            "char_start": 11,
+            "line": 1,
+            "type": "IDENT",
+            "value": "speed"
+        },
+        {
+            "char_end": 17,
+            "char_start": 17,
+            "line": 1,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        },
+        {
+            "char_end": 12,
+            "char_start": 5,
+            "line": 2,
+            "type": "K_RESPOND",
+            "value": "respond"
+        },
+        {
+            "char_end": 16,
+            "char_start": 13,
+            "line": 2,
+            "type": "IDENT",
+            "value": "Ack"
+        },
+        {
+            "char_end": 16,
+            "char_start": 16,
+            "line": 2,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 17,
+            "char_start": 17,
+            "line": 2,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 18,
+            "char_start": 18,
+            "line": 2,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        }
+    ]
+}

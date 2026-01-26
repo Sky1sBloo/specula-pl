@@ -1,0 +1,58 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 11,
+            "char_start": 1,
+            "line": 1,
+            "type": "IDENT",
+            "value": "structTest"
+        },
+        {
+            "char_end": 12,
+            "char_start": 12,
+            "line": 1,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 15,
+            "char_start": 14,
+            "line": 1,
+            "type": "IDENT",
+            "value": "x"
+        },
+        {
+            "char_end": 15,
+            "char_start": 15,
+            "line": 1,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 18,
+            "char_start": 17,
+            "line": 1,
+            "type": "L_INT",
+            "value": "5"
+        },
+        {
+            "char_end": 19,
+            "char_start": 19,
+            "line": 1,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        },
+        {
+            "char_end": 20,
+            "char_start": 20,
+            "line": 1,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        }
+    ]
+}

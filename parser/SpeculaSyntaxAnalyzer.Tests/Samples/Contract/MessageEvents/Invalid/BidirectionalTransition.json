@@ -1,0 +1,86 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 5,
+            "char_start": 1,
+            "line": 1,
+            "type": "IDENT",
+            "value": "Sync"
+        },
+        {
+            "char_end": 6,
+            "char_start": 6,
+            "line": 1,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 12,
+            "char_start": 8,
+            "line": 1,
+            "type": "IDENT",
+            "value": "data"
+        },
+        {
+            "char_end": 12,
+            "char_start": 12,
+            "line": 1,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 17,
+            "char_start": 14,
+            "line": 1,
+            "type": "IDENT",
+            "value": "str"
+        },
+        {
+            "char_end": 18,
+            "char_start": 18,
+            "line": 1,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        },
+        {
+            "char_end": 20,
+            "char_start": 20,
+            "line": 1,
+            "type": "AT_SYMBOL",
+            "value": "@"
+        },
+        {
+            "char_end": 25,
+            "char_start": 21,
+            "line": 1,
+            "type": "IDENT",
+            "value": "Idle"
+        },
+        {
+            "char_end": 28,
+            "char_start": 26,
+            "line": 1,
+            "type": "OP_BIDIR_OP",
+            "value": "<->"
+        },
+        {
+            "char_end": 41,
+            "char_start": 30,
+            "line": 1,
+            "type": "IDENT",
+            "value": "CommandSent"
+        },
+        {
+            "char_end": 41,
+            "char_start": 41,
+            "line": 1,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        }
+    ]
+}

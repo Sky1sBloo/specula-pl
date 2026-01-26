@@ -1,0 +1,177 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 3,
+            "char_start": 1,
+            "line": 1,
+            "type": "K_ON",
+            "value": "on"
+        },
+        {
+            "char_end": 8,
+            "char_start": 4,
+            "line": 1,
+            "type": "K_FAIL",
+            "value": "fail"
+        },
+        {
+            "char_end": 24,
+            "char_start": 9,
+            "line": 1,
+            "type": "IDENT",
+            "value": "connection_lost"
+        },
+        {
+            "char_end": 24,
+            "char_start": 24,
+            "line": 1,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 32,
+            "char_start": 25,
+            "line": 1,
+            "type": "IDENT",
+            "value": "timeout"
+        },
+        {
+            "char_end": 32,
+            "char_start": 32,
+            "line": 1,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 37,
+            "char_start": 34,
+            "line": 1,
+            "type": "K_TYPE",
+            "value": "int"
+        },
+        {
+            "char_end": 37,
+            "char_start": 37,
+            "line": 1,
+            "type": "COMMA",
+            "value": ","
+        },
+        {
+            "char_end": 46,
+            "char_start": 39,
+            "line": 1,
+            "type": "IDENT",
+            "value": "retries"
+        },
+        {
+            "char_end": 46,
+            "char_start": 46,
+            "line": 1,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 51,
+            "char_start": 48,
+            "line": 1,
+            "type": "K_TYPE",
+            "value": "int"
+        },
+        {
+            "char_end": 51,
+            "char_start": 51,
+            "line": 1,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 53,
+            "char_start": 53,
+            "line": 1,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 8,
+            "char_start": 5,
+            "line": 2,
+            "type": "IDENT",
+            "value": "log"
+        },
+        {
+            "char_end": 8,
+            "char_start": 8,
+            "line": 2,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 25,
+            "char_start": 9,
+            "line": 2,
+            "type": "L_STRING",
+            "value": "Connection lost"
+        },
+        {
+            "char_end": 26,
+            "char_start": 26,
+            "line": 2,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 27,
+            "char_start": 27,
+            "line": 2,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 9,
+            "char_start": 5,
+            "line": 3,
+            "type": "K_FAIL",
+            "value": "fail"
+        },
+        {
+            "char_end": 18,
+            "char_start": 10,
+            "line": 3,
+            "type": "IDENT",
+            "value": "critical"
+        },
+        {
+            "char_end": 18,
+            "char_start": 18,
+            "line": 3,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 19,
+            "char_start": 19,
+            "line": 3,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 20,
+            "char_start": 20,
+            "line": 3,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 4,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        }
+    ]
+}

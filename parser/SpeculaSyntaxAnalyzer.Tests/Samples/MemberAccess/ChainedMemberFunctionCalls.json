@@ -1,0 +1,79 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 4,
+            "char_start": 1,
+            "line": 1,
+            "type": "IDENT",
+            "value": "user"
+        },
+        {
+            "char_end": 5,
+            "char_start": 4,
+            "line": 1,
+            "type": "OP_PERIOD",
+            "value": "."
+        },
+        {
+            "char_end": 12,
+            "char_start": 5,
+            "line": 1,
+            "type": "IDENT",
+            "value": "getData"
+        },
+        {
+            "char_end": 13,
+            "char_start": 12,
+            "line": 1,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 14,
+            "char_start": 13,
+            "line": 1,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 15,
+            "char_start": 14,
+            "line": 1,
+            "type": "OP_PERIOD",
+            "value": "."
+        },
+        {
+            "char_end": 22,
+            "char_start": 15,
+            "line": 1,
+            "type": "IDENT",
+            "value": "process"
+        },
+        {
+            "char_end": 23,
+            "char_start": 22,
+            "line": 1,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 24,
+            "char_start": 23,
+            "line": 1,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 25,
+            "char_start": 24,
+            "line": 1,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        }
+    ]
+}

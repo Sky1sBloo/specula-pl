@@ -1,0 +1,149 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 3,
+            "char_start": 1,
+            "line": 1,
+            "type": "K_ON",
+            "value": "on"
+        },
+        {
+            "char_end": 8,
+            "char_start": 4,
+            "line": 1,
+            "type": "K_FAIL",
+            "value": "fail"
+        },
+        {
+            "char_end": 14,
+            "char_start": 9,
+            "line": 1,
+            "type": "IDENT",
+            "value": "error"
+        },
+        {
+            "char_end": 14,
+            "char_start": 14,
+            "line": 1,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 19,
+            "char_start": 15,
+            "line": 1,
+            "type": "IDENT",
+            "value": "code"
+        },
+        {
+            "char_end": 19,
+            "char_start": 19,
+            "line": 1,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 24,
+            "char_start": 21,
+            "line": 1,
+            "type": "K_TYPE",
+            "value": "int"
+        },
+        {
+            "char_end": 24,
+            "char_start": 24,
+            "line": 1,
+            "type": "COMMA",
+            "value": ","
+        },
+        {
+            "char_end": 33,
+            "char_start": 26,
+            "line": 1,
+            "type": "IDENT",
+            "value": "message"
+        },
+        {
+            "char_end": 33,
+            "char_start": 33,
+            "line": 1,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 41,
+            "char_start": 35,
+            "line": 1,
+            "type": "IDENT",
+            "value": "string"
+        },
+        {
+            "char_end": 41,
+            "char_start": 41,
+            "line": 1,
+            "type": "COMMA",
+            "value": ","
+        },
+        {
+            "char_end": 42,
+            "char_start": 42,
+            "line": 1,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 44,
+            "char_start": 44,
+            "line": 1,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 8,
+            "char_start": 5,
+            "line": 2,
+            "type": "IDENT",
+            "value": "log"
+        },
+        {
+            "char_end": 8,
+            "char_start": 8,
+            "line": 2,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 16,
+            "char_start": 9,
+            "line": 2,
+            "type": "IDENT",
+            "value": "message"
+        },
+        {
+            "char_end": 16,
+            "char_start": 16,
+            "line": 2,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 17,
+            "char_start": 17,
+            "line": 2,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 3,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        }
+    ]
+}

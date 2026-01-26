@@ -1,0 +1,240 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 3,
+            "char_start": 1,
+            "line": 1,
+            "type": "K_IF",
+            "value": "if"
+        },
+        {
+            "char_end": 4,
+            "char_start": 4,
+            "line": 1,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 9,
+            "char_start": 5,
+            "line": 1,
+            "type": "IDENT",
+            "value": "test"
+        },
+        {
+            "char_end": 11,
+            "char_start": 10,
+            "line": 1,
+            "type": "OP_REL_EQ",
+            "value": "=="
+        },
+        {
+            "char_end": 17,
+            "char_start": 13,
+            "line": 1,
+            "type": "L_BOOL",
+            "value": "true"
+        },
+        {
+            "char_end": 17,
+            "char_start": 17,
+            "line": 1,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 2,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 10,
+            "char_start": 5,
+            "line": 3,
+            "type": "IDENT",
+            "value": "print"
+        },
+        {
+            "char_end": 10,
+            "char_start": 10,
+            "line": 3,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 11,
+            "char_start": 11,
+            "line": 3,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 12,
+            "char_start": 12,
+            "line": 3,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 4,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        },
+        {
+            "char_end": 4,
+            "char_start": 1,
+            "line": 5,
+            "type": "K_ELSE",
+            "value": "else"
+        },
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 6,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 11,
+            "char_start": 5,
+            "line": 7,
+            "type": "IDENT",
+            "value": "potato"
+        },
+        {
+            "char_end": 11,
+            "char_start": 11,
+            "line": 7,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 12,
+            "char_start": 12,
+            "line": 7,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 13,
+            "char_start": 13,
+            "line": 7,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 8,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        },
+        {
+            "char_end": 5,
+            "char_start": 1,
+            "line": 9,
+            "type": "K_ELSE",
+            "value": "else"
+        },
+        {
+            "char_end": 8,
+            "char_start": 6,
+            "line": 9,
+            "type": "K_IF",
+            "value": "if"
+        },
+        {
+            "char_end": 9,
+            "char_start": 9,
+            "line": 9,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 14,
+            "char_start": 10,
+            "line": 9,
+            "type": "IDENT",
+            "value": "test"
+        },
+        {
+            "char_end": 16,
+            "char_start": 15,
+            "line": 9,
+            "type": "OP_REL_EQ",
+            "value": "=="
+        },
+        {
+            "char_end": 23,
+            "char_start": 18,
+            "line": 9,
+            "type": "L_BOOL",
+            "value": "false"
+        },
+        {
+            "char_end": 23,
+            "char_start": 23,
+            "line": 9,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 10,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 10,
+            "char_start": 5,
+            "line": 11,
+            "type": "IDENT",
+            "value": "print"
+        },
+        {
+            "char_end": 10,
+            "char_start": 10,
+            "line": 11,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 23,
+            "char_start": 11,
+            "line": 11,
+            "type": "L_STRING",
+            "value": "should fail"
+        },
+        {
+            "char_end": 24,
+            "char_start": 24,
+            "line": 11,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 25,
+            "char_start": 25,
+            "line": 11,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 12,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        }
+    ]
+}

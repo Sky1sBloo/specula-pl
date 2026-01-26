@@ -1,0 +1,387 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 9,
+            "char_start": 1,
+            "line": 23,
+            "type": "K_LISTENER",
+            "value": "listener"
+        },
+        {
+            "char_end": 16,
+            "char_start": 10,
+            "line": 23,
+            "type": "K_TARGET",
+            "value": "target"
+        },
+        {
+            "char_end": 16,
+            "char_start": 16,
+            "line": 23,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 23,
+            "char_start": 17,
+            "line": 23,
+            "type": "IDENT",
+            "value": "config"
+        },
+        {
+            "char_end": 24,
+            "char_start": 23,
+            "line": 23,
+            "type": "OP_PERIOD",
+            "value": "."
+        },
+        {
+            "char_end": 31,
+            "char_start": 24,
+            "line": 23,
+            "type": "IDENT",
+            "value": "address"
+        },
+        {
+            "char_end": 31,
+            "char_start": 31,
+            "line": 23,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 38,
+            "char_start": 33,
+            "line": 23,
+            "type": "K_USING",
+            "value": "using"
+        },
+        {
+            "char_end": 46,
+            "char_start": 39,
+            "line": 23,
+            "type": "IDENT",
+            "value": "Service"
+        },
+        {
+            "char_end": 49,
+            "char_start": 47,
+            "line": 23,
+            "type": "K_AS",
+            "value": "as"
+        },
+        {
+            "char_end": 65,
+            "char_start": 50,
+            "line": 23,
+            "type": "IDENT",
+            "value": "ServiceListener"
+        },
+        {
+            "char_end": 66,
+            "char_start": 66,
+            "line": 23,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 8,
+            "char_start": 5,
+            "line": 24,
+            "type": "K_LET",
+            "value": "let"
+        },
+        {
+            "char_end": 16,
+            "char_start": 9,
+            "line": 24,
+            "type": "IDENT",
+            "value": "counter"
+        },
+        {
+            "char_end": 16,
+            "char_start": 16,
+            "line": 24,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 21,
+            "char_start": 18,
+            "line": 24,
+            "type": "K_TYPE",
+            "value": "int"
+        },
+        {
+            "char_end": 23,
+            "char_start": 22,
+            "line": 24,
+            "type": "OP_EQUALS",
+            "value": "="
+        },
+        {
+            "char_end": 25,
+            "char_start": 24,
+            "line": 24,
+            "type": "L_INT",
+            "value": "0"
+        },
+        {
+            "char_end": 25,
+            "char_start": 25,
+            "line": 24,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 9,
+            "char_start": 5,
+            "line": 25,
+            "type": "IDENT",
+            "value": "func"
+        },
+        {
+            "char_end": 17,
+            "char_start": 10,
+            "line": 25,
+            "type": "IDENT",
+            "value": "process"
+        },
+        {
+            "char_end": 17,
+            "char_start": 17,
+            "line": 25,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 19,
+            "char_start": 18,
+            "line": 25,
+            "type": "IDENT",
+            "value": "x"
+        },
+        {
+            "char_end": 19,
+            "char_start": 19,
+            "line": 25,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 27,
+            "char_start": 21,
+            "line": 25,
+            "type": "IDENT",
+            "value": "string"
+        },
+        {
+            "char_end": 27,
+            "char_start": 27,
+            "line": 25,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 29,
+            "char_start": 29,
+            "line": 25,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 15,
+            "char_start": 9,
+            "line": 26,
+            "type": "IDENT",
+            "value": "return"
+        },
+        {
+            "char_end": 17,
+            "char_start": 16,
+            "line": 26,
+            "type": "IDENT",
+            "value": "x"
+        },
+        {
+            "char_end": 17,
+            "char_start": 17,
+            "line": 26,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 5,
+            "char_start": 5,
+            "line": 27,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        },
+        {
+            "char_end": 7,
+            "char_start": 5,
+            "line": 28,
+            "type": "K_ON",
+            "value": "on"
+        },
+        {
+            "char_end": 15,
+            "char_start": 8,
+            "line": 28,
+            "type": "IDENT",
+            "value": "Request"
+        },
+        {
+            "char_end": 16,
+            "char_start": 16,
+            "line": 28,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 24,
+            "char_start": 18,
+            "line": 28,
+            "type": "IDENT",
+            "value": "action"
+        },
+        {
+            "char_end": 25,
+            "char_start": 25,
+            "line": 28,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        },
+        {
+            "char_end": 27,
+            "char_start": 27,
+            "line": 28,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 16,
+            "char_start": 9,
+            "line": 29,
+            "type": "K_RESPOND",
+            "value": "respond"
+        },
+        {
+            "char_end": 24,
+            "char_start": 17,
+            "line": 29,
+            "type": "IDENT",
+            "value": "Success"
+        },
+        {
+            "char_end": 24,
+            "char_start": 24,
+            "line": 29,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 25,
+            "char_start": 25,
+            "line": 29,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 26,
+            "char_start": 26,
+            "line": 29,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 5,
+            "char_start": 5,
+            "line": 30,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        },
+        {
+            "char_end": 7,
+            "char_start": 5,
+            "line": 31,
+            "type": "K_ON",
+            "value": "on"
+        },
+        {
+            "char_end": 12,
+            "char_start": 8,
+            "line": 31,
+            "type": "K_FAIL",
+            "value": "fail"
+        },
+        {
+            "char_end": 27,
+            "char_start": 13,
+            "line": 31,
+            "type": "IDENT",
+            "value": "invalid_params"
+        },
+        {
+            "char_end": 28,
+            "char_start": 28,
+            "line": 31,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 12,
+            "char_start": 9,
+            "line": 32,
+            "type": "IDENT",
+            "value": "log"
+        },
+        {
+            "char_end": 12,
+            "char_start": 12,
+            "line": 32,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 21,
+            "char_start": 13,
+            "line": 32,
+            "type": "L_STRING",
+            "value": "Invalid"
+        },
+        {
+            "char_end": 22,
+            "char_start": 22,
+            "line": 32,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 23,
+            "char_start": 23,
+            "line": 32,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 5,
+            "char_start": 5,
+            "line": 33,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        },
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 34,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        }
+    ]
+}

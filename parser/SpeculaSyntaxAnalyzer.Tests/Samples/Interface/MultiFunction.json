@@ -1,0 +1,135 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 10,
+            "char_start": 1,
+            "line": 1,
+            "type": "K_INTERFACE",
+            "value": "interface"
+        },
+        {
+            "char_end": 16,
+            "char_start": 11,
+            "line": 1,
+            "type": "IDENT",
+            "value": "Multi"
+        },
+        {
+            "char_end": 17,
+            "char_start": 17,
+            "line": 1,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 21,
+            "char_start": 19,
+            "line": 1,
+            "type": "K_FN",
+            "value": "fn"
+        },
+        {
+            "char_end": 29,
+            "char_start": 22,
+            "line": 1,
+            "type": "IDENT",
+            "value": "method1"
+        },
+        {
+            "char_end": 29,
+            "char_start": 29,
+            "line": 1,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 30,
+            "char_start": 30,
+            "line": 1,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 31,
+            "char_start": 31,
+            "line": 1,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 37,
+            "char_start": 33,
+            "line": 1,
+            "type": "K_TYPE",
+            "value": "void"
+        },
+        {
+            "char_end": 37,
+            "char_start": 37,
+            "line": 1,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 41,
+            "char_start": 39,
+            "line": 1,
+            "type": "K_FN",
+            "value": "fn"
+        },
+        {
+            "char_end": 49,
+            "char_start": 42,
+            "line": 1,
+            "type": "IDENT",
+            "value": "method2"
+        },
+        {
+            "char_end": 49,
+            "char_start": 49,
+            "line": 1,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 50,
+            "char_start": 50,
+            "line": 1,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 51,
+            "char_start": 51,
+            "line": 1,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 56,
+            "char_start": 53,
+            "line": 1,
+            "type": "K_TYPE",
+            "value": "int"
+        },
+        {
+            "char_end": 56,
+            "char_start": 56,
+            "line": 1,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 58,
+            "char_start": 58,
+            "line": 1,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        }
+    ]
+}

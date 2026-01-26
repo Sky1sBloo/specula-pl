@@ -1,0 +1,107 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 12,
+            "char_start": 1,
+            "line": 1,
+            "type": "IDENT",
+            "value": "MoveCommand"
+        },
+        {
+            "char_end": 13,
+            "char_start": 13,
+            "line": 1,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 24,
+            "char_start": 15,
+            "line": 1,
+            "type": "IDENT",
+            "value": "direction"
+        },
+        {
+            "char_end": 24,
+            "char_start": 24,
+            "line": 1,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 29,
+            "char_start": 26,
+            "line": 1,
+            "type": "IDENT",
+            "value": "str"
+        },
+        {
+            "char_end": 29,
+            "char_start": 29,
+            "line": 1,
+            "type": "COMMA",
+            "value": ","
+        },
+        {
+            "char_end": 36,
+            "char_start": 31,
+            "line": 1,
+            "type": "IDENT",
+            "value": "speed"
+        },
+        {
+            "char_end": 36,
+            "char_start": 36,
+            "line": 1,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 43,
+            "char_start": 38,
+            "line": 1,
+            "type": "K_TYPE",
+            "value": "float"
+        },
+        {
+            "char_end": 44,
+            "char_start": 44,
+            "line": 1,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        },
+        {
+            "char_end": 50,
+            "char_start": 46,
+            "line": 1,
+            "type": "IDENT",
+            "value": "Idle"
+        },
+        {
+            "char_end": 52,
+            "char_start": 51,
+            "line": 1,
+            "type": "OP_RIGHT_OP",
+            "value": "->"
+        },
+        {
+            "char_end": 65,
+            "char_start": 54,
+            "line": 1,
+            "type": "IDENT",
+            "value": "CommandSent"
+        },
+        {
+            "char_end": 65,
+            "char_start": 65,
+            "line": 1,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        }
+    ]
+}

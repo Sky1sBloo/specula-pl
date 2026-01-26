@@ -1,0 +1,51 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 10,
+            "char_start": 1,
+            "line": 1,
+            "type": "IDENT",
+            "value": "getServer"
+        },
+        {
+            "char_end": 10,
+            "char_start": 10,
+            "line": 1,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 11,
+            "char_start": 11,
+            "line": 1,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 13,
+            "char_start": 12,
+            "line": 1,
+            "type": "OP_PERIOD",
+            "value": "."
+        },
+        {
+            "char_end": 16,
+            "char_start": 13,
+            "line": 1,
+            "type": "IDENT",
+            "value": "url"
+        },
+        {
+            "char_end": 16,
+            "char_start": 16,
+            "line": 1,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        }
+    ]
+}

@@ -1,0 +1,121 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 3,
+            "char_start": 1,
+            "line": 1,
+            "type": "K_ON",
+            "value": "on"
+        },
+        {
+            "char_end": 8,
+            "char_start": 4,
+            "line": 1,
+            "type": "K_FAIL",
+            "value": "fail"
+        },
+        {
+            "char_end": 24,
+            "char_start": 9,
+            "line": 1,
+            "type": "IDENT",
+            "value": "invalid_command"
+        },
+        {
+            "char_end": 24,
+            "char_start": 24,
+            "line": 1,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 29,
+            "char_start": 25,
+            "line": 1,
+            "type": "IDENT",
+            "value": "code"
+        },
+        {
+            "char_end": 29,
+            "char_start": 29,
+            "line": 1,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 34,
+            "char_start": 31,
+            "line": 1,
+            "type": "K_TYPE",
+            "value": "int"
+        },
+        {
+            "char_end": 34,
+            "char_start": 34,
+            "line": 1,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 36,
+            "char_start": 36,
+            "line": 1,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 12,
+            "char_start": 5,
+            "line": 2,
+            "type": "K_RESPOND",
+            "value": "respond"
+        },
+        {
+            "char_end": 22,
+            "char_start": 13,
+            "line": 2,
+            "type": "IDENT",
+            "value": "ErrorCode"
+        },
+        {
+            "char_end": 22,
+            "char_start": 22,
+            "line": 2,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 27,
+            "char_start": 23,
+            "line": 2,
+            "type": "IDENT",
+            "value": "code"
+        },
+        {
+            "char_end": 27,
+            "char_start": 27,
+            "line": 2,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 28,
+            "char_start": 28,
+            "line": 2,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 3,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        }
+    ]
+}

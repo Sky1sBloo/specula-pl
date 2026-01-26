@@ -1,0 +1,149 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 7,
+            "char_start": 1,
+            "line": 1,
+            "type": "K_STRUCT",
+            "value": "struct"
+        },
+        {
+            "char_end": 13,
+            "char_start": 8,
+            "line": 1,
+            "type": "IDENT",
+            "value": "Flags"
+        },
+        {
+            "char_end": 14,
+            "char_start": 14,
+            "line": 1,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 19,
+            "char_start": 16,
+            "line": 1,
+            "type": "K_LET",
+            "value": "let"
+        },
+        {
+            "char_end": 26,
+            "char_start": 20,
+            "line": 1,
+            "type": "IDENT",
+            "value": "active"
+        },
+        {
+            "char_end": 26,
+            "char_start": 26,
+            "line": 1,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 32,
+            "char_start": 28,
+            "line": 1,
+            "type": "K_TYPE",
+            "value": "bool"
+        },
+        {
+            "char_end": 33,
+            "char_start": 33,
+            "line": 1,
+            "type": "D_BRAC_OP",
+            "value": "["
+        },
+        {
+            "char_end": 37,
+            "char_start": 34,
+            "line": 1,
+            "type": "K_OWN",
+            "value": "own"
+        },
+        {
+            "char_end": 37,
+            "char_start": 37,
+            "line": 1,
+            "type": "D_BRAC_CLO",
+            "value": "]"
+        },
+        {
+            "char_end": 38,
+            "char_start": 38,
+            "line": 1,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 43,
+            "char_start": 40,
+            "line": 1,
+            "type": "K_LET",
+            "value": "let"
+        },
+        {
+            "char_end": 48,
+            "char_start": 44,
+            "line": 1,
+            "type": "IDENT",
+            "value": "mode"
+        },
+        {
+            "char_end": 48,
+            "char_start": 48,
+            "line": 1,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 56,
+            "char_start": 50,
+            "line": 1,
+            "type": "IDENT",
+            "value": "string"
+        },
+        {
+            "char_end": 57,
+            "char_start": 57,
+            "line": 1,
+            "type": "D_BRAC_OP",
+            "value": "["
+        },
+        {
+            "char_end": 63,
+            "char_start": 58,
+            "line": 1,
+            "type": "K_CONST",
+            "value": "const"
+        },
+        {
+            "char_end": 63,
+            "char_start": 63,
+            "line": 1,
+            "type": "D_BRAC_CLO",
+            "value": "]"
+        },
+        {
+            "char_end": 64,
+            "char_start": 64,
+            "line": 1,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 66,
+            "char_start": 66,
+            "line": 1,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        }
+    ]
+}

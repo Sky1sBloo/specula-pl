@@ -1,0 +1,618 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 4,
+            "char_start": 1,
+            "line": 1,
+            "type": "K_LET",
+            "value": "let"
+        },
+        {
+            "char_end": 12,
+            "char_start": 5,
+            "line": 1,
+            "type": "IDENT",
+            "value": "complex"
+        },
+        {
+            "char_end": 13,
+            "char_start": 13,
+            "line": 1,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 18,
+            "char_start": 15,
+            "line": 1,
+            "type": "K_TYPE",
+            "value": "int"
+        },
+        {
+            "char_end": 20,
+            "char_start": 19,
+            "line": 1,
+            "type": "OP_EQUALS",
+            "value": "="
+        },
+        {
+            "char_end": 21,
+            "char_start": 21,
+            "line": 1,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 23,
+            "char_start": 22,
+            "line": 1,
+            "type": "L_INT",
+            "value": "5"
+        },
+        {
+            "char_end": 25,
+            "char_start": 24,
+            "line": 1,
+            "type": "OP_PLUS",
+            "value": "+"
+        },
+        {
+            "char_end": 27,
+            "char_start": 26,
+            "line": 1,
+            "type": "L_INT",
+            "value": "3"
+        },
+        {
+            "char_end": 27,
+            "char_start": 27,
+            "line": 1,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 30,
+            "char_start": 29,
+            "line": 1,
+            "type": "OP_MULT",
+            "value": "*"
+        },
+        {
+            "char_end": 31,
+            "char_start": 31,
+            "line": 1,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 34,
+            "char_start": 32,
+            "line": 1,
+            "type": "L_INT",
+            "value": "10"
+        },
+        {
+            "char_end": 36,
+            "char_start": 35,
+            "line": 1,
+            "type": "OP_MINUS",
+            "value": "-"
+        },
+        {
+            "char_end": 38,
+            "char_start": 37,
+            "line": 1,
+            "type": "L_INT",
+            "value": "2"
+        },
+        {
+            "char_end": 38,
+            "char_start": 38,
+            "line": 1,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 39,
+            "char_start": 39,
+            "line": 1,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 4,
+            "char_start": 1,
+            "line": 2,
+            "type": "K_LET",
+            "value": "let"
+        },
+        {
+            "char_end": 11,
+            "char_start": 5,
+            "line": 2,
+            "type": "IDENT",
+            "value": "nested"
+        },
+        {
+            "char_end": 12,
+            "char_start": 12,
+            "line": 2,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 17,
+            "char_start": 14,
+            "line": 2,
+            "type": "K_TYPE",
+            "value": "int"
+        },
+        {
+            "char_end": 19,
+            "char_start": 18,
+            "line": 2,
+            "type": "OP_EQUALS",
+            "value": "="
+        },
+        {
+            "char_end": 20,
+            "char_start": 20,
+            "line": 2,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 21,
+            "char_start": 21,
+            "line": 2,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 26,
+            "char_start": 22,
+            "line": 2,
+            "type": "IDENT",
+            "value": "vari"
+        },
+        {
+            "char_end": 28,
+            "char_start": 27,
+            "line": 2,
+            "type": "OP_PLUS",
+            "value": "+"
+        },
+        {
+            "char_end": 30,
+            "char_start": 29,
+            "line": 2,
+            "type": "L_INT",
+            "value": "2"
+        },
+        {
+            "char_end": 30,
+            "char_start": 30,
+            "line": 2,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 33,
+            "char_start": 32,
+            "line": 2,
+            "type": "OP_MULT",
+            "value": "*"
+        },
+        {
+            "char_end": 39,
+            "char_start": 34,
+            "line": 2,
+            "type": "IDENT",
+            "value": "ident"
+        },
+        {
+            "char_end": 39,
+            "char_start": 39,
+            "line": 2,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 42,
+            "char_start": 41,
+            "line": 2,
+            "type": "OP_PLUS",
+            "value": "+"
+        },
+        {
+            "char_end": 44,
+            "char_start": 43,
+            "line": 2,
+            "type": "L_INT",
+            "value": "4"
+        },
+        {
+            "char_end": 44,
+            "char_start": 44,
+            "line": 2,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 4,
+            "char_start": 1,
+            "line": 3,
+            "type": "K_LET",
+            "value": "let"
+        },
+        {
+            "char_end": 9,
+            "char_start": 5,
+            "line": 3,
+            "type": "IDENT",
+            "value": "deep"
+        },
+        {
+            "char_end": 10,
+            "char_start": 10,
+            "line": 3,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 15,
+            "char_start": 12,
+            "line": 3,
+            "type": "K_TYPE",
+            "value": "int"
+        },
+        {
+            "char_end": 17,
+            "char_start": 16,
+            "line": 3,
+            "type": "OP_EQUALS",
+            "value": "="
+        },
+        {
+            "char_end": 19,
+            "char_start": 18,
+            "line": 3,
+            "type": "L_INT",
+            "value": "2"
+        },
+        {
+            "char_end": 21,
+            "char_start": 20,
+            "line": 3,
+            "type": "OP_MULT",
+            "value": "*"
+        },
+        {
+            "char_end": 22,
+            "char_start": 22,
+            "line": 3,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 24,
+            "char_start": 23,
+            "line": 3,
+            "type": "L_INT",
+            "value": "3"
+        },
+        {
+            "char_end": 26,
+            "char_start": 25,
+            "line": 3,
+            "type": "OP_PLUS",
+            "value": "+"
+        },
+        {
+            "char_end": 27,
+            "char_start": 27,
+            "line": 3,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 29,
+            "char_start": 28,
+            "line": 3,
+            "type": "L_INT",
+            "value": "4"
+        },
+        {
+            "char_end": 31,
+            "char_start": 30,
+            "line": 3,
+            "type": "OP_MULT",
+            "value": "*"
+        },
+        {
+            "char_end": 33,
+            "char_start": 32,
+            "line": 3,
+            "type": "L_INT",
+            "value": "5"
+        },
+        {
+            "char_end": 33,
+            "char_start": 33,
+            "line": 3,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 34,
+            "char_start": 34,
+            "line": 3,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 35,
+            "char_start": 35,
+            "line": 3,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 4,
+            "char_start": 1,
+            "line": 4,
+            "type": "K_LET",
+            "value": "let"
+        },
+        {
+            "char_end": 6,
+            "char_start": 5,
+            "line": 4,
+            "type": "IDENT",
+            "value": "x"
+        },
+        {
+            "char_end": 7,
+            "char_start": 7,
+            "line": 4,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 12,
+            "char_start": 9,
+            "line": 4,
+            "type": "K_TYPE",
+            "value": "int"
+        },
+        {
+            "char_end": 14,
+            "char_start": 13,
+            "line": 4,
+            "type": "OP_EQUALS",
+            "value": "="
+        },
+        {
+            "char_end": 16,
+            "char_start": 15,
+            "line": 4,
+            "type": "L_INT",
+            "value": "5"
+        },
+        {
+            "char_end": 18,
+            "char_start": 17,
+            "line": 4,
+            "type": "OP_PLUS",
+            "value": "+"
+        },
+        {
+            "char_end": 20,
+            "char_start": 19,
+            "line": 4,
+            "type": "L_INT",
+            "value": "3"
+        },
+        {
+            "char_end": 20,
+            "char_start": 20,
+            "line": 4,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 4,
+            "char_start": 1,
+            "line": 5,
+            "type": "K_LET",
+            "value": "let"
+        },
+        {
+            "char_end": 6,
+            "char_start": 5,
+            "line": 5,
+            "type": "IDENT",
+            "value": "y"
+        },
+        {
+            "char_end": 7,
+            "char_start": 7,
+            "line": 5,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 12,
+            "char_start": 9,
+            "line": 5,
+            "type": "K_TYPE",
+            "value": "int"
+        },
+        {
+            "char_end": 14,
+            "char_start": 13,
+            "line": 5,
+            "type": "OP_EQUALS",
+            "value": "="
+        },
+        {
+            "char_end": 17,
+            "char_start": 15,
+            "line": 5,
+            "type": "L_INT",
+            "value": "10"
+        },
+        {
+            "char_end": 19,
+            "char_start": 18,
+            "line": 5,
+            "type": "OP_MINUS",
+            "value": "-"
+        },
+        {
+            "char_end": 21,
+            "char_start": 20,
+            "line": 5,
+            "type": "L_INT",
+            "value": "4"
+        },
+        {
+            "char_end": 21,
+            "char_start": 21,
+            "line": 5,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 4,
+            "char_start": 1,
+            "line": 6,
+            "type": "K_LET",
+            "value": "let"
+        },
+        {
+            "char_end": 6,
+            "char_start": 5,
+            "line": 6,
+            "type": "IDENT",
+            "value": "z"
+        },
+        {
+            "char_end": 7,
+            "char_start": 7,
+            "line": 6,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 12,
+            "char_start": 9,
+            "line": 6,
+            "type": "K_TYPE",
+            "value": "int"
+        },
+        {
+            "char_end": 14,
+            "char_start": 13,
+            "line": 6,
+            "type": "OP_EQUALS",
+            "value": "="
+        },
+        {
+            "char_end": 16,
+            "char_start": 15,
+            "line": 6,
+            "type": "L_INT",
+            "value": "6"
+        },
+        {
+            "char_end": 18,
+            "char_start": 17,
+            "line": 6,
+            "type": "OP_MULT",
+            "value": "*"
+        },
+        {
+            "char_end": 20,
+            "char_start": 19,
+            "line": 6,
+            "type": "L_INT",
+            "value": "7"
+        },
+        {
+            "char_end": 20,
+            "char_start": 20,
+            "line": 6,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 4,
+            "char_start": 1,
+            "line": 7,
+            "type": "K_LET",
+            "value": "let"
+        },
+        {
+            "char_end": 6,
+            "char_start": 5,
+            "line": 7,
+            "type": "IDENT",
+            "value": "w"
+        },
+        {
+            "char_end": 7,
+            "char_start": 7,
+            "line": 7,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 12,
+            "char_start": 9,
+            "line": 7,
+            "type": "K_TYPE",
+            "value": "int"
+        },
+        {
+            "char_end": 14,
+            "char_start": 13,
+            "line": 7,
+            "type": "OP_EQUALS",
+            "value": "="
+        },
+        {
+            "char_end": 17,
+            "char_start": 15,
+            "line": 7,
+            "type": "L_INT",
+            "value": "20"
+        },
+        {
+            "char_end": 19,
+            "char_start": 18,
+            "line": 7,
+            "type": "OP_DIVIDE",
+            "value": "/"
+        },
+        {
+            "char_end": 21,
+            "char_start": 20,
+            "line": 7,
+            "type": "L_INT",
+            "value": "4"
+        },
+        {
+            "char_end": 21,
+            "char_start": 21,
+            "line": 7,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        }
+    ]
+}

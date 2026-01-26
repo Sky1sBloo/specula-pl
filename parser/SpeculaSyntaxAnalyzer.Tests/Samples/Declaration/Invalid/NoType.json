@@ -1,0 +1,30 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 4,
+            "char_start": 1,
+            "line": 1,
+            "type": "K_LET",
+            "value": "let"
+        },
+        {
+            "char_end": 8,
+            "char_start": 5,
+            "line": 1,
+            "type": "IDENT",
+            "value": "var"
+        },
+        {
+            "char_end": 8,
+            "char_start": 8,
+            "line": 1,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        }
+    ]
+}

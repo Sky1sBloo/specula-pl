@@ -1,0 +1,107 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 3,
+            "char_start": 1,
+            "line": 1,
+            "type": "K_FN",
+            "value": "fn"
+        },
+        {
+            "char_end": 11,
+            "char_start": 4,
+            "line": 1,
+            "type": "IDENT",
+            "value": "process"
+        },
+        {
+            "char_end": 11,
+            "char_start": 11,
+            "line": 1,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 16,
+            "char_start": 12,
+            "line": 1,
+            "type": "IDENT",
+            "value": "data"
+        },
+        {
+            "char_end": 16,
+            "char_start": 16,
+            "line": 1,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 24,
+            "char_start": 18,
+            "line": 1,
+            "type": "IDENT",
+            "value": "String"
+        },
+        {
+            "char_end": 24,
+            "char_start": 24,
+            "line": 1,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 26,
+            "char_start": 26,
+            "line": 1,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 10,
+            "char_start": 5,
+            "line": 2,
+            "type": "IDENT",
+            "value": "print"
+        },
+        {
+            "char_end": 10,
+            "char_start": 10,
+            "line": 2,
+            "type": "D_PAR_OP",
+            "value": "("
+        },
+        {
+            "char_end": 22,
+            "char_start": 11,
+            "line": 2,
+            "type": "L_STRING",
+            "value": "processing"
+        },
+        {
+            "char_end": 23,
+            "char_start": 23,
+            "line": 2,
+            "type": "D_PAR_CLO",
+            "value": ")"
+        },
+        {
+            "char_end": 24,
+            "char_start": 24,
+            "line": 2,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 1,
+            "char_start": 1,
+            "line": 3,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        }
+    ]
+}

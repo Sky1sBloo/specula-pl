@@ -1,0 +1,100 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 7,
+            "char_start": 1,
+            "line": 1,
+            "type": "K_STRUCT",
+            "value": "struct"
+        },
+        {
+            "char_end": 11,
+            "char_start": 8,
+            "line": 1,
+            "type": "IDENT",
+            "value": "Bad"
+        },
+        {
+            "char_end": 12,
+            "char_start": 12,
+            "line": 1,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 17,
+            "char_start": 14,
+            "line": 1,
+            "type": "K_LET",
+            "value": "let"
+        },
+        {
+            "char_end": 20,
+            "char_start": 18,
+            "line": 1,
+            "type": "IDENT",
+            "value": "id"
+        },
+        {
+            "char_end": 20,
+            "char_start": 20,
+            "line": 1,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 25,
+            "char_start": 22,
+            "line": 1,
+            "type": "K_TYPE",
+            "value": "int"
+        },
+        {
+            "char_end": 26,
+            "char_start": 26,
+            "line": 1,
+            "type": "D_BRAC_OP",
+            "value": "["
+        },
+        {
+            "char_end": 30,
+            "char_start": 27,
+            "line": 1,
+            "type": "K_OWN",
+            "value": "own"
+        },
+        {
+            "char_end": 30,
+            "char_start": 30,
+            "line": 1,
+            "type": "COMMA",
+            "value": ","
+        },
+        {
+            "char_end": 31,
+            "char_start": 31,
+            "line": 1,
+            "type": "D_BRAC_CLO",
+            "value": "]"
+        },
+        {
+            "char_end": 32,
+            "char_start": 32,
+            "line": 1,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 34,
+            "char_start": 34,
+            "line": 1,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        }
+    ]
+}

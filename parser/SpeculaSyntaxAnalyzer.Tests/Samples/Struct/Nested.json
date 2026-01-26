@@ -1,0 +1,93 @@
+{
+    "errors": [],
+    "file": {
+        "name": "testFile",
+        "type": "specula_src"
+    },
+    "tokens": [
+        {
+            "char_end": 7,
+            "char_start": 1,
+            "line": 1,
+            "type": "K_STRUCT",
+            "value": "struct"
+        },
+        {
+            "char_end": 14,
+            "char_start": 8,
+            "line": 1,
+            "type": "IDENT",
+            "value": "Nested"
+        },
+        {
+            "char_end": 15,
+            "char_start": 15,
+            "line": 1,
+            "type": "D_CBRAC_OP",
+            "value": "{"
+        },
+        {
+            "char_end": 20,
+            "char_start": 17,
+            "line": 1,
+            "type": "K_LET",
+            "value": "let"
+        },
+        {
+            "char_end": 26,
+            "char_start": 21,
+            "line": 1,
+            "type": "IDENT",
+            "value": "inner"
+        },
+        {
+            "char_end": 26,
+            "char_start": 26,
+            "line": 1,
+            "type": "D_COLON",
+            "value": ":"
+        },
+        {
+            "char_end": 38,
+            "char_start": 28,
+            "line": 1,
+            "type": "IDENT",
+            "value": "CustomType"
+        },
+        {
+            "char_end": 39,
+            "char_start": 39,
+            "line": 1,
+            "type": "D_BRAC_OP",
+            "value": "["
+        },
+        {
+            "char_end": 46,
+            "char_start": 40,
+            "line": 1,
+            "type": "K_SHARED",
+            "value": "shared"
+        },
+        {
+            "char_end": 46,
+            "char_start": 46,
+            "line": 1,
+            "type": "D_BRAC_CLO",
+            "value": "]"
+        },
+        {
+            "char_end": 47,
+            "char_start": 47,
+            "line": 1,
+            "type": "D_SEMICOLON",
+            "value": ";"
+        },
+        {
+            "char_end": 49,
+            "char_start": 49,
+            "line": 1,
+            "type": "D_CBRAC_CLO",
+            "value": "}"
+        }
+    ]
+}
