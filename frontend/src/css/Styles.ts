@@ -237,6 +237,14 @@ export const diagnosticBlockStyle: CSSProperties = {
 };
 
 export const segmentedRowStyle: CSSProperties = {
+    display: 'flex',
+    background: 'rgba(255,255,255,0.06)',
+    borderRadius: '14px',
+    padding: '4px',
+    minWidth: '200px'
+};
+
+export const segmentedRowStyle4: CSSProperties = {
     display: 'grid',
     gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
     background: 'rgba(255,255,255,0.06)',

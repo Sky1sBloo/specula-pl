@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { tokenizeSource } from './lib/lexer';
+import { analyzeSource, type ParserPayload } from './lib/parser';
 import type { ChangeEvent } from 'react';
 import type { LexerPayload, LexerToken } from './types/token';
 import * as Styles from './css/Styles';
@@ -11,25 +12,30 @@ import OutputEmpty from './components/OutputEmpty';
 import OutputErrorPanel from './components/OutputErrorPanel';
 import LoadingIndicator from './components/LoadingIndicator';
 
-export const exampleSnippet = `contract Treasury {
-  export const owner: Address = caller;
-  export const vault: Map<Address, Int>;
+export const exampleSnippet = `contract MotionControl {
+    init-state Idle;
+    roles: Robot, Controller;
 
-  fn deposit(amount: Int) -> Bool {
-    require(amount > 0);
-    vault[caller] += amount;
-    emit Deposited(caller, amount);
-    return true;
-  }
+    state Idle <-> CommandSent -> Acknowledged -> Completed;
+    state CommandSent -> Idle;
+    state Idle -> Completed;
 
-  fn balance(of: Address) -> Int {
-    return vault[of];
-  }
+
+    [Controller -> Robot]
+    MoveCommand { direction: str, speed: float } @Idle -> CommandSent;
+    
+    [Robot -> Controller]
+    Ack { accepted: bool } @CommandSent -> Acknowledged;
+    Status { position: vec3, battery: float } @Acknowledged -> Completed;
+
+    fail low_battery; 
+    auto-reset after Completed;
 }`;
 
 export const navItems = ['Compiler', 'About', 'Overview'];
 
 type OutputView = 'all' | 'table' | 'block' | 'json';
+type ParserView = 'tree' | 'dropdown' | 'json';
 type AnalysisMode = 'lexer' | 'parser';
 
 type BlockSummary = {
@@ -45,6 +51,12 @@ const segmentedOptions: { id: OutputView; label: string }[] = [
     { id: 'all', label: 'All' },
     { id: 'table', label: 'Table' },
     { id: 'block', label: 'Block' },
+    { id: 'json', label: 'JSON' }
+];
+
+const parserViewOptions: { id: ParserView; label: string }[] = [
+    { id: 'tree', label: 'Tree' },
+    { id: 'dropdown', label: 'Dropdown' },
     { id: 'json', label: 'JSON' }
 ];
 
@@ -197,9 +209,11 @@ const annotateTokensWithLines = (source: string, tokens: LexerToken[]): LexerTok
 export default function App() {
     const [source, setSource] = useState(exampleSnippet);
     const [payload, setPayload] = useState<LexerPayload | null>(null);
+    const [parserPayload, setParserPayload] = useState<ParserPayload | null>(null);
     const [statusText, setStatusText] = useState('Ready to lex. Press Run to analyze.');
     const [errorText, setErrorText] = useState<string | null>(null);
     const [outputView, setOutputView] = useState<OutputView>('all');
+    const [parserView, setParserView] = useState<ParserView>('tree');
     const [editorHeight, setEditorHeight] = useState(280);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -208,6 +222,9 @@ export default function App() {
     const [lastRunError, setLastRunError] = useState<string | null>(null);
     const [lastSubmittedSource, setLastSubmittedSource] = useState('');
     const [analysisMode, setAnalysisMode] = useState<AnalysisMode>('lexer');
+    const [parserLoading, setParserLoading] = useState(false);
+    const [parserError, setParserError] = useState<string | null>(null);
+    const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set());
 
     useEffect(() => {
         document.body.style.margin = '0';
@@ -285,11 +302,12 @@ export default function App() {
 
     const lexerMutation = useMutation({
         mutationFn: tokenizeSource,
-        onSuccess: (data) => {
+        onSuccess: async (data) => {
             console.log(data)
             if (!data) {
                 const emptyMessage = 'Lexer returned an empty response.';
                 setPayload(null);
+                setParserPayload(null);
                 setStatusText('Lexing failed');
                 setErrorText(emptyMessage);
                 setLastRunError(emptyMessage);
@@ -316,6 +334,32 @@ export default function App() {
                 setErrorText("ERROR");
             }
             setLastRunError(null);
+
+            // If in parser mode, automatically run the parser after lexing
+            if (analysisMode === 'parser' && normalizedPayload.ok) {
+                setParserLoading(true);
+                setParserError(null);
+                setStatusText('Parsing tokens…');
+                try {
+                    const parserResult = await analyzeSource(normalizedPayload);
+                    setParserPayload(parserResult);
+                    setStatusText(
+                        parserResult.ok
+                            ? 'Parsing complete'
+                            : `Parser reported ${parserResult.errors.length} error(s)`
+                    );
+                    if (!parserResult.ok) {
+                        setParserError(parserResult.errors.join(', '));
+                    }
+                } catch (err) {
+                    const message = err instanceof Error ? err.message : 'Unknown parser failure.';
+                    setParserError(message);
+                    setStatusText('Parsing failed');
+                    setParserPayload(null);
+                } finally {
+                    setParserLoading(false);
+                }
+            }
         },
         onError: (err: unknown) => {
             const message = err instanceof Error ? err.message : 'Unknown lexer failure.';
@@ -323,6 +367,7 @@ export default function App() {
             setStatusText('Lexing failed');
             setLastRunError(message);
             setPayload(null);
+            setParserPayload(null);
         }
     });
 
@@ -509,7 +554,7 @@ export default function App() {
                 }}
                 onClick={() => payload && navigator.clipboard?.writeText(JSON.stringify(payload, null, 2))}
             >
-                📋 Copy
+                Copy
             </button>
             <pre style={{
                 margin: 0,
@@ -539,44 +584,384 @@ export default function App() {
         }
     };
 
-    const renderParserPlaceholder = () => (
-        <div
-            style={{
-                ...Styles.outputScroll,
-                minHeight: editorHeight,
-                maxHeight: editorHeight,
-                paddingTop: '80px',
-                textAlign: 'center'
-            }}
-        >
-            <div
-                style={{
-                    fontSize: '1.2rem',
-                    color: Styles.palette.muted,
-                    marginBottom: '16px'
-                }}
-            >
-                🌳 Parser Mode
+    // Helper function to generate ASCII tree from JSON
+    const generateAsciiTree = (node: unknown, prefix: string = '', isLast: boolean = true, isRoot: boolean = true): string => {
+        if (node === null || node === undefined) {
+            return prefix + (isRoot ? '' : (isLast ? '└── ' : '├── ')) + 'null\n';
+        }
+
+        if (typeof node !== 'object') {
+            return prefix + (isRoot ? '' : (isLast ? '└── ' : '├── ')) + String(node) + '\n';
+        }
+
+        if (Array.isArray(node)) {
+            if (node.length === 0) {
+                return prefix + (isRoot ? '' : (isLast ? '└── ' : '├── ')) + '[]\n';
+            }
+            let result = '';
+            node.forEach((item, index) => {
+                const itemIsLast = index === node.length - 1;
+                const itemPrefix = prefix + (isRoot ? '' : (isLast ? '    ' : '│   '));
+                result += generateAsciiTree(item, itemPrefix, itemIsLast, false);
+            });
+            return result;
+        }
+
+        const entries = Object.entries(node as Record<string, unknown>);
+        if (entries.length === 0) {
+            return prefix + (isRoot ? '' : (isLast ? '└── ' : '├── ')) + '{}\n';
+        }
+
+        let result = '';
+        const typeName = (node as Record<string, unknown>)['$type'];
+        
+        if (isRoot) {
+            result += (typeName ? String(typeName) : 'root') + '\n';
+        } else {
+            result += prefix + (isLast ? '└── ' : '├── ') + (typeName ? String(typeName) : '{}') + '\n';
+        }
+
+        const filteredEntries = entries.filter(([key]) => key !== '$type');
+        filteredEntries.forEach(([key, value], index) => {
+            const entryIsLast = index === filteredEntries.length - 1;
+            const childPrefix = prefix + (isRoot ? '' : (isLast ? '    ' : '│   '));
+            
+            if (value === null || value === undefined) {
+                result += childPrefix + (entryIsLast ? '└── ' : '├── ') + `${key}: null\n`;
+            } else if (typeof value !== 'object') {
+                result += childPrefix + (entryIsLast ? '└── ' : '├── ') + `${key}: ${value}\n`;
+            } else if (Array.isArray(value)) {
+                if (value.length === 0) {
+                    result += childPrefix + (entryIsLast ? '└── ' : '├── ') + `${key}: []\n`;
+                } else {
+                    result += childPrefix + (entryIsLast ? '└── ' : '├── ') + `${key}: (${value.length} items)\n`;
+                    const arrayPrefix = childPrefix + (entryIsLast ? '    ' : '│   ');
+                    value.forEach((item, i) => {
+                        result += generateAsciiTree(item, arrayPrefix, i === value.length - 1, false);
+                    });
+                }
+            } else {
+                result += childPrefix + (entryIsLast ? '└── ' : '├── ') + `${key}:\n`;
+                const objPrefix = childPrefix + (entryIsLast ? '    ' : '│   ');
+                result += generateAsciiTree(value, objPrefix, true, false);
+            }
+        });
+
+        return result;
+    };
+
+    // Toggle node expansion for dropdown view
+    const toggleNode = (path: string) => {
+        setExpandedNodes(prev => {
+            const newSet = new Set(prev);
+            if (newSet.has(path)) {
+                newSet.delete(path);
+            } else {
+                newSet.add(path);
+            }
+            return newSet;
+        });
+    };
+
+    // Recursive dropdown component
+    const renderDropdownNode = (node: unknown, path: string = 'root', depth: number = 0): React.ReactNode => {
+        if (node === null || node === undefined) {
+            return <span style={{ color: Styles.palette.muted }}>null</span>;
+        }
+
+        if (typeof node !== 'object') {
+            const valueColor = typeof node === 'string' ? '#a8d4a8' : 
+                              typeof node === 'number' ? '#d4a8d4' : 
+                              typeof node === 'boolean' ? '#d4d4a8' : Styles.palette.frost;
+            return <span style={{ color: valueColor }}>{JSON.stringify(node)}</span>;
+        }
+
+        if (Array.isArray(node)) {
+            if (node.length === 0) {
+                return <span style={{ color: Styles.palette.muted }}>[]</span>;
+            }
+            
+            const isExpanded = expandedNodes.has(path);
+            return (
+                <div style={{ marginLeft: depth > 0 ? '16px' : 0 }}>
+                    <button
+                        onClick={() => toggleNode(path)}
+                        style={{
+                            background: 'none',
+                            border: 'none',
+                            color: '#7aa2f7',
+                            cursor: 'pointer',
+                            padding: '2px 6px',
+                            fontSize: '0.85rem',
+                            fontFamily: "'JetBrains Mono', monospace"
+                        }}
+                    >
+                        {isExpanded ? '▼' : '▶'} Array({node.length})
+                    </button>
+                    {isExpanded && (
+                        <div style={{ marginLeft: '16px', borderLeft: '1px solid rgba(255,255,255,0.1)', paddingLeft: '8px' }}>
+                            {node.map((item, index) => (
+                                <div key={index} style={{ marginTop: '4px' }}>
+                                    <span style={{ color: Styles.palette.muted }}>[{index}]: </span>
+                                    {renderDropdownNode(item, `${path}[${index}]`, depth + 1)}
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        const entries = Object.entries(node as Record<string, unknown>);
+        if (entries.length === 0) {
+            return <span style={{ color: Styles.palette.muted }}>{'{}'}</span>;
+        }
+
+        const isExpanded = expandedNodes.has(path);
+        const typeName = (node as Record<string, unknown>)['$type'];
+
+        return (
+            <div style={{ marginLeft: depth > 0 ? '16px' : 0 }}>
+                <button
+                    onClick={() => toggleNode(path)}
+                    style={{
+                        background: 'none',
+                        border: 'none',
+                        color: '#bb9af7',
+                        cursor: 'pointer',
+                        padding: '2px 6px',
+                        fontSize: '0.85rem',
+                        fontFamily: "'JetBrains Mono', monospace"
+                    }}
+                >
+                    {isExpanded ? '▼' : '▶'} {typeName ? String(typeName) : 'Object'}
+                </button>
+                {isExpanded && (
+                    <div style={{ marginLeft: '16px', borderLeft: '1px solid rgba(255,255,255,0.1)', paddingLeft: '8px' }}>
+                        {entries.filter(([key]) => key !== '$type').map(([key, value]) => (
+                            <div key={key} style={{ marginTop: '4px' }}>
+                                <span style={{ color: '#7dcfff' }}>{key}: </span>
+                                {renderDropdownNode(value, `${path}.${key}`, depth + 1)}
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
-            <div
+        );
+    };
+
+    // Dark text box style for parser output - matches editor color
+    const parserOutputBoxStyle: React.CSSProperties = {
+        ...Styles.outputScroll,
+        minHeight: editorHeight,
+        maxHeight: editorHeight,
+        background: 'rgba(2,6,26,0.85)',
+        borderRadius: '18px',
+        border: '1px solid rgba(255,255,255,0.08)',
+        overflowX: 'auto',
+        overflowY: 'auto'
+    };
+
+    const renderParserTreeView = () => (
+        <div style={{ ...parserOutputBoxStyle, position: 'relative' }}>
+            <button
                 style={{
-                    fontSize: '0.9rem',
-                    color: Styles.palette.muted,
-                    maxWidth: '400px',
-                    margin: '0 auto'
+                    position: 'absolute',
+                    top: '12px',
+                    right: '12px',
+                    ...Styles.buttonBase,
+                    padding: '6px 14px',
+                    borderRadius: '8px',
+                    background: 'rgba(255,255,255,0.08)',
+                    color: Styles.palette.frost,
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    fontSize: '0.8rem',
+                    zIndex: 10
+                }}
+                onClick={() => {
+                    const tree = parserPayload?.root 
+                        ? generateAsciiTree(parserPayload.root)
+                        : parserPayload?.errors?.length 
+                            ? `Errors:\n${parserPayload.errors.map(e => `  ❌ ${e}`).join('\n')}`
+                            : 'No data';
+                    navigator.clipboard?.writeText(tree);
                 }}
             >
-                Parse tree visualization will appear here.
-                <br />
-                Parser implementation coming soon.
+                Copy
+            </button>
+            <pre style={{
+                margin: 0,
+                padding: '16px',
+                paddingTop: '48px',
+                paddingRight: '48px',
+                fontFamily: "'JetBrains Mono', 'Space Grotesk', monospace",
+                fontSize: '0.95rem',
+                color: Styles.palette.frost,
+                whiteSpace: 'pre',
+                minWidth: 'max-content',
+                lineHeight: '1.6'
+            }}>
+                {parserPayload?.errors && parserPayload.errors.length > 0 && (
+                    <span style={{ color: '#f85149' }}>
+                        {'Errors:\\n'}
+                        {parserPayload.errors.map(e => `   ${e}`).join('\\n')}
+                        {'\\n\\n'}
+                    </span>
+                )}
+                {parserPayload?.root 
+                    ? generateAsciiTree(parserPayload.root)
+                    : parserPayload?.errors?.length 
+                        ? '(Parse tree not available due to errors)'
+                        : 'No parse tree data'
+                }
+            </pre>
+        </div>
+    );
+
+    const renderParserDropdownView = () => (
+        <div style={{ ...parserOutputBoxStyle, position: 'relative' }}>
+            <button
+                style={{
+                    position: 'absolute',
+                    top: '12px',
+                    right: '12px',
+                    ...Styles.buttonBase,
+                    padding: '6px 14px',
+                    borderRadius: '8px',
+                    background: 'rgba(255,255,255,0.08)',
+                    color: Styles.palette.frost,
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    fontSize: '0.8rem',
+                    zIndex: 10
+                }}
+                onClick={() => {
+                    // Expand all nodes
+                    const getAllPaths = (node: unknown, path: string = 'root'): string[] => {
+                        if (!node || typeof node !== 'object') return [];
+                        const paths = [path];
+                        if (Array.isArray(node)) {
+                            node.forEach((item, i) => {
+                                paths.push(...getAllPaths(item, `${path}[${i}]`));
+                            });
+                        } else {
+                            Object.entries(node as Record<string, unknown>).forEach(([key, value]) => {
+                                paths.push(...getAllPaths(value, `${path}.${key}`));
+                            });
+                        }
+                        return paths;
+                    };
+                    const allPaths = parserPayload?.root ? getAllPaths(parserPayload.root) : [];
+                    setExpandedNodes(new Set(allPaths));
+                }}
+            >
+                Expand All
+            </button>
+            <div style={{ padding: '16px', paddingTop: '48px', paddingRight: '48px', minWidth: 'max-content' }}>
+                {parserPayload?.errors && parserPayload.errors.length > 0 && (
+                    <div style={{ marginBottom: '16px', padding: '12px', background: 'rgba(248,81,73,0.1)', borderRadius: '6px', border: '1px solid rgba(248,81,73,0.3)' }}>
+                        <div style={{ color: '#f85149', fontWeight: 600, marginBottom: '8px' }}>Errors:</div>
+                        {parserPayload.errors.map((e, i) => (
+                            <div key={i} style={{ color: '#f85149', fontSize: '0.85rem', marginLeft: '16px' }}>• {e}</div>
+                        ))}
+                    </div>
+                )}
+                <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.85rem', whiteSpace: 'nowrap' }}>
+                    {parserPayload?.root 
+                        ? renderDropdownNode(parserPayload.root)
+                        : <span style={{ color: Styles.palette.muted }}>No parse tree data</span>
+                    }
+                </div>
             </div>
         </div>
     );
 
+    const renderParserJsonView = () => (
+        <div style={{ ...parserOutputBoxStyle, position: 'relative' }}>
+            <button
+                style={{
+                    position: 'absolute',
+                    top: '12px',
+                    right: '12px',
+                    ...Styles.buttonBase,
+                    padding: '6px 14px',
+                    borderRadius: '8px',
+                    background: 'rgba(255,255,255,0.08)',
+                    color: Styles.palette.frost,
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    fontSize: '0.8rem',
+                    zIndex: 10
+                }}
+                onClick={() => parserPayload && navigator.clipboard?.writeText(JSON.stringify(parserPayload, null, 2))}
+            >
+                Copy
+            </button>
+            <pre style={{
+                margin: 0,
+                padding: '16px',
+                paddingTop: '48px',
+                fontFamily: "'JetBrains Mono', 'Space Grotesk', monospace",
+                fontSize: '0.85rem',
+                color: Styles.palette.frost,
+                whiteSpace: 'pre-wrap',
+                wordBreak: 'break-word'
+            }}>
+                {JSON.stringify(parserPayload, null, 2)}
+            </pre>
+        </div>
+    );
+
+    const renderParserByView = () => {
+        switch (parserView) {
+            case 'tree':
+                return renderParserTreeView();
+            case 'dropdown':
+                return renderParserDropdownView();
+            case 'json':
+                return renderParserJsonView();
+            default:
+                return renderParserTreeView();
+        }
+    };
+
+    const renderParserOutput = () => {
+        // Not run yet
+        if (!hasRun) {
+            return <OutputEmpty height={editorHeight} message="// Press Run to analyze your Specula code" />;
+        }
+
+        // Lexer is still running
+        if (lexerMutation.isPending) {
+            return <LoadingIndicator height={editorHeight} />;
+        }
+
+        // Parser is loading
+        if (parserLoading) {
+            return <LoadingIndicator height={editorHeight} />;
+        }
+
+        // Lexer error (can't parse without tokens)
+        if (lastRunError) {
+            return <OutputErrorPanel height={editorHeight} message={lastRunError} diagnostics={payload?.diagnostics} />;
+        }
+
+        // Connection error to parser backend
+        if (parserError && !parserPayload) {
+            return <OutputErrorPanel height={editorHeight} message={parserError} />;
+        }
+
+        // No parser payload yet (lexer may have run but not parser)
+        if (!parserPayload) {
+            return <OutputEmpty height={editorHeight} message="// Parser output will appear here. Press Run to analyze." />;
+        }
+
+        // Render based on selected view (tree, dropdown, or json)
+        return renderParserByView();
+    };
+
     const renderOutput = () => {
-        // If in parser mode, show placeholder
+        // If in parser mode, show parser output
         if (analysisMode === 'parser') {
-            return renderParserPlaceholder();
+            return renderParserOutput();
         }
 
         // Lexer mode rendering
@@ -747,7 +1132,7 @@ export default function App() {
                             }}
                         >
                             {analysisMode === 'lexer' && (
-                                <div style={Styles.segmentedRowStyle}>
+                                <div style={Styles.segmentedRowStyle4}>
                                     {segmentedOptions.map((option) => {
                                         const isActive = outputView === option.id;
                                         return (
@@ -761,6 +1146,36 @@ export default function App() {
                                                     boxShadow: isActive ? '0 6px 20px rgba(63,115,255,0.35)' : 'none'
                                                 }}
                                                 onClick={() => setOutputView(option.id)}
+                                            >
+                                                {option.label}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            )}
+                            {analysisMode === 'parser' && (
+                                <div style={{
+                                    display: 'grid',
+                                    gridTemplateColumns: 'repeat(3, 1fr)',
+                                    background: 'rgba(255,255,255,0.06)',
+                                    borderRadius: '14px',
+                                    padding: '4px',
+                                    width: '280px'
+                                }}>
+                                    {parserViewOptions.map((option) => {
+                                        const isActive = parserView === option.id;
+                                        return (
+                                            <button
+                                                key={option.id}
+                                                type="button"
+                                                style={{
+                                                    ...Styles.segmentedButtonBase,
+                                                    background: isActive ? 'rgba(63,115,255,0.4)' : 'transparent',
+                                                    color: isActive ? '#fdfdff' : Styles.palette.muted,
+                                                    boxShadow: isActive ? '0 6px 20px rgba(63,115,255,0.35)' : 'none',
+                                                    padding: '8px 16px'
+                                                }}
+                                                onClick={() => setParserView(option.id)}
                                             >
                                                 {option.label}
                                             </button>

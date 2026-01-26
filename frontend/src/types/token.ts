@@ -13,6 +13,9 @@ export interface LexerToken {
   value: string;
   line?: number;
   column?: number;
+  // Fields from C++ lexer for parser compatibility
+  char_start?: number;
+  char_end?: number;
 }
 
 export interface LexerPayload {

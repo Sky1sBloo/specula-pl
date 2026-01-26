@@ -16,8 +16,8 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 
-// Path to the C++ lexer executable
-const LEXER_EXECUTABLE = path.join(__dirname, '..', 'build', 'Debug', 'specula.exe');
+// Path to the C++ lexer executable (macOS/Linux: 'specula', Windows: 'specula.exe')
+const LEXER_EXECUTABLE = path.join(__dirname, '..', 'build', 'specula');
 
 /**
  * Generate a unique temporary filename
@@ -68,12 +68,15 @@ app.post('/lex', async (req, res) => {
     });
 
     let stderr = '';
+    let responseSent = false;
 
     lexerProcess.stderr.on('data', (data) => {
       stderr += data.toString();
     });
 
     lexerProcess.on('error', async (error) => {
+      if (responseSent) return;
+      responseSent = true;
       await cleanupFiles(tempInputFile, tempOutputFile);
       return res.status(500).json({
         error: `Failed to execute lexer: ${error.message}`
@@ -81,6 +84,7 @@ app.post('/lex', async (req, res) => {
     });
 
     lexerProcess.on('close', async (code) => {
+      if (responseSent) return;
       try {
         if (code !== 0 && code !== null) {
           console.error(`Lexer process exited with code ${code}`);
@@ -95,8 +99,11 @@ app.post('/lex', async (req, res) => {
         await cleanupFiles(tempInputFile, tempOutputFile);
 
         // Return the lexer output
+        responseSent = true;
         res.json(result);
       } catch (error) {
+        if (responseSent) return;
+        responseSent = true;
         await cleanupFiles(tempInputFile, tempOutputFile);
         
         if (error.code === 'ENOENT') {
@@ -118,6 +125,42 @@ app.post('/lex', async (req, res) => {
   }
 });
 
+// Parser API URL (C# backend)
+const PARSER_API_URL = process.env.PARSER_API_URL || 'http://localhost:5000/api/analyze';
+
+/**
+ * POST /parse
+ * Proxy to the C# syntax analyzer backend
+ * Accepts: { file: {...}, errors: [...], tokens: [...] }
+ * Returns: Parser output JSON
+ */
+app.post('/parse', async (req, res) => {
+  try {
+    const response = await fetch(PARSER_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(req.body),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      return res.status(response.status).json({
+        error: `Parser API error: ${errorText}`
+      });
+    }
+
+    const result = await response.json();
+    res.json(result);
+  } catch (error) {
+    console.error('Parser proxy error:', error.message);
+    return res.status(500).json({
+      error: `Failed to connect to parser: ${error.message}`
+    });
+  }
+});
+
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', message: 'Lexer API is running' });
@@ -126,4 +169,5 @@ app.get('/health', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Lexer API server running on http://localhost:${PORT}`);
   console.log(`Lexer executable: ${LEXER_EXECUTABLE}`);
+  console.log(`Parser API URL: ${PARSER_API_URL}`);
 });
