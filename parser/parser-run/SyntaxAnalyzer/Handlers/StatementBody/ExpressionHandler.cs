@@ -262,20 +262,8 @@ public class ExpressionHandler : Handler
                 incrementIndex();
                 return parenExpr;
 
-            case Token.Types.D_BRAC_OP:
-                // Handle array bracket expressions: [expression]
-                incrementIndex();
-                Expression bracketExpr = ParseExpression();
-                
-                if (CurrentToken.Type != Token.Types.D_BRAC_CLO)
-                {
-                    throw new SyntaxErrorException(["]"], CurrentToken);
-                }
-                incrementIndex();
-                return bracketExpr;
-
             default:
-                // Parse a value (literal, identifier, or function call)
+                // Parse a value (literal, identifier, function call, or array literal)
                 Expression? result = (Expression?)delegateToHandler(valueHandler);
                 if (result == null)
                 {

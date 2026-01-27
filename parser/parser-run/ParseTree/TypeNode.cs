@@ -12,7 +12,8 @@ public enum DataTypes
     NULL,
     IDENTIFIER,
     INFER, // for var type inference
+    ARRAY, // for array types
     UNKNOWN
 }
-public record TypeNode(DataTypes DataType) : ParseNode;
+public record TypeNode(DataTypes DataType, TypeNode? GenericType = null) : ParseNode;
 

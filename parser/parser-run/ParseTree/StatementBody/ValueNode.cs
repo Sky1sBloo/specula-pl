@@ -4,6 +4,7 @@ public interface ValueNode : Expression;
 public interface Movable : ValueNode;  // be able to use move, ref, share assignments
 
 public record LiteralValue(TypeNode Type, string Value) : ValueNode;
+public record ArrayLiteral(PrintableList<Expression> Elements) : ValueNode;
 public record IdentifierValue(string Value) : ValueNode, Movable;
 public record FunctionCallValue(string Identifier, PrintableList<Expression> Parameters) : ValueNode, Movable;
 

@@ -51,53 +51,61 @@ public class ValueHandler : Handler
 
             if (baseExpr == null)
             {
-                DataTypes dataType = DataTypeHandler.InferDataTypeFromTokenLiteral(CurrentToken);
-
-                switch (dataType)
+                // Check for array literal [1, 2, 3]
+                if (CurrentToken.Type == Token.Types.D_BRAC_OP)
                 {
-                    case DataTypes.INT:
-                    case DataTypes.FLOAT:
-                    case DataTypes.DOUBLE:
-                    case DataTypes.CHAR:
-                    case DataTypes.BOOL:
-                    case DataTypes.STRING:
-                    case DataTypes.NULL:
-                        baseExpr = new LiteralValue(new TypeNode(dataType), CurrentToken.Value);
-                        incrementIndex();
-                        break;
-                    case DataTypes.VOID:
-                    case DataTypes.UNKNOWN:
-                        throw new SyntaxErrorException(["Value"], CurrentToken);
+                    baseExpr = handleArrayLiteral();
                 }
-
-                if (baseExpr == null)
+                else
                 {
-                    // Identifier or start of complex value
-                    if (dataType == DataTypes.IDENTIFIER)
-                    {
-                        identifier = CurrentToken.Value;
-                    }
-                    incrementIndex();
+                    DataTypes dataType = DataTypeHandler.InferDataTypeFromTokenLiteral(CurrentToken);
 
-                    // Function call or struct initialization based on next token
-                    if (HasMoreTokens)
+                    switch (dataType)
                     {
-                        switch (CurrentToken.Type)
-                        {
-                            case Token.Types.D_PAR_OP:
-                                baseExpr = handleFunctionCall(identifier);
-                                break;
-                            case Token.Types.D_CBRAC_OP:
-                                baseExpr = handleStructInitialization(identifier);
-                                break;
-                            default:
-                                baseExpr = new IdentifierValue(identifier);
-                                break;
-                        }
+                        case DataTypes.INT:
+                        case DataTypes.FLOAT:
+                        case DataTypes.DOUBLE:
+                        case DataTypes.CHAR:
+                        case DataTypes.BOOL:
+                        case DataTypes.STRING:
+                        case DataTypes.NULL:
+                            baseExpr = new LiteralValue(new TypeNode(dataType), CurrentToken.Value);
+                            incrementIndex();
+                            break;
+                        case DataTypes.VOID:
+                        case DataTypes.UNKNOWN:
+                            throw new SyntaxErrorException(["Value"], CurrentToken);
                     }
-                    else
+
+                    if (baseExpr == null)
                     {
-                        baseExpr = new IdentifierValue(identifier);
+                        // Identifier or start of complex value
+                        if (dataType == DataTypes.IDENTIFIER)
+                        {
+                            identifier = CurrentToken.Value;
+                        }
+                        incrementIndex();
+
+                        // Function call or struct initialization based on next token
+                        if (HasMoreTokens)
+                        {
+                            switch (CurrentToken.Type)
+                            {
+                                case Token.Types.D_PAR_OP:
+                                    baseExpr = handleFunctionCall(identifier);
+                                    break;
+                                case Token.Types.D_CBRAC_OP:
+                                    baseExpr = handleStructInitialization(identifier);
+                                    break;
+                                default:
+                                    baseExpr = new IdentifierValue(identifier);
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            baseExpr = new IdentifierValue(identifier);
+                        }
                     }
                 }
             }
@@ -326,5 +334,67 @@ public class ValueHandler : Handler
 
         incrementIndex();
         return new MemberFunctionCallValue(obj, method, parameters);
+    }
+
+    private ArrayLiteral handleArrayLiteral()
+    {
+        incrementIndex(); // consume '['
+        var elements = new PrintableList<Expression>();
+
+        // For empty array []
+        if (HasMoreTokens && CurrentToken.Type == Token.Types.D_BRAC_CLO)
+        {
+            incrementIndex();
+            return new ArrayLiteral(elements);
+        }
+
+        while (HasMoreTokens && CurrentToken.Type != Token.Types.D_BRAC_CLO)
+        {
+            ExpressionHandler exprHandler = new ExpressionHandler(errorHandler);
+            ParseNode? elementExpr = delegateToHandler(exprHandler);
+
+            if (elementExpr is Expression expr)
+            {
+                elements.Add(expr);
+            }
+            else
+            {
+                throw new SyntaxErrorException(["expression"], CurrentToken);
+            }
+
+            // Handle comma between elements or closing bracket; disallow trailing comma
+            if (HasMoreTokens && CurrentToken.Type == Token.Types.COMMA)
+            {
+                incrementIndex();
+
+                if (!HasMoreTokens || CurrentToken.Type == Token.Types.D_BRAC_CLO)
+                {
+                    var ex = new SyntaxErrorException("Trailing comma in array literal.");
+                    errorHandler.AddError(ex);
+                    throw ex;
+                }
+
+                continue;
+            }
+            else if (HasMoreTokens && CurrentToken.Type != Token.Types.D_BRAC_CLO)
+            {
+                throw new SyntaxErrorException([",", "]"], CurrentToken);
+            }
+        }
+
+        if (!HasMoreTokens || CurrentToken.Type != Token.Types.D_BRAC_CLO)
+        {
+            Token missing = new()
+            {
+                Type = Token.Types.UNKNOWN,
+                Line = getIndex(),
+                CharStart = 0,
+                CharEnd = 0
+            };
+            throw new SyntaxErrorException(["]"], missing);
+        }
+
+        incrementIndex();
+        return new ArrayLiteral(elements);
     }
 }

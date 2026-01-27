@@ -15,6 +15,32 @@ public class DataTypeHandler : Handler
                 {
                     TypeNode typeNode = new TypeNode(TokenTypeToDataType(CurrentToken));
                     incrementIndex();
+                    
+                    // Check for generic type syntax: identifier<type>
+                    if (HasMoreTokens && CurrentToken.Type == Token.Types.OP_REL_LESS)
+                    {
+                        incrementIndex();
+                        
+                        // Parse the inner type
+                        DataTypeHandler innerHandler = new(errorHandler);
+                        TypeNode? innerType = (TypeNode?)delegateToHandler(innerHandler);
+                        
+                        if (innerType == null)
+                        {
+                            throw new SyntaxErrorException(["type"], CurrentToken);
+                        }
+                        
+                        // Expect closing >
+                        if (!HasMoreTokens || CurrentToken.Type != Token.Types.OP_REL_GREATER)
+                        {
+                            throw new SyntaxErrorException([">"], CurrentToken);
+                        }
+                        incrementIndex();
+                        
+                        // Create a new TypeNode with the generic type
+                        typeNode = new TypeNode(typeNode.DataType, innerType);
+                    }
+                    
                     return typeNode;
                 }
             default:
@@ -45,6 +71,7 @@ public class DataTypeHandler : Handler
             {
                 "str" => DataTypes.STRING,
                 "string" => DataTypes.STRING,
+                "array" => DataTypes.ARRAY,
                 _ => DataTypes.IDENTIFIER
             };
         }
