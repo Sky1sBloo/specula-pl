@@ -386,6 +386,7 @@ export default function App() {
             const code = input ?? source;
             if (!code.trim()) {
                 setPayload(null);
+                setParserPayload(null);
                 setStatusText('Waiting for Specula input…');
                 setErrorText(null);
                 setHasRun(false);
@@ -397,6 +398,7 @@ export default function App() {
             setErrorText(null);
             setHasRun(true);
             setLastRunError(null);
+            setParserPayload(null);
             setLastSubmittedSource(code);
             lexerMutation.mutate(code);
         },
@@ -957,6 +959,17 @@ export default function App() {
         // Lexer error (can't parse without tokens)
         if (lastRunError) {
             return <OutputErrorPanel height={editorHeight} message={lastRunError} diagnostics={payload?.diagnostics} />;
+        }
+
+        // Lexer soft error - cannot proceed to parsing
+        if (payload && !payload.ok) {
+            return (
+                <OutputErrorPanel
+                    height={editorHeight}
+                    message={payload.error ? payload.error.message : 'The lexer reported issues. Cannot parse.'}
+                    diagnostics={payload.diagnostics}
+                />
+            );
         }
 
         // Connection error to parser backend
