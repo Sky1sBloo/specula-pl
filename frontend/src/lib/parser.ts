@@ -71,7 +71,8 @@ export const parseTokens = async (
 export const analyzeSource = async (
   lexerPayload: LexerPayload
 ): Promise<ParserPayload> => {
-  if (!lexerPayload.ok || !lexerPayload.tokens.length) {
+  // Don't run parser if there are no tokens or if there are lexer errors
+  if (!lexerPayload.tokens.length || (lexerPayload.diagnostics && lexerPayload.diagnostics.length > 0)) {
     return {
       ok: false,
       errors: lexerPayload.diagnostics || ['Lexer failed - cannot parse'],
@@ -79,14 +80,6 @@ export const analyzeSource = async (
     };
   }
 
-  // Convert lexer errors to the format expected by parser
-  const lexerErrors = lexerPayload.error
-    ? [{
-      line: lexerPayload.error.line,
-      charPos: lexerPayload.error.char,
-      message: lexerPayload.error.message
-    }]
-    : [];
-
-  return parseTokens(lexerPayload.tokens, lexerErrors);
+  // No lexer errors, proceed with parsing
+  return parseTokens(lexerPayload.tokens, []);
 };

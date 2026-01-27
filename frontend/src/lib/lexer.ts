@@ -26,9 +26,12 @@ export const tokenizeSource = async (source: string): Promise<LexerPayload> => {
     // Backend returns: { file, errors, tokens }
     // Frontend expects: { ok, tokens, diagnostics, error }
     const payload: LexerPayload = {
-      ok: !result.errors || result.errors.length === 0,
+      ok: true,  
       tokens: result.tokens || [],
-      diagnostics: result.errors?.map((err: any) => err.message) || [],
+      // Format diagnostics with location info for proper display
+      diagnostics: result.errors?.map((err: any) => 
+        `${err.message} at ${err.line}:${err.charPos}`
+      ) || [],
       error: result.errors && result.errors.length > 0 ? {
         message: result.errors[0].message,
         line: result.errors[0].line,

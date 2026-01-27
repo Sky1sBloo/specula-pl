@@ -53,9 +53,18 @@ export function parseErrorMessage(errorString: string): ParsedError {
  */
 export function formatErrorForTree(parsed: ParsedError): string {
     const parts: string[] = [];
+    
+    // Extract the message part (everything before "at LINE:COLUMN")
+    const messageMatch = parsed.raw.match(/^(.+?)\s+at\s+\d+:\d+/);
+    const messageText = messageMatch ? messageMatch[1].trim() : null;
 
     if (parsed.line !== undefined && parsed.column !== undefined) {
         parts.push(`Line ${parsed.line}, Column ${parsed.column}`);
+    }
+    
+    // Add the main error message if it exists
+    if (messageText && !parsed.received && !parsed.expected) {
+        parts.push(messageText);
     }
 
     if (parsed.received) {
